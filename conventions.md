@@ -1,0 +1,83 @@
+# Conventions
+
+The rules every file in `projects/` follows. The concept page (`concept/concept.html`) explains why; this page says
+what. The templates in `templates/` put these rules into practice.
+
+## Names
+
+Every name is lower snake case: files, folders, IDs, keys and enum values (`priority: should`). Only a tool may force
+another spelling, as listed in `CLAUDE.md`.
+
+## Layout
+
+```
+projects/
+└─ <project>/                    # the project code, for example rb
+   ├─ project.yml                # code, name, description, code repos
+   ├─ kpis.yml                   # measured outcomes after a release
+   ├─ features/<feature id>.md
+   ├─ requirements/<requirement id>.md
+   ├─ specs/<spec id>.md
+   ├─ mockups/<name>.html
+   └─ acceptance/<requirement id>.md   # the G3 record with its evidence
+```
+
+A project is one code repo. A feature is one tool or capability inside it. A requirement is one testable sentence about
+a feature. A spec says how one or more requirements are built.
+
+## IDs
+
+| Kind | Format | Example |
+|---|---|---|
+| Project | 2 to 4 lower-case letters | `rb` |
+| Feature | `ft_<project>_<nn>` | `ft_rb_01` |
+| Requirement | `req_<project>_<nnnn>` | `req_rb_0003` |
+| Spec | `spec_<project>_<nnnn>` | `spec_rb_0002` |
+| Request | the number of its issue | `#18` |
+
+- Numbers count up per project and kind, padded with zeros.
+- The file name is the ID plus `.md`. An acceptance record carries the ID of its requirement.
+- An ID is never reused and never renamed, not even when its requirement is dropped.
+- A request needs no file of its own: its issue number is its permanent name, and a feature points back to it.
+
+## Versions and pinned references
+
+- Every requirement and spec has `version`, a whole number that starts at 1.
+- A substantive change raises the version by one. An editorial change (a typo, wording that keeps the meaning) keeps
+  it; the pull request says which it is.
+- A reference to a requirement or spec names the version it was made against: `req_rb_0001@1`. This applies to
+  `depends_on`, `covers`, `links.spec` and `requirement`.
+- When the target moves to a higher version, every reference to the old one is suspect until someone confirms it.
+
+## Statuses
+
+No file holds a status. The index derives it from what happened in GitHub:
+
+| Status | Set by |
+|---|---|
+| Draft | The pull request that adds the requirement is open as a draft (on a plan without draft pull requests: carries the label `draft`). |
+| In review | That pull request is open and ready for review. |
+| Approved | That pull request is merged: gate G1. |
+| Specified | A spec that covers the requirement at its current version is merged: gate G2. |
+| Implemented | A merged pull request in the code repo names it in an `implements:` line. |
+| Verified | Its acceptance record is merged: gate G3. |
+
+A substantive change after G1 sends the requirement back to Approved, once the new version is merged.
+
+## Gates
+
+| Gate | Decision | Gatekeeper | Where |
+|---|---|---|---|
+| G0 | Do we take this request? | Requirements owner | Label `accepted` on the request issue |
+| G1 | Is the requirement clear, buildable and testable? | Principal Engineer | Merge of the requirement pull request |
+| G2 | Is the spec sound and does it fit the estimate? | Architecture owner, plus privacy or security when tagged | Merge of the spec pull request |
+| G3 | Does it do what the requirement says, shown by evidence? | Tech lead opens, an owner approves | Merge of the acceptance pull request |
+
+Nobody approves what they wrote. Who holds which hat lives in `roles.yml`, the single source for hats.
+
+## Links to code and tests
+
+- A work issue and a pull request in the code repo name what they build: `implements: req_rb_0003@2`. A change with
+  nothing to link says `no_req: refactor` (or `docs`, `build`).
+- A test carries the requirement ID as a tag, for example `Describe 'convert_to_recipe_text' -Tag 'req_rb_0003'`.
+- The index finds code and tests through these lines and tags; requirement files hold no code or test links.

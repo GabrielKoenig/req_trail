@@ -1,0 +1,7 @@
+# One file per project, at projects/<project>/project.yml.
+# Hats (owners, tech leads and the rest) live in roles.yml, the single source for them, never here.
+code: <project>          # 2 to 4 lower-case letters, also the folder name
+name: <project name>     # the code repo's name
+description: <one sentence on what the code repo does>
+code_repos:
+  - <organisation>/<repo>

@@ -1,0 +1,7 @@
+# Measured outcomes of the example project. Made-up values.
+- feature: ft_rb_01
+  release: "0.4"
+  date: 2026-11-13
+  value: 7.4
+  source: benchmark step of the CI run for release 0.4
+  decision: solved
