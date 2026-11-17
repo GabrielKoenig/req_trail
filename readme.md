@@ -1,8 +1,8 @@
-# ReqTrail
+# req_trail
 
 **Requirements as code.** Write down the need; Git keeps the trail.
 
-ReqTrail is a concept for keeping the requirements, specs, mockups and changes of several projects in one Git
+req_trail is a concept for keeping the requirements, specs, mockups and changes of several projects in one Git
 repository, the way docs-as-code keeps documentation next to the code. Every change is a pull request, so the history
 shows who changed what and why. Four gates, G0 to G3, turn a status change into a decision with a named gatekeeper,
 enforced through `CODEOWNERS`, branch protection and checks. In the pages, the repository that holds the requirements
@@ -25,5 +25,5 @@ import checker. People appear only as role handles such as `@owner-a` or `@lead-
 
 ## Licence
 
-Open source under the [MIT License](LICENSE): anyone may use, copy, change and share it, also commercially, as long
+Open source under the [MIT License](license): anyone may use, copy, change and share it, also commercially, as long
 as the licence notice stays with it.
