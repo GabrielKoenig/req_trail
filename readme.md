@@ -16,12 +16,14 @@ is called `project_management`.
 | ---- | ---------- |
 | `concept.html` | The concept page: the process from request to technical spec, the gates, repos and issues, community intake, a working demo of the requirements tracker, Obsidian as a viewer, the architecture, options, an effort estimate and a review list of open, unverified, taken and rejected points |
 | `roles.html` | The roles dashboard: hats instead of people, duties per phase and gate, a simulated history of who held which hat, and the checks that read the roles |
+| `CLAUDE.md` | Rules for AI assistants working in this repository: lower snake case for every name, generic English content |
 
 Open the files in a browser; they need no server and link to each other.
 
 All projects, requirements, people, pull request numbers, commits, test runs and measurements in them are made up.
-The example code repo is `recipe-box`, a fictional PowerShell tool set with a PDF export of recipe collections and an
-import checker. People appear only as role handles such as `@owner-a` or `@lead-a`.
+The example code repo is `recipe_box`, a fictional PowerShell tool set with a PDF export of recipe collections and an
+import checker. People appear only as role handles such as `@owner1` or `@lead1`. Every name is in lower snake case,
+except where a tool needs another spelling (see `CLAUDE.md`).
 
 ## Licence
 
