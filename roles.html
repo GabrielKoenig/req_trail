@@ -1,0 +1,825 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Roles and Duties</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: one tabbed dashboard in the look of the concept page (gold on dark, dark only). Hats on the left, time on the right. */
+:root{
+  --g01:#121212;--g02:#1f1f1f;--g03:#292929;--g04:#333;--g05:#3d3d3d;--g06:#474747;--g09:#8f8f8f;--g12:#b8b8b8;--g14:#e0e0e0;
+  --gold:#f0b90b;--gold-t:#ffe08a;--gold-d:#c99a06;--grad:linear-gradient(135deg,#ffd75e 0%,#f0b90b 55%,#b78a00 100%);
+  --blue07:#0e71ae;--blue10:#569cc6;--green:#69bf88;--yellow:#ee9b3a;--red:#df435f;
+  --card:#141416;--line:#26262b;--bg:#0b0b0d;--mono:"Cascadia Code","JetBrains Mono",Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);background-image:radial-gradient(900px 500px at 0% 0%,rgba(14,113,174,.16),transparent 60%),radial-gradient(900px 500px at 100% 0%,rgba(240,185,11,.11),transparent 60%);background-repeat:no-repeat;color:var(--g14);font:14px/1.45 "Segoe UI",system-ui,sans-serif;font-variant-numeric:tabular-nums}
+a{color:var(--blue10)}
+code{font-family:var(--mono);font-size:12.5px;color:var(--gold-t);background:#1b1b1f;padding:1px 5px;border-radius:4px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1340px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
+.top{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:8px;font-weight:600}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--gold-d)}
+.crumb{color:var(--g09)}
+.grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tag{margin-left:auto;font-size:12px;color:var(--g12);border:1px solid var(--g05);border-radius:20px;padding:3px 10px}
+.langs{display:flex;gap:4px}
+.hero{padding:34px 0 18px;max-width:900px}
+.who{display:flex;align-items:center;gap:10px;color:var(--g12)}
+.who svg{width:34px;height:34px}
+h1{font-size:40px;line-height:1.1;margin:12px 0 14px;letter-spacing:-.5px;text-wrap:balance}
+.lead{font-size:16px;color:var(--g12);max-width:70ch;margin:0}
+.tabs{display:flex;gap:4px;overflow-x:auto;border-bottom:1px solid var(--line);margin:8px 0 22px;padding-bottom:0}
+.tabs a{flex:none;text-decoration:none;color:var(--g12);padding:10px 14px;border-bottom:2px solid transparent;font-size:13.5px}
+.tabs a:hover{color:var(--g14);background:var(--g02)}
+.tabs a[aria-current=page]{color:#fff;border-bottom-color:var(--gold)}
+h2{font-size:24px;margin:0 0 6px;letter-spacing:-.3px;text-wrap:balance}
+h3.sh{font-size:17px;margin:28px 0 8px}
+.sub{color:var(--g12);max-width:80ch;margin:0 0 16px}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:0 0 6px}
+.kpi{background:linear-gradient(#19191d,#141416);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
+.kpi.hl{border-color:var(--yellow);box-shadow:0 0 0 1px rgba(238,155,58,.25) inset}
+.kpi .n{font-size:28px;font-weight:700;letter-spacing:-.5px}
+.kpi .l{color:var(--g12);font-size:12.5px;margin-top:2px}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}
+.card h3{margin:0 0 10px;font-size:15px}
+.card ul,.card ol{margin:0;padding-left:20px;color:var(--g12)}
+.card li{margin:5px 0}
+.card li b{color:var(--g14)}
+.note{color:var(--g09);font-size:12.5px;margin:10px 0 0}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+table.t{border-collapse:collapse;width:100%;font-size:13px}
+.t th{text-align:left;font-weight:600;color:var(--g12);background:#18181b;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:bottom}
+.t td{padding:9px 12px;border-bottom:1px solid #1d1d21;vertical-align:top;color:var(--g12)}
+.t td:first-child,.t th:first-child{position:sticky;left:0;background:var(--card)}
+.t th:first-child{background:#18181b}
+.t td:first-child{color:var(--g14)}
+.t tr:last-child td{border-bottom:0}
+.t td.w{background:rgba(238,155,58,.09)}
+.t td.na{color:var(--g06);text-align:center}
+.t .sc2 td:first-child{padding-left:26px}
+.t .sub-n{color:var(--g09);font-size:11.5px;display:block}
+.tagx{display:inline-block;font-size:11.5px;padding:2px 8px;border-radius:10px;white-space:nowrap;border:1px solid}
+.tagx.g{color:var(--green);border-color:rgba(105,191,136,.5);background:rgba(105,191,136,.1)}
+.tagx.y{color:var(--yellow);border-color:rgba(238,155,58,.5);background:rgba(238,155,58,.1)}
+.tagx.v{color:var(--blue10);border-color:rgba(86,156,198,.5);background:rgba(86,156,198,.1)}
+.tagx.r{color:var(--red);border-color:rgba(223,67,95,.5);background:rgba(223,67,95,.1)}
+.tagx.o{color:var(--gold-t);border-color:rgba(240,185,11,.55);background:rgba(240,185,11,.12)}
+.tagx.gr{color:var(--g12);border-color:var(--g06);background:var(--g03)}
+.chip{display:inline-block;font:12px var(--mono);padding:2px 7px;border-radius:10px;background:var(--g03);border:1px solid var(--g05);color:var(--g14);margin:2px 4px 2px 0;white-space:nowrap}
+.chip.inh{opacity:.6;border-style:dashed}
+.btn,select.sel,input.sel,textarea.sel{font:inherit;font-size:13px;color:var(--g14);background:var(--g03);border:1px solid var(--g04);padding:6px 12px;border-radius:6px;max-width:100%}
+.btn{cursor:pointer}
+.btn:hover{background:var(--g04)}
+.btn[aria-pressed=true]{background:var(--g05);color:#fff;border-color:var(--g06);box-shadow:inset 0 -2px 0 var(--gold)}
+.btn.pri{background:var(--gold);border-color:var(--gold);color:#1a1400;font-weight:600}
+.btn.pri:hover{background:#ffd24d}
+.btn[disabled]{opacity:.45;cursor:default}
+select.sel{padding:6px 8px;text-overflow:ellipsis}
+textarea.sel{width:100%;min-height:64px;resize:vertical}
+input.sel{width:100%}
+.bar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:flex-end;margin:0 0 14px}
+.bar label{display:block;font-size:11.5px;color:var(--g09);margin-bottom:3px}
+.att{list-style:none;margin:0;padding:0}
+.att li{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:10px 12px;margin-bottom:8px;min-width:0}
+.att li>span:last-child{min-width:0;overflow-wrap:anywhere}
+.ev{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:12px 14px;margin-bottom:10px;min-width:0}
+.ev .h{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.ev .h b{font-size:14px}
+.ev .d{color:var(--g09);font-size:12.5px}
+.ev .why{color:var(--g12);margin:6px 0 8px;overflow-wrap:anywhere}
+.cl{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;padding:3px 0;color:var(--g12);font-size:13px}
+.sg{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;font-weight:700;font-size:13px}
+.sg.p{background:rgba(105,191,136,.18);color:var(--green)}
+.sg.m{background:rgba(223,67,95,.18);color:var(--red)}
+.fm{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.fm .f{min-width:0}
+.fm label{display:block;font-size:11.5px;color:var(--g09);margin-bottom:3px}
+.fm .wide{grid-column:1/-1}
+.res{margin:14px 0 0;padding:0;list-style:none}
+.res li{display:flex;gap:8px;align-items:flex-start;padding:5px 0;color:var(--g12);overflow-wrap:anywhere}
+.res .ic{flex:none;width:18px;text-align:center;font-weight:700}
+.res .ic.f{color:var(--red)}.res .ic.w{color:var(--yellow)}.res .ic.i{color:var(--blue10)}.res .ic.o{color:var(--green)}
+pre.diff{margin:12px 0 0;background:var(--g01);border:1px solid var(--g04);border-radius:8px;padding:10px 12px;overflow-x:auto;font:12.5px/1.5 var(--mono);color:var(--g12)}
+pre.diff .a{color:var(--green)}pre.diff .d{color:var(--red)}pre.diff .c{color:var(--g09)}
+.loop{margin-top:12px;border:1px dashed var(--gold);border-radius:10px;padding:10px 14px;background:rgba(240,185,11,.06);color:var(--g12);font-size:13px}
+.flowl{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:0;padding:0;list-style:none;counter-reset:s}
+.flowl li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:12.5px;color:var(--g12);min-width:0;counter-increment:s}
+.flowl li b{display:block;color:var(--g14);font-size:13.5px;margin-bottom:4px}
+.flowl li::before{content:counter(s);display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--grad);color:#1a1400;font-weight:700;font-size:12px;margin-bottom:8px}
+footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);color:var(--g09);font-size:12.5px;max-width:110ch}
+footer p{margin:0 0 8px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:max(16px,env(safe-area-inset-bottom,0px));background:var(--g05);color:#fff;border:1px solid var(--g06);padding:9px 16px;border-radius:8px;opacity:0;pointer-events:none;max-width:calc(100% - 32px);z-index:5}
+.toast.on{opacity:1}
+@media (max-width:900px){.two{grid-template-columns:minmax(0,1fr)}h1{font-size:30px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo" viewBox="0 0 40 40"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd75e"/><stop offset=".55" stop-color="#f0b90b"/><stop offset="1" stop-color="#b78a00"/></linearGradient></defs><circle cx="20" cy="20" r="19" fill="url(#lg)"/><text x="20" y="25" text-anchor="middle" font-family="Segoe UI,system-ui,sans-serif" font-weight="800" font-size="13" fill="#1a1400">PM</text></symbol>
+</svg>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><span class="dot"></span>Concept</div>
+    <div class="crumb">Proposal / project_management / <span class="grad-text"><b data-i="crumb"></b></span></div>
+    <span class="tag" data-i="tag"></span>
+    
+  </header>
+
+  <div class="hero">
+    <div class="who"><svg><use href="#logo"/></svg><span data-i="who"></span></div>
+    <h1 data-ih="h1"></h1>
+    <p class="lead" data-i="lead"></p>
+  </div>
+
+  <nav class="tabs" id="tabs" aria-label="Views">
+    <a href="#overview" data-v="overview" data-i="tOverview"></a>
+    <a href="#assignments" data-v="assignments" data-i="tAssign"></a>
+    <a href="#history" data-v="history" data-i="tHistory"></a>
+    <a href="#duties" data-v="duties" data-i="tDuties"></a>
+    <a href="#change" data-v="change" data-i="tChange"></a>
+    <a href="#adapted" data-v="adapted" data-i="tAdapted"></a>
+  </nav>
+
+  <section id="v-overview" data-view="overview">
+    <div class="eyebrow" data-i="oEye"></div>
+    <h2 data-i="oH2"></h2>
+    <p class="sub" data-i="oSub"></p>
+    <div class="tiles" id="oTiles"></div>
+    <h3 class="sh" data-i="oAttH"></h3>
+    <ul class="att" id="oAtt"></ul>
+    <h3 class="sh" data-i="oMatH"></h3>
+    <p class="sub" data-i="oMatSub"></p>
+    <div class="tw"><table class="t" id="oMat"></table></div>
+    <p class="note" data-i="oMatNote"></p>
+    <h3 class="sh" data-i="oPplH"></h3>
+    <div class="tw"><table class="t" id="oPpl"></table></div>
+    <div class="two">
+      <div class="card"><h3 data-i="hwH"></h3><ol id="hwList"></ol></div>
+      <div class="card"><h3 data-i="hatH"></h3><ul id="hatList"></ul></div>
+    </div>
+  </section>
+
+  <section id="v-assignments" data-view="assignments" hidden>
+    <div class="eyebrow" data-i="aEye"></div>
+    <h2 data-i="aH2"></h2>
+    <p class="sub" data-i="aSub"></p>
+    <div class="bar">
+      <div><label for="aScope" data-i="fScope"></label><select class="sel" id="aScope"></select></div>
+      <div><label for="aDate" data-i="aDate"></label><input class="sel" type="date" id="aDate" style="width:auto"></div>
+      <div><button class="btn" id="aToday" type="button" data-i="aToday"></button></div>
+    </div>
+    <div class="tw"><table class="t" id="aTab"></table></div>
+    <p class="note" id="aNote"></p>
+    <h3 class="sh" id="aSinceH"></h3>
+    <div id="aSince"></div>
+  </section>
+
+  <section id="v-history" data-view="history" hidden>
+    <div class="eyebrow" data-i="hEye"></div>
+    <h2 data-i="hH2"></h2>
+    <p class="sub" data-ih="hSub"></p>
+    <div class="bar">
+      <div><label for="hScope" data-i="fScope"></label><select class="sel" id="hScope"></select></div>
+      <div><label for="hHat" data-i="fHat"></label><select class="sel" id="hHat"></select></div>
+      <div><label for="hWho" data-i="fPerson"></label><select class="sel" id="hWho"></select></div>
+      <div><label for="hQ" data-i="fText"></label><input class="sel" type="search" id="hQ" style="width:180px"></div>
+    </div>
+    <p class="note" id="hCount" style="margin:0 0 10px"></p>
+    <div id="hList"></div>
+  </section>
+
+  <section id="v-duties" data-view="duties" hidden>
+    <div class="eyebrow" data-i="dEye"></div>
+    <h2 data-i="dH2"></h2>
+    <p class="sub" data-i="dSub"></p>
+    <div class="bar">
+      <div><label for="dHat" data-i="fHat"></label><select class="sel" id="dHat"></select></div>
+      <div><label for="dPh" data-i="fPhase"></label><select class="sel" id="dPh"></select></div>
+    </div>
+    <div class="tw"><table class="t" id="dTab"></table></div>
+    <p class="note" data-i="dKeys"></p>
+    <div class="two">
+      <div class="card"><h3 data-i="agH"></h3><ul id="agList"></ul></div>
+      <div class="card"><h3 data-i="notH"></h3><ul id="notList"></ul></div>
+    </div>
+  </section>
+
+  <section id="v-change" data-view="change" hidden>
+    <div class="eyebrow" data-i="cEye"></div>
+    <h2 data-i="cH2"></h2>
+    <p class="sub" data-i="cSub"></p>
+    <div class="card">
+      <div class="fm">
+        <div class="f"><label for="cScope" data-i="fScope"></label><select class="sel" id="cScope" style="width:100%"></select></div>
+        <div class="f"><label for="cHat" data-i="fHat"></label><select class="sel" id="cHat" style="width:100%"></select></div>
+        <div class="f"><label for="cAct" data-i="cAct"></label><select class="sel" id="cAct" style="width:100%"></select></div>
+        <div class="f"><label for="cWho" id="cWhoL"></label><input class="sel" id="cWho" list="cPeople" autocomplete="off" spellcheck="false"></div>
+        <div class="f" id="cToBox"><label for="cTo" data-i="cTo"></label><input class="sel" id="cTo" list="cPeople" autocomplete="off" spellcheck="false"></div>
+        <div class="f"><label for="cBy" data-i="cBy"></label><select class="sel" id="cBy" style="width:100%"></select></div>
+        <div class="f"><label for="cOk" data-i="cOk"></label><select class="sel" id="cOk" style="width:100%"></select></div>
+        <div class="f wide"><label for="cWhy" data-i="cWhy"></label><textarea class="sel" id="cWhy"></textarea></div>
+      </div>
+      <datalist id="cPeople"></datalist>
+      <ul class="res" id="cRes"></ul>
+      <pre class="diff" id="cDiff"></pre>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:14px">
+        <button class="btn pri" id="cMerge" type="button" data-i="cMerge"></button>
+        <button class="btn" id="cReset" type="button" data-i="cReset"></button>
+      </div>
+      <p class="note" data-i="cNote"></p>
+    </div>
+  </section>
+
+  <section id="v-adapted" data-view="adapted" hidden>
+    <div class="eyebrow" data-i="pEye"></div>
+    <h2 data-i="pH2"></h2>
+    <p class="sub" data-i="pSub"></p>
+    <h3 class="sh" data-i="pRolesH"></h3>
+    <div class="tw"><table class="t" id="pRoles"></table></div>
+    <h3 class="sh" data-i="pPhH"></h3>
+    <div class="tw"><table class="t" id="pPh"></table></div>
+    <div class="loop" data-ih="pLoop"></div>
+  </section>
+
+  <footer>
+    <p data-ih="foot1"></p>
+    <p data-ih="foot2"></p>
+  </footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script id="roles">
+(function(){
+  "use strict";
+  var TODAY="2026-11-15", KEY="pm-roles-lang";
+  var lang="en";
+  
+  var MISS=[];
+  function $(id){return document.getElementById(id)}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  function L(){return 0}
+  function tr(v){return Array.isArray(v)?v[L()]:v}
+  function fmt(s){var a=arguments;return String(s).replace(/\{(\d)\}/g,function(m,i){return a[+i+1]})}
+  function u(k){var v=S[k]; if(!v){MISS.push(k);return k} return Array.isArray(v)?v[0]:v}
+  function dfmt(d){var p=d.split("-"); if(L()) return p[2]+"."+p[1]+"."+p[0]; var m=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]; return +p[2]+" "+m[+p[1]-1]+" "+p[0]}
+  function addDays(d,n){var t=new Date(d+"T00:00:00Z"); t.setUTCDate(t.getUTCDate()+n); return t.toISOString().slice(0,10)}
+  function toast(m){var t=$("toast"); t.textContent=m; t.className="toast on"; clearTimeout(toast.h); toast.h=setTimeout(function(){t.className="toast"},3200)}
+
+  /* ---------- texts ---------- */
+  var S={
+    crumb:"roles", tag:"Proposal · November 2026 · internal draft",
+    who:"Who holds which hat, for which project and feature, and what each hat has to do",
+    h1:"Who does what,<br><span class=\"grad-text\">and since when.</span>",
+    lead:"Hats, duties for each phase and gate, and the full history of who held which hat for which project or feature. Everything comes from one file, roles.yml, and its git history. Names, dates and pull request numbers on this page are examples.",
+    tOverview:"Overview", tAssign:"Assignments", tHistory:"History", tDuties:"Duties", tChange:"Propose a change", tAdapted:"From the proposal",
+    oEye:"Overview", oH2:"Where do we stand today?",
+    oSub:"Hats are roles a person wears for a project. A feature uses its project's list unless it has its own. Dashed names are inherited.",
+    tPrj:"projects", tFeat:"features", tPpl:"people with a hat", tWarn:"need attention", tChg:"changes in 30 days",
+    oAttH:"Needs attention", oAttNone:"Nothing needs attention.",
+    oMatH:"Hats by project and feature", oMatSub:"One row per scope, one column per hat. Amber marks a list that breaks a rule.",
+    oMatNote:"Nobody approves what they wrote: GitHub does not let the author of a pull request approve it. The owner writes requirements and the Principal Engineer approves them. The tech lead writes the spec and the architecture owner approves it. The page warns where one person holds both sides alone.",
+    oPplH:"People and their hats",
+    cMin:"{0}: {1} has {2} name(s) and needs {3}. The author of a pull request cannot approve it, so a gate can get stuck.",
+    cVac:"{0}: nobody holds {1}.",
+    cOne:"{0}: only one person holds {1}. Nobody covers when they are away.",
+    cPe:"{0}: @{1} writes as owner and is the only Principal Engineer. Nobody else can approve G1 for what they write.",
+    cArch:"{0}: @{1} is a tech lead and the only architecture owner. Nobody else can approve a spec they write.",
+    cTd:"{0}: every tester also develops it, so nobody can show independent evidence.",
+    cTlDev:"{0}: every tech lead also develops it, so nobody can confirm the evidence independently.",
+    hwH:"How this page is fed",
+    hw1:"<code>projects/&lt;P&gt;/roles.yml</code> is the single source: hats per project, and per feature where it differs.",
+    hw2:"A script generates <code>CODEOWNERS</code> from it. A check fails when the two differ.",
+    hw3:"Every change is a pull request. The project lead and the organisation admin are the code owners of roles.yml; the approver is not the author. A change to the project lead's hat needs the admin, and gate-check enforces that, because CODEOWNERS knows paths, not lines.",
+    hw4:"The index builder walks the git history of <code>roles.yml</code> and writes <code>roles-history.json</code>. This page only reads it.",
+    hw5:"Checks read the roles: nobody approves what they wrote, neither the tester nor the tech lead who confirms the evidence developed the change, and whoever accepts a feature did not build it.",
+    hatH:"The hats",
+    aEye:"Assignments", aH2:"Who holds which hat, on a given day",
+    aSub:"Pick a project or feature and a date. The list is rebuilt from the history, so you can ask who was owner on any day.",
+    fScope:"Project or feature", aDate:"As of", aToday:"Today", fHat:"Hat", fPerson:"Person", fText:"Search the reason", fPhase:"Phase", fAll:"all",
+    aHat:"Hat", aWho:"Holders", aGate:"Gates", aMin:"min.",
+    aVac:"vacant", aInh:"from {0}", aNa:"not at this level", aSince:"since {0}, PR #{1}, approved by @{2}",
+    aSetup:"since {0}, set-up PR #{1}",
+    aNote:"A feature uses its project's list unless it has its own list for that hat. A feature's own list replaces the project's, it does not add to it.",
+    aSinceH:"Changes between {0} and today", aSinceNone:"No changes since that day.",
+    hEye:"History", hH2:"Every change, with who and when",
+    hSub:"One card per pull request on <code>roles.yml</code>: when, who opened it, who approved it, why, and what changed. The history cannot be edited without a visible commit.",
+    hCount:"{0} pull requests, {1} changes", hNone:"Nothing matches this filter.",
+    hBy:"opened by @{0}", hOk:"approved by @{0}", hSetup:"set-up, before branch protection", hSim:"simulated here",
+    dEye:"Duties", dH2:"What each hat has to do, by phase and gate",
+    dSub:"Short and exact. The key says whether a hat decides, does the work, is asked, is told, or is a check that runs by itself.",
+    dPh:"Phase", dHat:"Hat", dDuty:"Duty", dKey:"Key",
+    dKeys:"Decides: the gatekeeper whose approval is the decision. Does: does the work. Asked: gives an opinion. Told: is informed. Check: runs by itself in GitHub.",
+    kDecides:"decides", kDoes:"does", kAsked:"asked", kTold:"told", kCheck:"check",
+    agH:"Rules for checks and the AI assistant",
+    ag1:"<b>Never approves or accepts.</b> It prepares, enforces and records. It does not replace a gatekeeper.",
+    ag2:"<b>Only machine-checkable rules block a merge:</b> schema, IDs, links, cycles, test tags, CI result, version, coverage, evidence.",
+    ag3:"<b>Everything is versioned.</b> A substantive change raises the version and marks dependants suspect.",
+    ag4:"<b>It keeps the trace:</b> request, feature, requirement, spec, work issue, pull request, test, release, KPI.",
+    ag5:"<b>It shows who waits where,</b> since when, and what is missing.",
+    ag6:"<b>No sensitive data:</b> no names, internal data, secrets or customer data in issues, pull requests or pages.",
+    notH:"Not hats in v1",
+    not4:"<b>Moderator:</b> the requirements owner marks a community post with #request and replies in the thread.",
+    not1:"<b>Requester:</b> anyone, so nobody is assigned.",
+    not2:"<b>Business owner:</b> the requester's representative confirms the intent at G1 as a person.",
+    not3:"<b>Operations, release manager:</b> the tools run on user PCs. A release is a tag and a ZIP, and the tech lead cuts it.",
+    cEye:"Propose a change", cH2:"Try a role change before it is real",
+    cSub:"This simulates the pull request on roles.yml and the checks that would run on it. Nothing is saved: a reload brings back the example data.",
+    cAct:"Action", cAdd:"add a name", cRem:"remove a name", cRepl:"replace a name",
+    cWhoAdd:"Person to add (GitHub name)", cWhoRem:"Person to remove", cWhoRep:"Person who leaves",
+    cTo:"Person who takes over", cBy:"Opened by", cOk:"Approved by", cWhy:"Reason (goes into the history)",
+    cMerge:"Approve and merge (simulated)", cReset:"Back to the example data",
+    cNote:"The write access of a new person cannot be checked here. In GitHub a workflow asks the API with a token, and that is one of the open spikes.",
+    rHandle:"Use a GitHub name: lower case letters, digits and hyphens.",
+    rWho1:"Name the person who is added.", rWho0:"Name the person.", rWho2:"@{0} does not hold this hat here. Holders: {1}.",
+    rDup:"@{0} already holds this hat here.", rMin:"After the change {0} would have {1} name(s). Gate hats need {2}.",
+    rEmpty:"After the change nobody would hold {0}.", rSelf:"The author cannot approve their own pull request.",
+    rApprover:"@{0} holds neither the project lead nor the owner hat for {1}, so CODEOWNERS does not ask them.",
+    rWhy:"Give a reason of at least 5 characters.", rTd:"New warning: {0}",
+    rOwn:"This starts {0}'s own list for this hat and replaces the project's list ({1}). Add those names too if they should stay.",
+    rBack:"The feature goes back to its project's list.", rNew:"@{0} is new here. They need a GitHub account with write access.",
+    rOk:"All hard checks pass. The merge counts as the decision.", rNoDiff:"Fill in the form to see the change.",
+    rMerged:"PR #{0} merged (simulated). The history has a new card.", rReset:"Example data restored.",
+    pEye:"From the proposal", pH2:"What I took, merged and left out",
+    pSub:"The proposal lists eleven roles and ten phases. Here is how each maps to this repo's lean model, with the reason. Say which one you want back.",
+    pRolesH:"Roles", pPhH:"Phases and gates", pRole:"Proposal", pOurs:"Here", pWhy:"Reason",
+    pTook:"taken", pMerged:"merged", pSplit:"split", pLeft:"left out", pAdded:"added",
+    pLoop:"The same items are in the <a href=\"concept.html\">review list of the concept page</a>, so you can tick them off there.",
+    foot1:"<b>Simulated:</b> all names are made up. People, dates, pull request numbers, approvals and the check results on this page are example data written for this page. Nothing reads a real repository, and nothing was set up in GitHub.",
+    foot2:"The rules about approvals come from GitHub's documentation (authors cannot approve their own pull request; approvals count from people with write access). The check behaviour on this page is a proposal and not yet tried in GitHub."
+  };
+
+  /* ---------- data (examples) ---------- */
+  var PEOPLE={"admin-a":"Person A","owner-a":"Person B","owner-b":"Person C","lead-a":"Person D","lead-b":"Person E","dev-a":"Person F","privacy-a":"Person G","security-a":"Person H","coord-a":"Person I","arch-a":"Person J","principal-a":"Person K"};
+  var HATS=[
+    {id:"RO",n:"Requirements owner",g:"G0 G3",min:1,lv:["project"],y:"requirements_owner"},
+    {id:"PE",n:"Principal Engineer",g:"G1",min:1,lv:["project"],y:"principal_engineer"},
+    {id:"PL",n:"Project lead",g:"",min:1,lv:["project"],y:"project_lead"},
+    {id:"ARCH",n:"Architecture owner",g:"G2",min:1,lv:["project"],y:"architecture_owner"},
+    {id:"TL",n:"Tech lead",g:"G3",min:1,lv:["project","feature"],y:"tech_lead"},
+    {id:"TEST",n:"Tester",g:"",min:1,lv:["project","feature"],y:"tester"},
+    {id:"DEV",n:"Developer",g:"",min:1,lv:["project","feature"],y:"developer"},
+    {id:"DPO",n:"Data protection officer",g:"G2 (privacy)",min:1,lv:["project"],y:"data_protection_officer"},
+    {id:"SEC",n:"Security reviewer",g:"G2 (security)",min:0,lv:["project","feature"],y:"security_reviewer"},
+    {id:"ADM",n:"Admin",g:"",min:1,lv:["repo"],y:"admin"}
+  ];
+  var HM={}; HATS.forEach(function(h){HM[h.id]=h});
+  var HATD={RO:"Decides at G0, accepts at G3. Writes the requirement sentence and marks community posts.",
+    TL:"Writes the spec, reviews code and confirms the evidence at G3.",
+    PE:"Decides at G1: is the requirement clear, buildable and testable? Confirms the review tags and approves feature files and KPI entries. Never approves a requirement they wrote. May also wear the architecture owner hat.",
+    PL:"Coordinates and holds no gate: plans the people after G1, owns the process rules, the waiting limits and roles.yml, and is mentioned when a gate waits past red. Team lead and project lead are one hat.",
+    ARCH:"Decides at G2 in the architecture design review (ADR). Never approves a spec they wrote.",
+    TEST:"Shows the evidence at G3. Never for a change they developed. The tech lead may wear this hat for changes they did not develop.",
+    DEV:"Builds the change, writes the work issue, the pull request and the tests.",
+    DPO:"Joins G2 only for requests tagged privacy. The merge waits for the answer.",
+    SEC:"Named per case for requests tagged security. Same mechanism as privacy.",
+    ADM:"Organisation and repository settings, branch protection and the OAuth app policy. The organisation admin account holds it; a second admin would cover absences. Second code owner of roles.yml."};
+  var SC=[
+    {id:"repo",lv:"repo",n:"project_management"},
+    {id:"RB",lv:"project",n:"recipe-box"},
+    {id:"FT-RB-01",lv:"feature",p:"RB",n:"PDF export"},
+    {id:"FT-RB-02",lv:"feature",p:"RB",n:"Import checker"},
+    {id:"PM",lv:"project",n:"project_management tooling"},
+    {id:"FT-PM-01",lv:"feature",p:"PM",n:"Explorer page"}
+  ];
+  var SM={}; SC.forEach(function(s){SM[s.id]=s});
+  function scn(s){return tr(s.n)}
+  function scl(id){var s=SM[id]; return id+" · "+scn(s)}
+
+  // pull requests on roles.yml: c = changes {s: scope, r: hat, op: "+"/"-", w: person}
+  var SEED=[
+    {id:1,d:"2026-09-01",by:"admin-a",ok:"",setup:1,why:"Repository set-up with the first owners.",c:[
+      {s:"repo",r:"ADM",op:"+",w:"admin-a"},
+      {s:"RB",r:"RO",op:"+",w:"owner-a"},{s:"RB",r:"TL",op:"+",w:"lead-a"},{s:"RB",r:"TEST",op:"+",w:"lead-a"},{s:"RB",r:"DEV",op:"+",w:"dev-a"},
+      {s:"PM",r:"RO",op:"+",w:"owner-a"},{s:"PM",r:"TL",op:"+",w:"lead-a"},{s:"PM",r:"TEST",op:"+",w:"lead-a"}]},
+    {id:12,d:"2026-09-24",by:"owner-a",ok:"lead-a",why:"@lead-a now develops in this feature, and a tester never tests their own change.",c:[
+      {s:"RB",r:"TEST",op:"+",w:"owner-b"},{s:"RB",r:"TEST",op:"-",w:"lead-a"}]},
+    {id:19,d:"2026-10-06",by:"owner-a",ok:"lead-a",why:"A second owner, so a requirement pull request has an approver other than its author.",c:[
+      {s:"RB",r:"RO",op:"+",w:"owner-b"}]},
+    {id:23,d:"2026-10-12",by:"lead-a",ok:"owner-a",why:"Second tech lead for holiday cover, and a second developer.",c:[
+      {s:"RB",r:"TL",op:"+",w:"lead-b"},{s:"RB",r:"DEV",op:"+",w:"lead-b"}]},
+    {id:27,d:"2026-10-20",by:"owner-a",ok:"lead-a",why:"Review tags are introduced. The data protection officer joins G2 for requests tagged privacy.",c:[
+      {s:"RB",r:"DPO",op:"+",w:"privacy-a"}]},
+    {id:31,d:"2026-10-27",by:"lead-b",ok:"owner-a",why:"The sign-in change is tagged security. A reviewer is named for this feature.",c:[
+      {s:"FT-RB-02",r:"SEC",op:"+",w:"security-a"}]},
+    {id:34,d:"2026-11-02",by:"lead-b",ok:"owner-b",why:"PDF export gets its own developer list: one builder.",c:[
+      {s:"FT-RB-01",r:"DEV",op:"+",w:"dev-a"}]},
+    {id:37,d:"2026-11-09",by:"owner-b",ok:"lead-a",why:"A developer also tests changes made by others.",c:[
+      {s:"RB",r:"TEST",op:"+",w:"dev-a"}]},
+    {id:38,d:"2026-11-12",by:"lead-a",ok:"lead-b",why:"The explorer pilot starts: developer, second tech lead and privacy officer.",c:[
+      {s:"PM",r:"DEV",op:"+",w:"lead-b"},{s:"PM",r:"TL",op:"+",w:"lead-b"},{s:"PM",r:"DPO",op:"+",w:"privacy-a"}]},
+    {id:39,d:"2026-11-14",by:"lead-a",ok:"owner-a",why:"G1 goes to the Principal Engineer and G2 to the architecture owner, so nobody approves what they wrote. The project lead coordinates: from now on they approve changes to roles.yml, and a change to the project lead's hat needs the organisation admin.",c:[
+      {s:"RB",r:"PE",op:"+",w:"principal-a"},{s:"RB",r:"PL",op:"+",w:"coord-a"},{s:"RB",r:"ARCH",op:"+",w:"arch-a"},{s:"PM",r:"PE",op:"+",w:"principal-a"},{s:"PM",r:"PL",op:"+",w:"coord-a"},{s:"PM",r:"ARCH",op:"+",w:"arch-a"}]}
+  ];
+  var PRS=[], nextPr=40;
+  function seed(){PRS=JSON.parse(JSON.stringify(SEED)); nextPr=40}
+
+  /* ---------- state from history ---------- */
+  function stateAt(date,extra){
+    var st=[], list=PRS.slice().concat(extra||[]).sort(function(a,b){return a.d<b.d?-1:a.d>b.d?1:a.id-b.id});
+    list.forEach(function(pr){
+      if(pr.d>date) return;
+      pr.c.forEach(function(c){
+        if(c.op==="+") st.push({s:c.s,r:c.r,w:c.w,since:pr.d,pr:pr.id,ok:pr.ok,setup:pr.setup});
+        else st=st.filter(function(e){return !(e.s===c.s&&e.r===c.r&&e.w===c.w)});
+      });
+    });
+    return st;
+  }
+  function ent(st,s,r){return st.filter(function(e){return e.s===s&&e.r===r})}
+  function names(a){return a.map(function(e){return e.w})}
+  function eff(st,sc,h){
+    var own=ent(st,sc.id,h.id);
+    if(sc.lv==="repo") return h.lv.indexOf("repo")>=0?{l:own,inh:false}:{l:[],na:true};
+    if(h.lv.indexOf("repo")>=0) return {l:[],na:true};
+    if(sc.lv==="project") return {l:own,inh:false};
+    if(h.lv.indexOf("feature")>=0&&own.length) return {l:own,inh:false};
+    return {l:ent(st,sc.p,h.id),inh:true,from:sc.p};
+  }
+  function checks(st){
+    var out=[];
+    SC.forEach(function(sc){
+      HATS.forEach(function(h){
+        if(h.lv.indexOf(sc.lv)<0) return;
+        var own=ent(st,sc.id,h.id), n=own.length;
+        if(sc.lv==="feature"&&!n) return;
+        if(h.min>=2&&n<h.min) out.push({sev:"warn",k:"cMin",s:sc.id,r:h.id,n:n,m:h.min});
+        else if(h.min>=1&&n===0) out.push({sev:"warn",k:"cVac",s:sc.id,r:h.id});
+        else if(n===1&&(h.id==="DPO"||h.id==="ADM"||h.id==="RO"||h.id==="PE"||h.id==="PL"||h.id==="ARCH")) out.push({sev:"info",k:"cOne",s:sc.id,r:h.id});
+      });
+      if(sc.lv==="project"){
+        var ro=names(ent(st,sc.id,"RO")), pe=names(ent(st,sc.id,"PE")), ar=names(ent(st,sc.id,"ARCH")), tl=names(ent(st,sc.id,"TL"));
+        ro.forEach(function(o){ if(pe.length===1&&pe[0]===o) out.push({sev:"warn",k:"cPe",s:sc.id,r:"PE",w:o}); });
+        tl.forEach(function(x){ if(ar.length===1&&ar[0]===x) out.push({sev:"warn",k:"cArch",s:sc.id,r:"ARCH",w:x}); });
+      }
+      if(sc.lv==="feature"){
+        var t=names(eff(st,sc,HM.TEST).l), d=names(eff(st,sc,HM.DEV).l);
+        var ind=t.filter(function(x){return d.indexOf(x)<0});
+        if(t.length&&!ind.length) out.push({sev:"warn",k:"cTd",s:sc.id,r:"TEST"});
+        var tl2=names(eff(st,sc,HM.TL).l), ind2=tl2.filter(function(x){return d.indexOf(x)<0});
+        if(tl2.length&&!ind2.length) out.push({sev:"warn",k:"cTlDev",s:sc.id,r:"TL"});
+      }
+    });
+    return out;
+  }
+  function ckMsg(c){
+    var h=HM[c.r];
+    if(c.k==="cPe"||c.k==="cArch") return fmt(u(c.k),scl(c.s),c.w);
+    return fmt(u(c.k),scl(c.s),tr(h.n),c.n,c.m);
+  }
+  function ckKey(c){return c.k+"|"+c.s+"|"+c.r+"|"+(c.w||"")}
+
+  /* ---------- duties ---------- */
+  var PH=[
+    {id:"P1",n:"1 Request · G0"},
+    {id:"P2",n:"2 Feature file"},
+    {id:"P3",n:"3 Requirement · G1"},
+    {id:"P4",n:"4 Concept · G2"},
+    {id:"P5",n:"5 Build"},
+    {id:"P6",n:"6 Verify and accept · G3"},
+    {id:"P7",n:"7 Release"},
+    {id:"P8",n:"8 Value review · about 6 weeks later"},
+    {id:"P9",n:"9 Change request"},
+    {id:"P0",n:"Always: roles"}
+  ];
+  var DH=[{id:"REQ",n:"Requester"}].concat(HATS.filter(function(h){return h.id!=="ADM"}).map(function(h){return {id:h.id,n:h.n}})).concat([{id:"ADM",n:"Admin"},{id:"CHK",n:"Checks (GitHub Actions)"},{id:"AI",n:"AI assistant"}]);
+  var DM={}; DH.forEach(function(h){DM[h.id]=h});
+  var DUTIES=[
+    ["P1","REQ","does","Describe the problem, who is hit, how often and the outcome wanted. No confidential data."],
+    ["P1","RO","does","Turn a community post into a request issue: reply with the marker #request."],
+    ["P1","AI","does","May draft the request text from a post. A person confirms it."],
+    ["P1","CHK","check","Validate the fields, link source and project, set the label triage, start the waiting clock."],
+    ["P1","RO","decides","G0: accept, merge into a requirement, not now, or reject. Write the reason, set priority and review tags."],
+    ["P2","RO","does","Create the feature file by pull request: goal, scope, non-scope, origin, outcome metric with baseline and target."],
+    ["P2","TL","asked","Name yourself as tech lead. Judge feasibility and rough effort."],
+    ["P2","PE","decides","Approve the pull request of the feature file. The owner wrote it."],
+    ["P2","CHK","check","Validate required fields and the links to the requests it comes from."],
+    ["P3","RO","does","Write one testable «shall» sentence with acceptance criteria and open the pull request."],
+    ["P3","PE","decides","G1: judge whether the requirement is clear, buildable and testable, confirm the privacy and security tags, and approve the requirement pull request. The owner wrote it, so the owner cannot approve it."],
+    ["P3","PL","does","After G1: plan the people for the approved requirement. Coordinates; approves nothing at G1."],
+    ["P3","TL","asked","Judge feasibility and rough effort when the Principal Engineer asks."],
+    ["P3","REQ","asked","The requester's representative confirms the intent. The pull request links the answer."],
+    ["P3","TEST","asked","Say whether the acceptance criteria can be tested (Ready list)."],
+    ["P3","CHK","check","Schema, unique ID, version, acceptance criteria, pinned dependencies without a cycle, Ready list."],
+    ["P4","TL","does","Write the spec: architecture, interfaces, estimate, decisions, risks, alternative rejected. Add a mockup or mark it not needed."],
+    ["P4","DEV","asked","Contribute feasibility, effort and alternatives."],
+    ["P4","ARCH","decides","G2: architecture design review. Approve the spec pull request. The tech lead wrote it, so the tech lead cannot approve it."],
+    ["P4","DPO","decides","Only when tagged privacy: answer the review section. The merge waits for the answer."],
+    ["P4","SEC","decides","Only when tagged security: same as the data protection officer."],
+    ["P4","RO","told","Read the spec. The check confirms that every requirement is covered."],
+    ["P4","CHK","check","Coverage of every approved requirement at its current version, links, request the reviewer, set the baseline tag."],
+    ["P5","DEV","does","Write the work issue with the create-issue skill: requirement rows with ID and version. Label TO BE REVIEWED."],
+    ["P5","TL","decides","Accept the issue description (label ACCEPTED). Never the author."],
+    ["P5","DEV","does","Build it. Tests carry the requirement tag. The pull request says Implements: REQ-…@n or No-req:, and Closes #N."],
+    ["P5","TL","does","Review the code for quality and fit with the spec."],
+    ["P5","AI","does","May write issue and code. Never accepts or approves its own work."],
+    ["P5","CHK","check","Check IDs and versions in the pull request, warn on Draft, comment the link, collect CI results with commit and run ID."],
+    ["P6","TEST","does","Show the evidence: tests passed, or a test record for integration, smoke and manual tests; no open critical defect. Never for a change you developed."],
+    ["P6","TL","decides","G3, first key: open the acceptance pull request with the evidence stored in it. Never for a change you developed."],
+    ["P6","RO","decides","G3, second key: approve the acceptance pull request. The solution meets the need and the acceptance criteria. A developer of the feature cannot accept it."],
+    ["P6","CHK","check","Done list: code and test linked, evidence stored in the acceptance record, whoever opened it holds the tech lead hat of the project, and neither they nor the acceptor built the feature."],
+    ["P7","TL","does","Tag the release and build the ZIP. Check that the notes list what shipped."],
+    ["P7","RO","told","Is told what ships."],
+    ["P7","CHK","check","Write release notes from the Implements lines and link the tag to the requirements."],
+    ["P8","CHK","check","Open the value review issue six weeks after the release tag."],
+    ["P8","RO","does","Compare the measured value with baseline and target. Enter value, date, source and decision in kpis.yml by pull request."],
+    ["P8","PE","decides","Approve the kpis.yml entry. The owner wrote it. A miss becomes a new request."],
+    ["P8","RO","does","Tell the community thread what came out."],
+    ["P9","REQ","does","Name the requirement ID, the change wanted and the reason."],
+    ["P9","RO","decides","Triage: accept or reject. Mark it substantive or editorial. A substantive change raises the version."],
+    ["P9","TL","asked","Judge the effect on specs and tests."],
+    ["P9","PE","decides","A substantive change is a new version: approve its pull request, as at G1."],
+    ["P9","CHK","check","Build the diff, mark suspect links, list the affected specs, tests, issues and pull requests."],
+    ["P0","RO","does","Propose changes to roles.yml of your project by pull request. The project lead approves them."],
+    ["P0","PL","decides","Approve changes to roles.yml of your project. The author cannot approve. A change to your own hat needs the organisation admin."],
+    ["P0","PL","does","Own the gate rules, the waiting limits and the templates. Watch the Gates view. When a gate waits past red you are mentioned: ask the gatekeeper or name another one. Decide nothing about content."],
+    ["P0","PL","does","Look back once after the pilot, then only when the Gates view shows lasting waits."],
+    ["P0","ADM","does","Organisation and repository settings, branch protection and the OAuth app policy. CODEOWNERS is generated from roles.yml. Second code owner of roles.yml and CODEOWNERS: approve a change the project lead wrote and every change to the project lead's hat."],
+    ["P0","CHK","check","Warn when a gate hat has only one name. Warn when an author has no approver but themselves: an owner who is the only Principal Engineer, a tech lead who is the only architecture owner. Flag a tester or a confirming tech lead who is the only developer of the change. Write every change to the history."]
+  ];
+
+  /* ---------- proposal mapping ---------- */
+  var MAPR=[
+    ["Requester (R)","Requester: anyone, not a hat","pTook","Anyone can ask. Nobody is assigned."],
+    ["Product owner (PO) and requirements owner (RO)","Requirements owner","pMerged","One hat. The team is small. The owner writes and the Principal Engineer approves, so one owner is enough. Split them if the product job and the requirements job part ways."],
+    ["Business owner (BO)","No hat","pLeft","The requester's representative confirms the intent at G1 as a person. A third approver would only add waiting."],
+    ["Tech lead (TL)","Tech lead and architecture owner","pSplit","The tech lead writes the spec and confirms the evidence at G3. The architecture owner approves G2, so a spec never goes past its author."],
+    ["Project lead / delivery lead (second input)","Project lead (team lead and process owner)","pTook","One hat for both, because team lead and project lead are one person here. Coordinates: plans the people, owns the process rules and roles.yml, is mentioned at red. Holds no gate."],
+    ["Engineer (ENG)","Developer","pTook","Builds. Cannot accept their own work."],
+    ["QA / test owner","Tester","pTook","Shows the evidence, never for a change they developed. The tech lead may wear it for changes they did not develop."],
+    ["Security / privacy (SEC)","Data protection officer and security reviewer","pSplit","Two hats, both on demand: they join G2 only when a request is tagged."],
+    ["Operations / SRE (OPS)","No hat","pLeft","The tools run on user PCs: no monitoring, alerts or runbooks. Look again if a tool becomes a hosted service."],
+    ["Release manager (RM)","No hat","pLeft","A release is a tag and a ZIP. The tech lead cuts it."],
+    ["GitHub agent (AGENT)","Checks and AI assistant","pSplit","Two non-human actors with different jobs. The six base rules of the proposal stay."],
+    ["Moderator (this repo's own idea)","No hat: the owner marks community posts","pLeft","Marking a post decides nothing, so the requirements owner does it and replies in the thread. A hat can come back with one line in roles.yml."],
+    ["(not in the proposal)","Principal Engineer","pAdded","approves G1 (clear, buildable, testable), confirms the review tags and approves feature files and KPI entries, so the project lead only coordinates."],
+    ["(not in the proposal)","Admin","pAdded","The admin owns repository settings and branch protection."]
+  ];
+  var MAPP=[
+    ["1 Request","Request","pTook","Same, with the six privacy and security questions."],
+    ["G0 Need accepted","G0 New requirement","pTook","The request issue is the need. G0 is a label on the issue. The pull request starts when it is accepted. No NEED files."],
+    ["2 Feature / epic","Feature file","pTook","Created with the first accepted request."],
+    ["3 Requirements, G1","Requirement, G1","pTook","The Principal Engineer approves, not the owner; the project lead then plans the people. The business owner's key and the product owner's coverage check are gone (see roles)."],
+    ["4 Tech spec, G2","Concept, G2","pTook","Approved by the architecture owner in the architecture design review (ADR). Without separate decision record files, rollout and rollback plan, monitoring and an operations key. The spec records decisions and the alternative rejected."],
+    ["5 Delivery planning","Part of Build","pMerged","No sprints or stories. The work issue holds the requirement rows and the tests. A feature needs one to three work issues."],
+    ["6 Implementation","5 Build","pTook","Same. The issue is accepted by someone other than its author."],
+    ["G3 Verified and accepted","G3 Verify and accept","pTook","One gate with two keys: evidence and acceptance. Acceptance is blocked for a developer of the feature."],
+    ["7 Release","7 Release","pTook","A tag, a ZIP and release notes from the Implements lines. No environments, feature flags or deployment evidence."],
+    ["8 Monitoring","Value review","pLeft","Replaced by the review about six weeks after the release. No error, latency or availability monitoring."],
+    ["G4 Value confirmed","Value review (not a gate)","pTook","A review that blocks nothing. The result goes into kpis.yml by pull request."],
+    ["9 Change request","9 Change request","pTook","Same, with editorial versus substantive changes."],
+    ["10 Retrospective","Not a phase","pLeft","The Gates view and the value review already show where it hurts. A short look back after the pilot is enough."]
+  ];
+
+  /* ---------- rendering ---------- */
+  var view="overview";
+  function chip(w,inh){return '<span class="chip'+(inh?' inh':'')+'" title="'+esc(PEOPLE[w]||w)+'">@'+esc(w)+'</span>'}
+  function hn(id){return tr(HM[id].n)}
+  function tagK(k){var cls={decides:"o",does:"v",asked:"gr",told:"gr",check:"g"}[k]||"gr"; return '<span class="tagx '+cls+'">'+u({decides:"kDecides",does:"kDoes",asked:"kAsked",told:"kTold",check:"kCheck"}[k])+'</span>'}
+
+  function renderStatic(){
+    [].forEach.call(document.querySelectorAll("[data-i]"),function(e){e.textContent=u(e.getAttribute("data-i"))});
+    [].forEach.call(document.querySelectorAll("[data-ih]"),function(e){e.innerHTML=u(e.getAttribute("data-ih"))});
+    
+    document.documentElement.lang=lang;
+    $("hwList").innerHTML=["hw1","hw2","hw3","hw4","hw5"].map(function(k){return "<li>"+u(k)+"</li>"}).join("");
+    $("hatList").innerHTML=HATS.map(function(h){return "<li><b>"+esc(tr(h.n))+"</b>"+(h.g?' <span class="tagx gr">'+esc(h.g)+"</span>":"")+" "+esc(tr(HATD[h.id]))+"</li>"}).join("");
+    $("agList").innerHTML=["ag1","ag2","ag3","ag4","ag5","ag6"].map(function(k){return "<li>"+u(k)+"</li>"}).join("");
+    $("notList").innerHTML=["not1","not2","not3","not4"].map(function(k){return "<li>"+u(k)+"</li>"}).join("");
+  }
+
+  function scopeOptions(withAll){
+    return (withAll?'<option value="">'+esc(u("fAll"))+'</option>':'')+SC.map(function(s){return '<option value="'+s.id+'">'+esc((s.lv==="feature"?"  ":"")+scl(s.id))+"</option>"}).join("");
+  }
+  function fillSelects(){
+    var keep={};
+    ["aScope","hScope","hHat","hWho","dHat","dPh","cScope","cHat","cAct","cBy","cOk"].forEach(function(id){keep[id]=$(id).value});
+    $("aScope").innerHTML=scopeOptions(false); $("hScope").innerHTML=scopeOptions(true); $("cScope").innerHTML=scopeOptions(false);
+    $("hHat").innerHTML='<option value="">'+esc(u("fAll"))+"</option>"+HATS.map(function(h){return '<option value="'+h.id+'">'+esc(tr(h.n))+"</option>"}).join("");
+    var pe=Object.keys(PEOPLE).sort();
+    $("hWho").innerHTML='<option value="">'+esc(u("fAll"))+"</option>"+pe.map(function(w){return '<option value="'+w+'">@'+w+"</option>"}).join("");
+    $("dHat").innerHTML='<option value="">'+esc(u("fAll"))+"</option>"+DH.map(function(h){return '<option value="'+h.id+'">'+esc(tr(h.n))+"</option>"}).join("");
+    $("dPh").innerHTML='<option value="">'+esc(u("fAll"))+"</option>"+PH.map(function(p){return '<option value="'+p.id+'">'+esc(tr(p.n))+"</option>"}).join("");
+    $("cAct").innerHTML='<option value="add">'+esc(u("cAdd"))+'</option><option value="remove">'+esc(u("cRem"))+'</option><option value="replace">'+esc(u("cRepl"))+"</option>";
+    var po=pe.map(function(w){return '<option value="'+w+'">@'+w+"</option>"}).join("");
+    $("cBy").innerHTML=po; $("cOk").innerHTML=po;
+    $("cPeople").innerHTML=pe.map(function(w){return '<option value="'+w+'">'}).join("");
+    Object.keys(keep).forEach(function(id){ if(keep[id]!==""&&keep[id]!=null){ try{$(id).value=keep[id]}catch(e){} } });
+    if(!$("cBy").value) $("cBy").value="owner-a";
+    if(!$("cOk").value) $("cOk").value="coord-a";
+    fillHatSelect();
+  }
+  function hatsFor(scopeId){var sc=SM[scopeId]; return HATS.filter(function(h){return h.lv.indexOf(sc.lv)>=0})}
+  function fillHatSelect(){
+    var cur=$("cHat").value, hs=hatsFor($("cScope").value||"RB");
+    $("cHat").innerHTML=hs.map(function(h){return '<option value="'+h.id+'">'+esc(tr(h.n))+"</option>"}).join("");
+    if(hs.some(function(h){return h.id===cur})) $("cHat").value=cur;
+  }
+
+  function renderOverview(){
+    var st=stateAt(TODAY), ck=checks(st), warns=ck.filter(function(c){return c.sev==="warn"});
+    var pe={}; st.forEach(function(e){pe[e.w]=1});
+    var n30=PRS.filter(function(p){return !p.setup&&p.d>addDays(TODAY,-30)}).length;
+    var prj=SC.filter(function(s){return s.lv==="project"}).length, ft=SC.filter(function(s){return s.lv==="feature"}).length;
+    $("oTiles").innerHTML=[[prj,u("tPrj"),0],[ft,u("tFeat"),0],[Object.keys(pe).length,u("tPpl"),0],[warns.length,u("tWarn"),warns.length?1:0],[n30,u("tChg"),0]].map(function(t){return '<div class="kpi'+(t[2]?" hl":"")+'"><div class="n">'+t[0]+'</div><div class="l">'+esc(t[1])+"</div></div>"}).join("");
+    $("oAtt").innerHTML=ck.length?ck.map(function(c){return '<li><span class="tagx '+(c.sev==="warn"?"y":"v")+'">'+(c.sev==="warn"?"!":"i")+"</span><span>"+esc(ckMsg(c))+"</span></li>"}).join(""):"<li>"+esc(u("oAttNone"))+"</li>";
+    var bad={}; warns.forEach(function(c){bad[c.s+"|"+c.r]=1});
+    var head="<thead><tr><th>"+esc(u("fScope"))+"</th>"+HATS.map(function(h){return "<th>"+esc(tr(h.n))+'<span class="sub-n">'+esc(h.g||" ")+"</span></th>"}).join("")+"</tr></thead>";
+    var body=SC.map(function(sc){
+      return '<tr class="'+(sc.lv==="feature"?"sc2":"")+'"><td>'+esc(sc.id)+'<span class="sub-n">'+esc(scn(sc))+"</span></td>"+HATS.map(function(h){
+        var e=eff(st,sc,h);
+        if(e.na) return '<td class="na">·</td>';
+        var cell=e.l.length?e.l.map(function(x){return chip(x.w,e.inh)}).join(""):'<span class="tagx '+(h.min>=1?"y":"gr")+'">'+esc(h.min>=1?u("aVac"):"–")+"</span>";
+        return '<td class="'+(bad[sc.id+"|"+h.id]?"w":"")+'">'+cell+"</td>";
+      }).join("")+"</tr>";
+    }).join("");
+    $("oMat").innerHTML=head+"<tbody>"+body+"</tbody>";
+    var byP={}; st.forEach(function(e){(byP[e.w]=byP[e.w]||[]).push(e)});
+    var rows=Object.keys(PEOPLE).sort().map(function(w){
+      var es=byP[w]||[], g={};
+      es.forEach(function(e){(g[e.r]=g[e.r]||[]).push(e.s)});
+      var tags=Object.keys(g).length?HATS.filter(function(h){return g[h.id]}).map(function(h){return '<span class="tagx gr" title="'+esc(g[h.id].join(", "))+'">'+esc(h.id)+" · "+esc(g[h.id].join(", "))+"</span>"}).join(" "):"–";
+      return "<tr><td>"+chip(w)+'<span class="sub-n">'+esc(PEOPLE[w])+"</span></td><td>"+tags+"</td></tr>";
+    }).join("");
+    $("oPpl").innerHTML="<thead><tr><th>"+esc(u("fPerson"))+"</th><th>"+esc(u("fHat"))+"</th></tr></thead><tbody>"+rows+"</tbody>";
+  }
+
+  function renderAssign(){
+    var sid=$("aScope").value||"RB", sc=SM[sid], date=$("aDate").value||TODAY;
+    var st=stateAt(date);
+    var head="<thead><tr><th>"+esc(u("aHat"))+"</th><th>"+esc(u("aWho"))+"</th><th>"+esc(u("aGate"))+"</th><th>"+esc(u("aMin"))+"</th></tr></thead>";
+    var body=HATS.map(function(h){
+      var e=eff(st,sc,h);
+      if(e.na) return '<tr><td>'+esc(tr(h.n))+'</td><td class="na" style="text-align:left">'+esc(u("aNa"))+"</td><td></td><td></td></tr>";
+      var cell=e.l.length?e.l.map(function(x){
+        var meta=x.setup?fmt(u("aSetup"),dfmt(x.since),x.pr):fmt(u("aSince"),dfmt(x.since),x.pr,x.ok);
+        return '<div style="margin:3px 0">'+chip(x.w,e.inh)+' <span class="crumb" style="font-size:12px">'+esc(PEOPLE[x.w]||"")+" · "+esc(meta)+"</span></div>";
+      }).join("")+(e.inh?'<div class="note" style="margin:4px 0 0">'+esc(fmt(u("aInh"),e.from))+"</div>":""):'<span class="tagx '+(h.min>=1?"y":"gr")+'">'+esc(u("aVac"))+"</span>";
+      var low=e.l.length<h.min&&!e.inh;
+      return '<tr><td>'+esc(tr(h.n))+'</td><td class="'+(low?"w":"")+'">'+cell+"</td><td>"+esc(h.g)+"</td><td>"+(h.min||"–")+"</td></tr>";
+    }).join("");
+    $("aTab").innerHTML=head+"<tbody>"+body+"</tbody>";
+    $("aNote").textContent=u("aNote");
+    $("aSinceH").textContent=fmt(u("aSinceH"),dfmt(date));
+    var after=PRS.filter(function(p){return p.d>date}).sort(function(a,b){return a.d<b.d?1:-1}).filter(function(p){return p.c.some(function(c){return c.s===sid||(sc.lv==="project"&&SM[c.s]&&SM[c.s].p===sid)})});
+    $("aSince").innerHTML=after.length?after.map(evCard).join(""):'<p class="note">'+esc(u("aSinceNone"))+"</p>";
+  }
+
+  function evCard(p,hl){
+    var lines=p.c.map(function(c){
+      return '<div class="cl"><span class="sg '+(c.op==="+"?"p":"m")+'">'+(c.op==="+"?"+":"−")+"</span>"+chip(c.w)+'<span>'+esc(hn(c.r))+'</span><span class="crumb">· '+esc(scl(c.s))+"</span></div>";
+    }).join("");
+    var ap=p.setup?'<span class="tagx gr">'+esc(u("hSetup"))+"</span>":'<span class="tagx g">'+esc(fmt(u("hOk"),p.ok))+"</span>";
+    return '<div class="ev"><div class="h"><b>PR #'+p.id+'</b><span class="d">'+esc(dfmt(p.d))+" · "+esc(fmt(u("hBy"),p.by))+"</span>"+ap+(p.sim?' <span class="tagx v">'+esc(u("hSim"))+"</span>":"")+'</div><div class="why">'+esc(tr(p.why))+"</div>"+lines+"</div>";
+  }
+  function renderHistory(){
+    var fs=$("hScope").value, fh=$("hHat").value, fw=$("hWho").value, q=($("hQ").value||"").toLowerCase();
+    var list=PRS.slice().sort(function(a,b){return a.d<b.d?1:a.d>b.d?-1:b.id-a.id}).filter(function(p){
+      if(q&&(tr(p.why)||"").toLowerCase().indexOf(q)<0) return false;
+      return p.c.some(function(c){return (!fs||c.s===fs||(SM[c.s].p===fs))&&(!fh||c.r===fh)&&(!fw||c.w===fw)});
+    });
+    var n=list.reduce(function(a,p){return a+p.c.length},0);
+    $("hCount").textContent=fmt(u("hCount"),list.length,n);
+    $("hList").innerHTML=list.length?list.map(evCard).join(""):'<p class="note">'+esc(u("hNone"))+"</p>";
+  }
+
+  function renderDuties(){
+    var fh=$("dHat").value, fp=$("dPh").value;
+    var rows=DUTIES.filter(function(d){return (!fh||d[1]===fh)&&(!fp||d[0]===fp)});
+    var phName={}; PH.forEach(function(p){phName[p.id]=tr(p.n)});
+    $("dTab").innerHTML="<thead><tr><th>"+esc(u("dPh"))+"</th><th>"+esc(u("dHat"))+"</th><th>"+esc(u("dKey"))+"</th><th>"+esc(u("dDuty"))+"</th></tr></thead><tbody>"+rows.map(function(d){
+      return "<tr><td>"+esc(phName[d[0]])+"</td><td>"+esc(tr(DM[d[1]].n))+"</td><td>"+tagK(d[2])+"</td><td>"+esc(tr(d[3]))+"</td></tr>";
+    }).join("")+"</tbody>";
+  }
+
+  function mapTable(id,rows){
+    $(id).innerHTML="<thead><tr><th>"+esc(u("pRole"))+"</th><th>"+esc(u("pOurs"))+"</th><th></th><th>"+esc(u("pWhy"))+"</th></tr></thead><tbody>"+rows.map(function(r){
+      var cls={pTook:"g",pMerged:"v",pSplit:"v",pLeft:"gr",pAdded:"o"}[r[2]];
+      return "<tr><td>"+esc(r[0])+"</td><td>"+esc(tr(r[1]))+'</td><td><span class="tagx '+cls+'">'+esc(u(r[2]))+"</span></td><td>"+esc(tr(r[3]))+"</td></tr>";
+    }).join("")+"</tbody>";
+  }
+
+  /* ---------- change form ---------- */
+  var lastVal=null;
+  function ymlBlock(c){
+    var h=HM[c.h], sc=SM[c.s], proj=sc.lv==="feature"?sc.p:(sc.lv==="project"?sc.id:"(repo)");
+    return {path:sc.lv==="repo"?".github/roles.yml":"projects/"+proj+"/roles.yml",key:(sc.lv==="feature"?"features."+sc.id+".":"")+h.y};
+  }
+  function validate(){
+    var sid=$("cScope").value, hid=$("cHat").value, act=$("cAct").value, who=($("cWho").value||"").trim().toLowerCase().replace(/^@/,""), to=($("cTo").value||"").trim().toLowerCase().replace(/^@/,"");
+    var by=$("cBy").value, ok=$("cOk").value, why=($("cWhy").value||"").trim();
+    var res=[], fails=0, sc=SM[sid], h=HM[hid];
+    if(!sc||!h) return {res:[],fails:1,diff:""};
+    var st=stateAt(TODAY), cur=names(ent(st,sid,hid)), after=cur.slice(), changes=[];
+    var re=/^[a-z0-9][a-z0-9-]{1,38}$/;
+    function add(sev,msg){res.push([sev,msg]); if(sev==="f") fails++}
+    if(!who){add("f",u(act==="add"?"rWho1":"rWho0"))}
+    else if(!re.test(who)){add("f",u("rHandle"))}
+    else if(act==="add"){
+      if(cur.indexOf(who)>=0) add("f",fmt(u("rDup"),who)); else {after.push(who); changes.push({s:sid,h:hid,op:"+",w:who})}
+    } else {
+      if(cur.indexOf(who)<0) add("f",fmt(u("rWho2"),who,cur.length?cur.map(function(x){return "@"+x}).join(", "):"–"));
+      else {
+        after=after.filter(function(x){return x!==who}); changes.push({s:sid,h:hid,op:"-",w:who});
+        if(act==="replace"){
+          if(!to||!re.test(to)) add("f",u("rHandle"));
+          else if(after.indexOf(to)>=0||to===who) add("f",fmt(u("rDup"),to));
+          else {after.push(to); changes.push({s:sid,h:hid,op:"+",w:to})}
+        }
+      }
+    }
+    var newbie=(act==="add"?who:(act==="replace"?to:"")); if(newbie&&re.test(newbie)&&!PEOPLE[newbie]) add("i",fmt(u("rNew"),newbie));
+    if(changes.length){
+      var own=sc.lv==="feature"&&h.lv.indexOf("feature")>=0;
+      if(h.min>=2&&after.length<h.min&&!(own&&after.length===0)) add("f",fmt(u("rMin"),tr(h.n),after.length,h.min));
+      else if(h.min>=1&&after.length===0&&!(sc.lv==="feature")) add("f",fmt(u("rEmpty"),tr(h.n)));
+      if(sc.lv==="feature"&&!cur.length&&after.length){var inh=names(ent(st,sc.p,hid)); add("w",fmt(u("rOwn"),sid,inh.length?inh.map(function(x){return "@"+x}).join(", "):"–"))}
+      if(sc.lv==="feature"&&cur.length&&!after.length) add("i",u("rBack"));
+    }
+    if(by===ok) add("f",u("rSelf"));
+    var proj=sc.lv==="feature"?sc.p:(sc.lv==="project"?sc.id:null), okSet=st.filter(function(e){return (e.r==="RO"||e.r==="PL")&&e.w===ok&&(!proj||e.s===proj)});
+    if(!okSet.length) add("f",fmt(u("rApprover"),ok,proj||"project_management"));
+    if(why.length<5) add("f",u("rWhy"));
+    if(changes.length){
+      var fake={id:nextPr,d:TODAY,by:by,ok:ok,why:[why,why],c:changes.map(function(c){return {s:c.s,r:c.h,op:c.op,w:c.w}})};
+      var old=checks(st), nw=checks(stateAt(TODAY,[fake])), oldK={}; old.forEach(function(c){oldK[ckKey(c)]=1});
+      nw.filter(function(c){return (c.k==="cTd"||c.k==="cPe"||c.k==="cArch")&&!oldK[ckKey(c)]}).forEach(function(c){add("w",fmt(u("rTd"),ckMsg(c)))});
+    }
+    if(!fails&&changes.length) res.unshift(["o",u("rOk")]);
+    var diff="";
+    if(changes.length){
+      var b=ymlBlock({s:sid,h:hid}), keepAfter=after.slice();
+      diff='<span class="c">'+esc(b.path)+"\n  "+esc(b.key)+":</span>\n";
+      cur.forEach(function(x){ diff+= keepAfter.indexOf(x)>=0?"    - "+esc(x)+"\n":'<span class="d">-   - '+esc(x)+"</span>\n"});
+      after.forEach(function(x){ if(cur.indexOf(x)<0) diff+='<span class="a">+   - '+esc(x)+"   # "+TODAY+", PR #"+nextPr+"</span>\n"});
+      if(!after.length) diff+='<span class="c">    []</span>\n';
+    }
+    return {res:res,fails:fails,diff:diff,changes:changes,fake:changes.length?{id:nextPr,d:TODAY,by:by,ok:ok,why:[why,why],c:changes.map(function(c){return {s:c.s,r:c.h,op:c.op,w:c.w}}),sim:1}:null};
+  }
+  function renderChange(){
+    var a=$("cAct").value;
+    $("cWhoL").textContent=u(a==="add"?"cWhoAdd":(a==="remove"?"cWhoRem":"cWhoRep"));
+    $("cToBox").hidden=a!=="replace";
+    var v=validate(); lastVal=v;
+    var icon={f:["✕","f"],w:["!","w"],i:["i","i"],o:["✓","o"]};
+    $("cRes").innerHTML=v.res.map(function(r){return '<li><span class="ic '+icon[r[0]][1]+'">'+icon[r[0]][0]+"</span><span>"+esc(r[1])+"</span></li>"}).join("");
+    $("cDiff").innerHTML=v.diff||'<span class="c">'+esc(u("rNoDiff"))+"</span>";
+    $("cMerge").disabled=!(v.changes&&v.changes.length&&!v.fails);
+  }
+
+  function renderAll(){
+    renderStatic(); fillSelects();
+    mapTable("pRoles",MAPR); mapTable("pPh",MAPP);
+    renderOverview(); renderAssign(); renderHistory(); renderDuties(); renderChange();
+    showView();
+  }
+  function showView(){
+    var h=(location.hash||"").replace("#","");
+    var ok=["overview","assignments","history","duties","change","adapted"];
+    view=ok.indexOf(h)>=0?h:"overview";
+    [].forEach.call(document.querySelectorAll("[data-view]"),function(s){s.hidden=s.getAttribute("data-view")!==view});
+    [].forEach.call(document.querySelectorAll("#tabs a"),function(a){if(a.getAttribute("data-v")===view) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current")});
+  }
+
+  /* ---------- events ---------- */
+  function setLang(l){lang=l; try{localStorage.setItem(KEY,l)}catch(e){} renderAll()}
+  
+  window.addEventListener("hashchange",showView);
+  $("aScope").addEventListener("change",renderAssign); $("aDate").addEventListener("change",renderAssign);
+  $("aToday").addEventListener("click",function(){$("aDate").value=TODAY; renderAssign()});
+  ["hScope","hHat","hWho"].forEach(function(id){$(id).addEventListener("change",renderHistory)}); $("hQ").addEventListener("input",renderHistory);
+  ["dHat","dPh"].forEach(function(id){$(id).addEventListener("change",renderDuties)});
+  $("cScope").addEventListener("change",function(){fillHatSelect(); renderChange()});
+  ["cHat","cAct","cBy","cOk"].forEach(function(id){$(id).addEventListener("change",renderChange)});
+  ["cWho","cTo","cWhy"].forEach(function(id){$(id).addEventListener("input",renderChange)});
+  $("cMerge").addEventListener("click",function(){
+    var v=validate(); if(v.fails||!v.fake) return;
+    v.fake.id=nextPr; PRS.push(v.fake); nextPr++;
+    $("cWho").value=""; $("cTo").value=""; $("cWhy").value="";
+    renderOverview(); renderAssign(); renderHistory(); renderChange();
+    toast(fmt(u("rMerged"),v.fake.id));
+  });
+  $("cReset").addEventListener("click",function(){seed(); $("cWho").value=""; $("cTo").value=""; $("cWhy").value=""; renderOverview(); renderAssign(); renderHistory(); renderChange(); toast(u("rReset"))});
+
+  seed();
+  $("aDate").value=TODAY; $("aDate").max=TODAY;
+  renderAll();
+  $("aScope").value="FT-RB-02"; renderAssign();
+  // a realistic first state of the form: give the project_management tooling its second owner
+  $("cScope").value="RB"; fillHatSelect(); $("cHat").value="TEST"; $("cAct").value="add"; $("cWho").value="lead-b";
+  $("cBy").value="owner-a"; $("cOk").value="coord-a"; $("cWhy").value="A third tester, so the evidence at G3 never waits on one person.";
+  renderChange();
+  window.__roles={miss:function(){return MISS.slice()},state:stateAt,checks:checks,prs:function(){return PRS},lang:function(){return lang}};
+})();
+</script>
+</body>
+</html>
