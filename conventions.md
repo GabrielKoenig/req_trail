@@ -79,5 +79,7 @@ Nobody approves what they wrote. Who holds which hat lives in `roles.yml`, the s
 
 - A work issue and a pull request in the code repo name what they build: `implements: req_rb_0003@2`. A change with
   nothing to link says `no_req: refactor` (or `docs`, `build`).
-- A test carries the requirement ID as a tag, for example `Describe 'convert_to_recipe_text' -Tag 'req_rb_0003'`.
-- The index finds code and tests through these lines and tags; requirement files hold no code or test links.
+- A test carries the requirement ID in its name or in the name of its group, for example
+  `Describe 'req_rb_0003 convert_to_recipe_text'`. Test tools write these names into their JUnit XML report, which the
+  index reads, so the code repo can use any language and test tool.
+- The index finds code and tests through these lines and names; requirement files hold no code or test links.

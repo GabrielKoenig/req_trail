@@ -7,7 +7,7 @@ right heading.
 
 - **Lower snake case for every name.** File and folder names, IDs, repository and project names, labels, script,
   function and test names, checks and workflows, keys and example handles: `req_trail`, `concept.html`,
-  `req_rb_0001`, `ft_rb_01`, `test_requirements.ps1`, `gate_check`, `to_be_reviewed`, `roles_history.json`.
+  `req_rb_0001`, `ft_rb_01`, `build_index.js`, `gate_check`, `to_be_reviewed`, `roles_history.json`.
 - **This includes the example content** inside the pages, not only the repository's own files.
 - **Only a tool may force another spelling**, and the name then keeps exactly the spelling the tool needs: `CLAUDE.md`
   (Claude Code looks for it), `CODEOWNERS` and `.github/ISSUE_TEMPLATE/` (GitHub), the `.Tests.ps1` ending (Pester finds
