@@ -1,8 +1,12 @@
-# project_management
+# ReqTrail
 
-A concept for keeping the requirements, specs, mockups and changes of several projects in one Git repository.
-Every change is a pull request, so the history shows who changed what and why. Four gates, G0 to G3, turn a status
-change into a decision with a named gatekeeper, enforced through `CODEOWNERS`, branch protection and checks.
+**Requirements as code.** Write down the need; Git keeps the trail.
+
+ReqTrail is a concept for keeping the requirements, specs, mockups and changes of several projects in one Git
+repository, the way docs-as-code keeps documentation next to the code. Every change is a pull request, so the history
+shows who changed what and why. Four gates, G0 to G3, turn a status change into a decision with a named gatekeeper,
+enforced through `CODEOWNERS`, branch protection and checks. In the pages, the repository that holds the requirements
+is called `project_management`.
 
 **Status: concept.** Nothing here is set up or built. The pages describe a proposal and simulate it with example data.
 
