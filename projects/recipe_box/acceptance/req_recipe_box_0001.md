@@ -13,4 +13,4 @@ conditions:
 docs: updated
 ---
 
-Release 0.4. The CI run on the merged commit ran every test tagged `req_recipe_box_0001`; all passed.
+Release 0.4. The CI run on the merged commit ran every test with `req_recipe_box_0001` in its name; all passed.
