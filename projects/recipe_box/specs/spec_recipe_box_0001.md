@@ -20,8 +20,14 @@ renders one HTML page per recipe with `convert_to_recipe_print_html` and prints 
 
 ## Decisions
 
-Print HTML to PDF with the system's print engine. Rejected: a PDF library, because it adds a dependency and a licence
-to check for a layout that HTML already handles.
+Print HTML to PDF with the system's print engine.
+
+## Libraries considered
+
+| Part | Library | Release, licence, use | Decision |
+|---|---|---|---|
+| Printing to PDF | The system's print engine | Part of the operating system | Used |
+| Printing to PDF | A PDF library | Maintained, open source | Rejected: it adds a dependency and a licence to check for a layout that HTML already handles |
 
 ## Risks
 

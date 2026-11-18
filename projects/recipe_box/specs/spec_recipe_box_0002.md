@@ -21,6 +21,13 @@ http and https links through; any other link is printed as text.
 
 Version 2 follows `req_recipe_box_0003@2`: links other than http and https are no longer clickable.
 
+## Libraries considered
+
+| Part | Library | Release, licence, use | Decision |
+|---|---|---|---|
+| `get_safe_url` | The URL class of .NET, `System.Uri` | Part of the runtime | Used: it reads the scheme, so no pattern of our own decides what a link is |
+| `convert_to_recipe_text` | None found | | Built: the fields and their order are recipe_box's own |
+
 ## Risks
 
 A note can hold a name; the conversion passes it through unchanged and does not log it.

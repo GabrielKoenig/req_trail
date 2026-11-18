@@ -21,6 +21,17 @@ estimate_days: <best guess>
 
 <What was decided, and the alternative that was rejected, with the reason.>
 
+## Libraries considered
+
+<For every part this spec builds: the established open-source libraries or standards that could do the job, and why
+one is used or none fits. Signs of an established library: a release in the last 12 months, wide use, an organisation
+or more than one maintainer behind it, and a licence compatible with the code repo's. If nothing fits, say what was
+searched.>
+
+| Part | Library | Release, licence, use | Decision |
+|---|---|---|---|
+| <file or part> | <name> | <latest release>, <licence>, <downloads or users> | <used, or rejected: why> |
+
 ## Risks
 
 <What could go wrong, and what limits it.>

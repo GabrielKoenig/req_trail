@@ -11,6 +11,12 @@ right heading.
   that is not possible yet, record the missing enforcement as a requirement or an issue, and say so.
 - **Make the wrong thing impossible** rather than detecting it later: fixed value lists over free text, generated files
   over hand-kept copies, one source of truth over two lists that must agree.
+- **Reuse before building.** Before building a tool, parser, format, check or pattern ourselves, search for an
+  established open-source library or standard that does the job, and use it if it fits. Signs of an established
+  library: a release in the last 12 months, wide use, an organisation or more than one maintainer behind it, and a
+  licence compatible with MIT; a library that misses one needs a reason. Record the search in the section Libraries
+  considered of the spec, also when nothing fits. Enforced by `req_req_trail_0149`, a check built in work package 3;
+  until then, the review at G2.
 
 ## Naming
 
