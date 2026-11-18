@@ -24,4 +24,7 @@ right heading.
 
 - **Generic only.** No real people, organisations, employers, internal systems or customers. Examples use the made-up
   code repos `recipe_box` and `bike_rental` and role handles such as `@owner1`.
+- **One exception: req_trail's own project.** `projects/req_trail/` holds the requirements of req_trail itself, so it
+  names the real repo `GabrielKoenig/req_trail` and the maintainers' GitHub handles, spelled as GitHub has them. Later,
+  `roles.yml` and `CODEOWNERS` do the same. Nothing else in the repo names a real person or account.
 - **English only.**
