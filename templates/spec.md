@@ -2,7 +2,7 @@
 # One file per spec, at projects/<project>/specs/<id>.md. The architecture owner approves it at G2.
 id: spec_<project>_<nnnn>
 title: <short name>
-feature: ft_<project>_<nn>
+feature: feature_<project>_<nn>
 version: 1                       # +1 for every substantive change
 covers: [req_<project>_<nnnn>@1] # every requirement it builds, pinned to the version it was written for
 mockup: null                     # mockups/<name>.html, or n/a

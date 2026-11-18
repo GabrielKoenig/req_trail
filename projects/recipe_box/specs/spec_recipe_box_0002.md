@@ -1,9 +1,9 @@
 ---
-id: spec_rb_0002
+id: spec_recipe_box_0002
 title: Ingredient text conversion
-feature: ft_rb_01
+feature: feature_recipe_box_01
 version: 2
-covers: [req_rb_0003@2]
+covers: [req_recipe_box_0003@2]
 mockup: n/a
 estimate_days: 1.5
 ---
@@ -19,7 +19,7 @@ http and https links through; any other link is printed as text.
 
 ## Decisions
 
-Version 2 follows `req_rb_0003@2`: links other than http and https are no longer clickable.
+Version 2 follows `req_recipe_box_0003@2`: links other than http and https are no longer clickable.
 
 ## Risks
 
@@ -27,6 +27,6 @@ A note can hold a name; the conversion passes it through unchanged and does not 
 
 ## Review
 
-Privacy, because `req_rb_0003` carries it. Same data flow as `spec_rb_0001@1`; notes are printed, never logged.
+Privacy, because `req_recipe_box_0003` carries it. Same data flow as `spec_recipe_box_0001@1`; notes are printed, never logged.
 
 Answer of `@privacy1`: no objection.

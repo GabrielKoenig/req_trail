@@ -1,6 +1,6 @@
 ---
 # One file per feature, at projects/<project>/features/<id>.md. Hats live in roles.yml, not here.
-id: ft_<project>_<nn>
+id: feature_<project>_<nn>
 title: <short name>
 project: <project>
 goal: <what changes for the people who use it, in one sentence>

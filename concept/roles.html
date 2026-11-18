@@ -385,11 +385,11 @@ footer p{margin:0 0 8px}
     ADM:"Organisation and repository settings, branch protection and the OAuth app policy. The organisation admin account holds it; a second admin would cover absences. Second code owner of roles.yml."};
   var SC=[
     {id:"repo",lv:"repo",n:"project_management"},
-    {id:"rb",lv:"project",n:"recipe_box"},
-    {id:"ft_rb_01",lv:"feature",p:"rb",n:"PDF export"},
-    {id:"ft_rb_02",lv:"feature",p:"rb",n:"Import checker"},
-    {id:"pm",lv:"project",n:"project_management tooling"},
-    {id:"ft_pm_01",lv:"feature",p:"pm",n:"Explorer page"}
+    {id:"recipe_box",lv:"project",n:"PDF export and import checker"},
+    {id:"feature_recipe_box_01",lv:"feature",p:"recipe_box",n:"PDF export"},
+    {id:"feature_recipe_box_02",lv:"feature",p:"recipe_box",n:"Import checker"},
+    {id:"project_management",lv:"project",n:"Explorer and its tooling"},
+    {id:"feature_project_management_01",lv:"feature",p:"project_management",n:"Explorer page"}
   ];
   var SM={}; SC.forEach(function(s){SM[s.id]=s});
   function scn(s){return tr(s.n)}
@@ -399,26 +399,26 @@ footer p{margin:0 0 8px}
   var SEED=[
     {id:1,d:"2026-09-01",by:"admin1",ok:"",setup:1,why:"Repository set-up with the first owners.",c:[
       {s:"repo",r:"ADM",op:"+",w:"admin1"},
-      {s:"rb",r:"RO",op:"+",w:"owner1"},{s:"rb",r:"TL",op:"+",w:"lead1"},{s:"rb",r:"TEST",op:"+",w:"lead1"},{s:"rb",r:"DEV",op:"+",w:"dev1"},
-      {s:"pm",r:"RO",op:"+",w:"owner1"},{s:"pm",r:"TL",op:"+",w:"lead1"},{s:"pm",r:"TEST",op:"+",w:"lead1"}]},
+      {s:"recipe_box",r:"RO",op:"+",w:"owner1"},{s:"recipe_box",r:"TL",op:"+",w:"lead1"},{s:"recipe_box",r:"TEST",op:"+",w:"lead1"},{s:"recipe_box",r:"DEV",op:"+",w:"dev1"},
+      {s:"project_management",r:"RO",op:"+",w:"owner1"},{s:"project_management",r:"TL",op:"+",w:"lead1"},{s:"project_management",r:"TEST",op:"+",w:"lead1"}]},
     {id:12,d:"2026-09-24",by:"owner1",ok:"lead1",why:"@lead1 now develops in this feature, and a tester never tests their own change.",c:[
-      {s:"rb",r:"TEST",op:"+",w:"owner2"},{s:"rb",r:"TEST",op:"-",w:"lead1"}]},
+      {s:"recipe_box",r:"TEST",op:"+",w:"owner2"},{s:"recipe_box",r:"TEST",op:"-",w:"lead1"}]},
     {id:19,d:"2026-10-06",by:"owner1",ok:"lead1",why:"A second owner, so a requirement pull request has an approver other than its author.",c:[
-      {s:"rb",r:"RO",op:"+",w:"owner2"}]},
+      {s:"recipe_box",r:"RO",op:"+",w:"owner2"}]},
     {id:23,d:"2026-10-12",by:"lead1",ok:"owner1",why:"Second tech lead for holiday cover, and a second developer.",c:[
-      {s:"rb",r:"TL",op:"+",w:"lead2"},{s:"rb",r:"DEV",op:"+",w:"lead2"}]},
+      {s:"recipe_box",r:"TL",op:"+",w:"lead2"},{s:"recipe_box",r:"DEV",op:"+",w:"lead2"}]},
     {id:27,d:"2026-10-20",by:"owner1",ok:"lead1",why:"Review tags are introduced. The data protection officer joins G2 for requests tagged privacy.",c:[
-      {s:"rb",r:"DPO",op:"+",w:"privacy1"}]},
+      {s:"recipe_box",r:"DPO",op:"+",w:"privacy1"}]},
     {id:31,d:"2026-10-27",by:"lead2",ok:"owner1",why:"The sign-in change is tagged security. A reviewer is named for this feature.",c:[
-      {s:"ft_rb_02",r:"SEC",op:"+",w:"security1"}]},
+      {s:"feature_recipe_box_02",r:"SEC",op:"+",w:"security1"}]},
     {id:34,d:"2026-11-02",by:"lead2",ok:"owner2",why:"PDF export gets its own developer list: one builder.",c:[
-      {s:"ft_rb_01",r:"DEV",op:"+",w:"dev1"}]},
+      {s:"feature_recipe_box_01",r:"DEV",op:"+",w:"dev1"}]},
     {id:37,d:"2026-11-09",by:"owner2",ok:"lead1",why:"A developer also tests changes made by others.",c:[
-      {s:"rb",r:"TEST",op:"+",w:"dev1"}]},
+      {s:"recipe_box",r:"TEST",op:"+",w:"dev1"}]},
     {id:38,d:"2026-11-12",by:"lead1",ok:"lead2",why:"The explorer pilot starts: developer, second tech lead and privacy officer.",c:[
-      {s:"pm",r:"DEV",op:"+",w:"lead2"},{s:"pm",r:"TL",op:"+",w:"lead2"},{s:"pm",r:"DPO",op:"+",w:"privacy1"}]},
+      {s:"project_management",r:"DEV",op:"+",w:"lead2"},{s:"project_management",r:"TL",op:"+",w:"lead2"},{s:"project_management",r:"DPO",op:"+",w:"privacy1"}]},
     {id:39,d:"2026-11-14",by:"lead1",ok:"owner1",why:"G1 goes to the Principal Engineer and G2 to the architecture owner, so nobody approves what they wrote. The project lead coordinates: from now on they approve changes to roles.yml, and a change to the project lead's hat needs the organisation admin.",c:[
-      {s:"rb",r:"PE",op:"+",w:"principal1"},{s:"rb",r:"PL",op:"+",w:"coord1"},{s:"rb",r:"ARCH",op:"+",w:"arch1"},{s:"pm",r:"PE",op:"+",w:"principal1"},{s:"pm",r:"PL",op:"+",w:"coord1"},{s:"pm",r:"ARCH",op:"+",w:"arch1"}]}
+      {s:"recipe_box",r:"PE",op:"+",w:"principal1"},{s:"recipe_box",r:"PL",op:"+",w:"coord1"},{s:"recipe_box",r:"ARCH",op:"+",w:"arch1"},{s:"project_management",r:"PE",op:"+",w:"principal1"},{s:"project_management",r:"PL",op:"+",w:"coord1"},{s:"project_management",r:"ARCH",op:"+",w:"arch1"}]}
   ];
   var PRS=[], nextPr=40;
   function seed(){PRS=JSON.parse(JSON.stringify(SEED)); nextPr=40}
@@ -531,8 +531,8 @@ footer p{margin:0 0 8px}
     ["P7","RO","told","Is told what ships."],
     ["P7","CHK","check","Write release notes from the implements lines and link the tag to the requirements."],
     ["P8","CHK","check","Open the value review issue six weeks after the release tag."],
-    ["P8","RO","does","Compare the measured value with baseline and target. Enter value, date, source and decision in kpis.yml by pull request."],
-    ["P8","PE","decides","Approve the kpis.yml entry. The owner wrote it. A miss becomes a new request."],
+    ["P8","RO","does","Compare the measured value with baseline and target. Enter value, date, source and decision in metrics.yml by pull request."],
+    ["P8","PE","decides","Approve the metrics.yml entry. The owner wrote it. A miss becomes a new request."],
     ["P8","RO","does","Tell the community thread what came out."],
     ["P9","REQ","does","Name the requirement ID, the change wanted and the reason."],
     ["P9","RO","decides","Triage: accept or reject. Mark it substantive or editorial. A substantive change raises the version."],
@@ -575,7 +575,7 @@ footer p{margin:0 0 8px}
     ["G3 Verified and accepted","G3 Verify and accept","pTook","One gate with two keys: evidence and acceptance. Acceptance is blocked for a developer of the feature."],
     ["7 Release","7 Release","pTook","A tag, a ZIP and release notes from the implements lines. No environments, feature flags or deployment evidence."],
     ["8 Monitoring","Value review","pLeft","Replaced by the review about six weeks after the release. No error, latency or availability monitoring."],
-    ["G4 Value confirmed","Value review (not a gate)","pTook","A review that blocks nothing. The result goes into kpis.yml by pull request."],
+    ["G4 Value confirmed","Value review (not a gate)","pTook","A review that blocks nothing. The result goes into metrics.yml by pull request."],
     ["9 Change request","9 Change request","pTook","Same, with editorial versus substantive changes."],
     ["10 Retrospective","Not a phase","pLeft","The Gates view and the value review already show where it hurts. A short look back after the pilot is enough."]
   ];
@@ -620,7 +620,7 @@ footer p{margin:0 0 8px}
   }
   function hatsFor(scopeId){var sc=SM[scopeId]; return HATS.filter(function(h){return h.lv.indexOf(sc.lv)>=0})}
   function fillHatSelect(){
-    var cur=$("cHat").value, hs=hatsFor($("cScope").value||"rb");
+    var cur=$("cHat").value, hs=hatsFor($("cScope").value||"recipe_box");
     $("cHat").innerHTML=hs.map(function(h){return '<option value="'+h.id+'">'+esc(tr(h.n))+"</option>"}).join("");
     if(hs.some(function(h){return h.id===cur})) $("cHat").value=cur;
   }
@@ -654,7 +654,7 @@ footer p{margin:0 0 8px}
   }
 
   function renderAssign(){
-    var sid=$("aScope").value||"rb", sc=SM[sid], date=$("aDate").value||TODAY;
+    var sid=$("aScope").value||"recipe_box", sc=SM[sid], date=$("aDate").value||TODAY;
     var st=stateAt(date);
     var head="<thead><tr><th>"+esc(u("aHat"))+"</th><th>"+esc(u("aWho"))+"</th><th>"+esc(u("aGate"))+"</th><th>"+esc(u("aMin"))+"</th></tr></thead>";
     var body=HATS.map(function(h){
@@ -813,9 +813,9 @@ footer p{margin:0 0 8px}
   seed();
   $("aDate").value=TODAY; $("aDate").max=TODAY;
   renderAll();
-  $("aScope").value="ft_rb_02"; renderAssign();
+  $("aScope").value="feature_recipe_box_02"; renderAssign();
   // a realistic first state of the form: give the project_management tooling its second owner
-  $("cScope").value="rb"; fillHatSelect(); $("cHat").value="TEST"; $("cAct").value="add"; $("cWho").value="lead2";
+  $("cScope").value="recipe_box"; fillHatSelect(); $("cHat").value="TEST"; $("cAct").value="add"; $("cWho").value="lead2";
   $("cBy").value="owner1"; $("cOk").value="coord1"; $("cWhy").value="A third tester, so the evidence at G3 never waits on one person.";
   renderChange();
   window.__roles={miss:function(){return MISS.slice()},state:stateAt,checks:checks,prs:function(){return PRS},lang:function(){return lang}};

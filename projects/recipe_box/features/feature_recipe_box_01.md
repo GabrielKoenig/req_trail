@@ -1,7 +1,7 @@
 ---
-id: ft_rb_01
+id: feature_recipe_box_01
 title: PDF export
-project: rb
+project: recipe_box
 goal: People can print a recipe collection, or a saved selection of it, as a readable PDF.
 scope:
   - Export a collection or a saved selection as PDF

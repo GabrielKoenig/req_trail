@@ -1,9 +1,9 @@
 ---
-id: spec_rb_0001
+id: spec_recipe_box_0001
 title: PDF export pipeline
-feature: ft_rb_01
+feature: feature_recipe_box_01
 version: 1
-covers: [req_rb_0001@1]
+covers: [req_recipe_box_0001@1]
 mockup: mockups/pdf_layout.html
 estimate_days: 4
 ---
@@ -30,7 +30,7 @@ requirement.
 
 ## Review
 
-Privacy, because `req_rb_0001` carries it. Data flow: recipes are read and written on the same computer; nothing is
+Privacy, because `req_recipe_box_0001` carries it. Data flow: recipes are read and written on the same computer; nothing is
 uploaded. Least permissions: read access to the collection, write access to the target folder. Secrets: none. Logging:
 the number of recipes and the duration, no recipe content. Roll back: delete the PDF.
 

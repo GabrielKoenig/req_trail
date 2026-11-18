@@ -7,7 +7,10 @@ right heading.
 
 - **Lower snake case for every name.** File and folder names, IDs, repository and project names, labels, script,
   function and test names, checks and workflows, keys and example handles: `req_trail`, `concept.html`,
-  `req_rb_0001`, `ft_rb_01`, `build_index.js`, `gate_check`, `to_be_reviewed`, `roles_history.json`.
+  `req_recipe_box_0001`, `feature_recipe_box_01`, `build_index.js`, `gate_check`, `to_be_reviewed`, `roles_history.json`.
+- **Write names out in full.** No abbreviations in file, folder, project, ID or key names: `recipe_box`, not `rb`;
+  `feature_recipe_box_01`, not `ft_rb_01`; `metrics.yml`, not `kpis.yml`. A project is named after its code repo. The
+  only short forms are `req` and `spec`, as in `req_recipe_box_0003`, `spec_recipe_box_0002` and `no_req`.
 - **This includes the example content** inside the pages, not only the repository's own files.
 - **Only a tool may force another spelling**, and the name then keeps exactly the spelling the tool needs: `CLAUDE.md`
   (Claude Code looks for it), `CODEOWNERS` and `.github/ISSUE_TEMPLATE/` (GitHub), the `.Tests.ps1` ending (Pester finds

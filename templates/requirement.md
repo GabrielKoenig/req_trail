@@ -2,7 +2,7 @@
 # One file per requirement, at projects/<project>/requirements/<id>.md. No status: the index derives it.
 id: req_<project>_<nnnn>
 title: <short name>
-feature: ft_<project>_<nn>
+feature: feature_<project>_<nn>
 owner: "@<handle>"            # answerable for this requirement; one of the project's requirements owners
 version: 1                    # +1 for every substantive change; an editorial change keeps it
 priority: must                # must, should or could

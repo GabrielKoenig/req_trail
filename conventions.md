@@ -8,13 +8,16 @@ what. The templates in `templates/` put these rules into practice.
 Every name is lower snake case: files, folders, IDs, keys and enum values (`priority: should`). Only a tool may force
 another spelling, as listed in `CLAUDE.md`.
 
+Names are written out in full: `recipe_box`, not `rb`; `feature_`, not `ft_`; `metrics.yml`, not `kpis.yml`. The only
+short forms are `req` and `spec`, for example in `req_recipe_box_0003`, `spec_recipe_box_0002` and `no_req`.
+
 ## Layout
 
 ```
 projects/
-└─ <project>/                    # the project code, for example rb
-   ├─ project.yml                # code, name, description, code repos
-   ├─ kpis.yml                   # measured outcomes after a release
+└─ <project>/                    # the project name, for example recipe_box
+   ├─ project.yml                # name, description, code repos
+   ├─ metrics.yml                # measured outcomes after a release
    ├─ features/<feature id>.md
    ├─ requirements/<requirement id>.md
    ├─ specs/<spec id>.md
@@ -29,10 +32,10 @@ a feature. A spec says how one or more requirements are built.
 
 | Kind | Format | Example |
 |---|---|---|
-| Project | 2 to 4 lower-case letters | `rb` |
-| Feature | `ft_<project>_<nn>` | `ft_rb_01` |
-| Requirement | `req_<project>_<nnnn>` | `req_rb_0003` |
-| Spec | `spec_<project>_<nnnn>` | `spec_rb_0002` |
+| Project | the name of its code repo, in lower snake case | `recipe_box` |
+| Feature | `feature_<project>_<nn>` | `feature_recipe_box_01` |
+| Requirement | `req_<project>_<nnnn>` | `req_recipe_box_0003` |
+| Spec | `spec_<project>_<nnnn>` | `spec_recipe_box_0002` |
 | Request | the number of its issue | `#18` |
 
 - Numbers count up per project and kind, padded with zeros.
@@ -45,7 +48,7 @@ a feature. A spec says how one or more requirements are built.
 - Every requirement and spec has `version`, a whole number that starts at 1.
 - A substantive change raises the version by one. An editorial change (a typo, wording that keeps the meaning) keeps
   it; the pull request says which it is.
-- A reference to a requirement or spec names the version it was made against: `req_rb_0001@1`. This applies to
+- A reference to a requirement or spec names the version it was made against: `req_recipe_box_0001@1`. This applies to
   `depends_on`, `covers`, `links.spec` and `requirement`.
 - When the target moves to a higher version, every reference to the old one is suspect until someone confirms it.
 
@@ -77,9 +80,9 @@ Nobody approves what they wrote. Who holds which hat lives in `roles.yml`, the s
 
 ## Links to code and tests
 
-- A work issue and a pull request in the code repo name what they build: `implements: req_rb_0003@2`. A change with
+- A work issue and a pull request in the code repo name what they build: `implements: req_recipe_box_0003@2`. A change with
   nothing to link says `no_req: refactor` (or `docs`, `build`).
 - A test carries the requirement ID in its name or in the name of its group, for example
-  `Describe 'req_rb_0003 convert_to_recipe_text'`. Test tools write these names into their JUnit XML report, which the
+  `Describe 'req_recipe_box_0003 convert_to_recipe_text'`. Test tools write these names into their JUnit XML report, which the
   index reads, so the code repo can use any language and test tool.
 - The index finds code and tests through these lines and names; requirement files hold no code or test links.

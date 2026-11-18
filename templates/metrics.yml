@@ -1,6 +1,6 @@
-# Measured outcomes, at projects/<project>/kpis.yml: one entry per value review, added by pull request.
+# Measured outcomes, at projects/<project>/metrics.yml: one entry per value review, added by pull request.
 # About six weeks after a release, the owner compares the feature's metric with its baseline and target.
-- feature: ft_<project>_<nn>
+- feature: feature_<project>_<nn>
   release: "<release>"
   date: <yyyy-mm-dd>
   value: <measured value>

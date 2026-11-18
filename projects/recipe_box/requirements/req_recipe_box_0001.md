@@ -1,7 +1,7 @@
 ---
-id: req_rb_0001
+id: req_recipe_box_0001
 title: Export a collection as PDF
-feature: ft_rb_01
+feature: feature_recipe_box_01
 owner: "@owner1"
 version: 1
 priority: must
@@ -17,5 +17,5 @@ acceptance:
   - The PDF opens without a repair prompt.
 links:
   mockup: mockups/pdf_layout.html
-  spec: spec_rb_0001@1
+  spec: spec_recipe_box_0001@1
 ---
