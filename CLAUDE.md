@@ -3,6 +3,15 @@
 Rules for working in this repository. They apply to every session. Keep this file short and add each rule under the
 right heading.
 
+## General
+
+- **Safe by design.** A rule that matters is enforced by the system, not by a sentence someone has to remember: a schema
+  or class that rejects wrong data, a check that fails the pull request, a test that names the requirement, a safe
+  default. Prose explains why; it is never the only safeguard. Add the enforcement in the same change as the rule. If
+  that is not possible yet, record the missing enforcement as a requirement or an issue, and say so.
+- **Make the wrong thing impossible** rather than detecting it later: fixed value lists over free text, generated files
+  over hand-kept copies, one source of truth over two lists that must agree.
+
 ## Naming
 
 - **Lower snake case for every name.** File and folder names, IDs, repository and project names, labels, script,
