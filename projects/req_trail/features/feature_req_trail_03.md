@@ -1,11 +1,12 @@
 ---
 id: feature_req_trail_03
-title: Schemas and validator
+title: Model, schemas and validator
 project: req_trail
 goal: >
   A pull request cannot merge a file that breaks the format or points to something that does not exist.
 scope:
-  - JSON Schemas per file type
+  - One class per object type that loads a file only through its schema
+  - JSON Schemas per object type and format version, the single source of fields and values
   - validate on every pull request
   - Ready and Done checks in gate_check
   - "Engine-wide constraints: Node.js, no build step, tests"
@@ -22,5 +23,5 @@ metric:
 target_release: "1.0"
 ---
 
-Built in work package 3. It holds 25 requirements. The baseline is an estimate; the value review after
+Built in work package 3. It holds 28 requirements. The baseline is an estimate; the value review after
 the release measures it.

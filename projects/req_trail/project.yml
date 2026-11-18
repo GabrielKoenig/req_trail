@@ -1,4 +1,5 @@
 name: req_trail
+format_version: 1
 description: The engine that keeps requirements as code, with its checks, index builder, explorer and reusable workflows.
 code_repos:
   - GabrielKoenig/req_trail

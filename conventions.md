@@ -3,6 +3,11 @@
 The rules every file in `projects/` follows. The concept page (`concept/concept.html`) explains why; this page says
 what. The templates in `templates/` put these rules into practice.
 
+This page explains the format; it does not enforce it. The format is defined by the JSON Schemas in
+`model/format_<n>/`, and the engine loads a file only through the class of its object type, which rejects what the
+schema does not allow. Until work package 3 builds the schemas and the classes, nothing checks these rules
+automatically: the review at G1 is the only safeguard, and the tables below are kept by hand.
+
 ## Names
 
 Every name is lower snake case: files, folders, IDs, keys and enum values (`priority: should`). Only a tool may force
@@ -16,7 +21,7 @@ short forms are `req` and `spec`, for example in `req_recipe_box_0003`, `spec_re
 ```
 projects/
 └─ <project>/                    # the project name, for example recipe_box
-   ├─ project.yml                # name, description, code repos
+   ├─ project.yml                # name, format version, description, code repos
    ├─ metrics.yml                # measured outcomes after a release
    ├─ features/<feature id>.md
    ├─ requirements/<requirement id>.md
@@ -51,6 +56,23 @@ a feature. A spec says how one or more requirements are built.
 - A reference to a requirement or spec names the version it was made against: `req_recipe_box_0001@1`. This applies to
   `depends_on`, `covers`, `links.spec` and `requirement`.
 - When the target moves to a higher version, every reference to the old one is suspect until someone confirms it.
+
+## Format versions
+
+- **Every project names its format.** `project.yml` holds `format_version`, a whole number. It applies to every file of
+  the project.
+- **A released format never changes.** At each engine release, the checksums of its schemas are recorded, and a test
+  fails when a released schema differs from them.
+- **Every change to the format is a new format version with a migration** from the version before it, in
+  `model/migrations/format_<n>_to_<n+1>.js`. When nothing changes, there is no new version and no migration.
+- **A migration changes the structure of the files, never their content.** The migration runner rejects a result that
+  changes an ID, a statement or a version, or that breaks the schema of the new format.
+- **Older formats stay readable.** The engine applies the migrations in memory and leaves the files as they are;
+  `migrate` writes the migrated files as one pull request.
+- **A new format version comes only with a new major engine version,** so a project pinned to `@v1` never meets a format
+  its files are not in.
+- **Format 1 is released with engine 1.0.** Until then it may still change without a migration, because no project
+  outside this repo uses it.
 
 ## Fields with fixed values
 

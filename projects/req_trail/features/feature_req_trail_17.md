@@ -6,6 +6,7 @@ goal: >
   A team sets up a project repo in an hour and gets engine fixes by changing one version number.
 scope:
   - Engine releases with version tags
+  - "Format versions: frozen once released, one migration per change, migrate as a pull request"
   - Reusable workflows
   - Project template repo
   - Optional hub
@@ -21,5 +22,5 @@ metric:
 target_release: "1.0"
 ---
 
-Built in work package 17. It holds 8 requirements. The baseline is an estimate; the value review after
+Built in work package 17. It holds 14 requirements. The baseline is an estimate; the value review after
 the release measures it.
