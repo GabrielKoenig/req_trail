@@ -52,6 +52,26 @@ a feature. A spec says how one or more requirements are built.
   `depends_on`, `covers`, `links.spec` and `requirement`.
 - When the target moves to a higher version, every reference to the old one is suspect until someone confirms it.
 
+## Fields with fixed values
+
+A field with a fixed list takes one of these values, spelled exactly as shown. The lists are the same in every project,
+so a mapping to the values of another tool, such as a requirements management tool, is written once.
+
+| Field | Values |
+|---|---|
+| `priority` | `must`, `should`, `could` |
+| `type` | `functional`: something the system does; `non_functional`: how well it does it; `constraint`: a limit on how it may be built, such as a language, platform or licence |
+| `category` | `security`, `privacy`, `usability`, `performance`; only when `type` is `non_functional`, otherwise `""` |
+| `reviews` | a list of `privacy` and `security`, or `[]`; `reviews_reason` says why in both cases |
+
+## Text fields
+
+- `statement` is one sentence with "shall", in plain text. Code in backticks is fine; tables, images, lists and links
+  are not, because an export to ReqIF carries the text as simple XHTML.
+- `rationale` is one sentence on why the requirement exists: the problem it solves or the need behind it. It travels
+  with the requirement into an export; the request issue does not.
+- Notes below the front matter are optional and are not exported.
+
 ## Statuses
 
 No file holds a status. The index derives it from what happened in GitHub:

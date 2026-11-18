@@ -390,7 +390,7 @@ select.sel{text-overflow:ellipsis}
     <div class="crumb">Requirements as code / <span class="grad-text"><b>project_management</b></span></div>
     <span class="tag">Proposal &middot; generic example</span>
   </header>
-  <nav class="toc" aria-label="Sections"><a href="#process">Process</a><a href="#gates">Gates</a><a href="#where">Repos and issues</a><a href="#intake">Community intake</a><a href="#demo">Demo app</a><a href="#obsidian">Obsidian</a><a href="#arch">Architecture</a><a href="#quality">Quality and editing</a><a href="#deploy">Options</a><a href="#estimate">Estimate</a><a href="#review">Review list</a><a href="roles.html">Roles dashboard</a></nav>
+  <nav class="toc" aria-label="Sections"><a href="#process">Process</a><a href="#gates">Gates</a><a href="#where">Repos and issues</a><a href="#intake">Community intake</a><a href="#demo">Demo app</a><a href="#obsidian">Obsidian</a><a href="#arch">Architecture</a><a href="#quality">Quality and editing</a><a href="#compatibility">RM tools</a><a href="#deploy">Options</a><a href="#estimate">Estimate</a><a href="#review">Review list</a><a href="roles.html">Roles dashboard</a></nav>
 
   <div class="hero">
     <div>
@@ -1071,15 +1071,18 @@ Closes #31</pre>
 <span class="k">feature</span><span class="p">:</span> <span class="s">feature_recipe_box_01</span>
 <span class="k">owner</span><span class="p">:</span> <span class="s">"@owner1"</span>
 <span class="k">depends_on</span><span class="p">:</span> <span class="p">[</span><span class="s">req_recipe_box_0001@1</span><span class="p">]</span>   <span class="c"># pinned to a version</span>
-<span class="k">priority</span><span class="p">:</span> <span class="s">Should</span>
+<span class="k">priority</span><span class="p">:</span> <span class="s">should</span>
 <span class="k">version</span><span class="p">:</span> <span class="n">2</span>               <span class="c"># raised by every substantive change; no status: the index derives it</span>
-<span class="k">category</span><span class="p">:</span> <span class="s">""</span>            <span class="c"># NFRs: security, privacy, usability ...</span>
+<span class="k">type</span><span class="p">:</span> <span class="s">functional</span>    <span class="c"># or non_functional, constraint</span>
+<span class="k">category</span><span class="p">:</span> <span class="s">""</span>            <span class="c"># only for non_functional: security, privacy ...</span>
 <span class="k">reviews</span><span class="p">:</span> <span class="p">[</span><span class="s">privacy</span><span class="p">]</span>         <span class="c"># [] is allowed, with a reason</span>
 <span class="k">reviews_reason</span><span class="p">:</span> <span class="s">"Person columns can hold names"</span>
 <span class="k">source</span><span class="p">:</span> <span class="s">"#18"</span>          <span class="c"># issue that asked for it</span>
-<span class="k">statement</span><span class="p">: &gt;</span>   <span class="c"># in English, like the issues</span>
+<span class="k">statement</span><span class="p">: &gt;</span>   <span class="c"># plain text, in English</span>
   The PDF shall show amounts, units, links and
   notes as readable text.
+<span class="k">rationale</span><span class="p">:</span> <span class="s">"Raw amounts and link markup make a</span>
+  <span class="s">printed recipe hard to cook from."</span>
 <span class="k">acceptance</span><span class="p">:</span>
   - An amount shows with its unit.
   - Only http and https links stay clickable.
@@ -1108,6 +1111,43 @@ Closes #31</pre>
         <li><b>Propose change.</b> For people who would rather not touch YAML, it opens the change request form, filled in with the ID and the version. A workflow turns the form into a pull request that changes the file, so the validator and the gates run as usual.</li>
         <li><b>The pull request is the record</b> either way: who changed what, who approved it, and whether the version rose.</li>
         <li><b>Both need a GitHub account.</b> Editing inside the page with GitHub sign-in is left out: the sign-in needs a server to keep its secret, and the page would hold a token (D7).</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- COMPATIBILITY WITH RM TOOLS -->
+  <section id="compatibility">
+    <div class="eyebrow">Compatibility</div>
+    <h2>Ready for a requirements management tool, without a second master</h2>
+    <p class="sub">Some organisations keep their requirements in a requirements management (RM) tool such as reqSuite rm, IBM DOORS or Polarion, and exchange them through ReqIF, the standard exchange format, or through Excel. req_trail stays the master for its projects. Its fields are chosen so that an export maps cleanly, and no file has to change when an exporter is added later.</p>
+    <div class="tw"><table class="t">
+      <thead><tr><th>Field in req_trail</th><th>In an RM tool</th><th>Why it maps cleanly</th></tr></thead>
+      <tbody>
+        <tr><td><code>id</code></td><td>Identifier</td><td>Never reused or renamed, so it can serve as the foreign ID.</td></tr>
+        <tr><td><code>version</code></td><td>Version</td><td>A whole number, raised by every substantive change.</td></tr>
+        <tr><td><code>title</code>, <code>statement</code></td><td>Name and text</td><td>The statement is plain text, so it fits the XHTML text field of ReqIF.</td></tr>
+        <tr><td><code>rationale</code></td><td>Rationale</td><td>One sentence on why the requirement exists. It travels with the requirement; the request issue does not.</td></tr>
+        <tr><td><code>type</code>, <code>category</code></td><td>Requirement type and quality category</td><td>Fixed lists: functional, non-functional or constraint, and security, privacy, usability or performance.</td></tr>
+        <tr><td><code>priority</code></td><td>Priority</td><td>Must, should or could.</td></tr>
+        <tr><td><code>owner</code>, <code>acceptance</code></td><td>Responsible person and acceptance criteria</td><td>One handle, and a list of criteria that can each be checked.</td></tr>
+        <tr><td><code>feature</code></td><td>Parent in the hierarchy</td><td>Every requirement belongs to exactly one feature.</td></tr>
+        <tr><td><code>depends_on</code>, <code>links.spec</code></td><td>Relations</td><td>Most tools keep no version on a relation, so the pinned version goes into an attribute.</td></tr>
+        <tr><td><code>source</code></td><td>Origin</td><td>The request issue, written out as its full URL.</td></tr>
+        <tr><td>Status, last change, author, approvals</td><td>Status and history attributes</td><td>No file stores them; the export takes them from the index and from git.</td></tr>
+      </tbody></table></div>
+    <div class="two" style="margin-top:16px">
+      <div class="card"><h3>In version 1: the fields and their checks</h3><ul>
+        <li><b>Every requirement says what kind it is.</b> <code>type</code> is functional, non_functional or constraint; a non-functional requirement also names its <code>category</code>.</li>
+        <li><b>Every requirement says why.</b> <code>rationale</code> holds one sentence. Notes below the front matter stay optional and are not exported.</li>
+        <li><b>Value lists are fixed</b> in <code>conventions.md</code>, so a mapping to another tool's values is written once.</li>
+        <li><b>The statement is plain text:</b> code in backticks is allowed, tables, images, lists and links are not.</li>
+        <li><b>The validator checks all of it</b> on every pull request, like the other fields (work package 3).</li>
+      </ul></div>
+      <div class="card"><h3>Later: export and import</h3><ul>
+        <li><b>An exporter</b> reads <code>index.json</code> and writes ReqIF first, and CSV for Excel as the cheap option. It needs no new field.</li>
+        <li><b>Import opens a pull request.</b> A script turns an RM tool's export into requirement files on a branch, so imported requirements pass the gates like any other.</li>
+        <li><b>One master per project, no two-way sync.</b> Two masters drift apart, and then nobody knows which one is right.</li>
+        <li><b>Not verified yet:</b> how a given tool maps ReqIF attributes, and whether it keeps the foreign ID on import (B14).</li>
       </ul></div>
     </div>
   </section>
@@ -1174,7 +1214,7 @@ Closes #31</pre>
     <div class="card" style="margin-top:16px"><h3>Explicitly not in v1</h3><ul>
       <li>Editing inside the browser page or in Obsidian. The explorer's Edit and Propose change buttons hand over to GitHub's editor and forms; Obsidian is a reader.</li>
       <li>A generated Obsidian vault and a Quartz site for reading it in a browser, and vote counts in the index. Opening the repo folder in Obsidian works without any of it.</li>
-      <li>Import and export of ReqIF, or a two-way sync with Jira.</li>
+      <li>An exporter to ReqIF or CSV, an importer, and any two-way sync with an RM tool or Jira. The fields are ready for them (see <a href="#compatibility">RM tools</a>).</li>
       <li>E-signatures and audit reports for regulated approval.</li>
       <li>Coverage numbers, load tests, environments, deployments, feature flags and monitoring. The tools run on user PCs, so a release is a tag and a ZIP. v1 reads pass or fail per requirement, nothing more.</li>
       <li>KPI trends over time. They need status history from git and come after the pilot.</li>
@@ -1199,7 +1239,7 @@ Closes #31</pre>
       <li class="rvi"><input type="checkbox" class="rvc" id="rvc-A8" data-rv="A8"><div class="rvb"><div class="rvh"><span class="rvid">A8</span><span class="tagx gr">Author</span></div><label for="rvc-A8">Require two-factor authentication in the organisation</label><p>Once it is on, GitHub removes every member and outside collaborator who has not set it up.</p><p class="rvr"><i>Suggestion:</i> Ask everyone first, then switch it on in the organisation's authentication settings.</p></div></li>
       <li class="rvi"><input type="checkbox" class="rvc" id="rvc-A9" data-rv="A9"><div class="rvb"><div class="rvh"><span class="rvid">A9</span><span class="tagx gr">Author</span></div><label for="rvc-A9">One repo for all projects, or one repo per project</label><p>One shared repo keeps approved content safe, because <code>CODEOWNERS</code> gives every project folder its own gatekeepers. But GitHub gives permissions per repo: everyone with write access sees every project, can relabel any issue and push branches anywhere, and all projects share settings and secrets. One repo per project, created from the project template, gives each project its own permissions, branch protection and visibility.</p><p class="rvr"><i>Suggestion:</i> One shared repo for a small team that trusts each other and has nothing confidential; one repo per project as soon as teams are separate or a project is confidential. The format is the same, so a project can move later (C13).</p></div></li>
     </ul>
-    <h3 class="sh">Not verified yet <span class="crumb">(13)</span></h3>
+    <h3 class="sh">Not verified yet <span class="crumb">(14)</span></h3>
     <p class="sub">Things assumed or only read about. Check them before you rely on them.</p>
     <ul class="rvl">
       <li class="rvi"><input type="checkbox" class="rvc" id="rvc-B1" data-rv="B1"><div class="rvb"><div class="rvh"><span class="rvid">B1</span><span class="tagx gr">Author</span></div><label for="rvc-B1">Which test name reaches the JUnit XML report?</label><p>The test evidence depends on it: the index finds the requirement ID in the name of a test or of its group. Not tried.</p><p class="rvr"><i>How to check:</i> A short spike with Pester and pytest: one test with the ID in its group name, written as JUnit XML. If a tool drops the group name, the ID goes into the test name itself.</p></div></li>
@@ -1215,6 +1255,7 @@ Closes #31</pre>
       <li class="rvi"><input type="checkbox" class="rvc" id="rvc-B11" data-rv="B11"><div class="rvb"><div class="rvh"><span class="rvid">B11</span><span class="tagx gr">Author</span></div><label for="rvc-B11">The wording of the six privacy and security questions</label><p>They decide when the data protection officer is asked.</p><p class="rvr"><i>How to check:</i> Let the data protection officer read them and say whether they are the right six, or whether one is missing.</p></div></li>
       <li class="rvi"><input type="checkbox" class="rvc" id="rvc-B12" data-rv="B12"><div class="rvb"><div class="rvh"><span class="rvid">B12</span><span class="tagx gr">Author</span></div><label for="rvc-B12">GitHub's web editor on a protected branch</label><p>The Edit button relies on GitHub offering a new branch and a pull request when <code>main</code> is protected, and a fork for people without write access. Read in the documentation, not tried.</p><p class="rvr"><i>How to check:</i> Try it with a second account on a test repo: once with write access, once without.</p></div></li>
       <li class="rvi"><input type="checkbox" class="rvc" id="rvc-B13" data-rv="B13"><div class="rvb"><div class="rvh"><span class="rvid">B13</span><span class="tagx gr">Author</span></div><label for="rvc-B13">An AI review in CI: provider, cost and data</label><p>The optional AI review needs an API key and sends requirement text to the provider. The cost per pull request and what the provider keeps are not checked.</p><p class="rvr"><i>How to check:</i> Check the provider's terms with the data protection officer before turning it on. It stays off by default.</p></div></li>
+      <li class="rvi"><input type="checkbox" class="rvc" id="rvc-B14" data-rv="B14"><div class="rvb"><div class="rvh"><span class="rvid">B14</span><span class="tagx gr">Author</span></div><label for="rvc-B14">How an RM tool imports ReqIF</label><p>The fields are chosen so that a ReqIF export maps cleanly. How a given tool such as reqSuite rm maps ReqIF attributes, whether it keeps the foreign ID on import, and whether a relation can carry a version are taken from vendor pages, not tried.</p><p class="rvr"><i>How to check:</i> Before an exporter is built, export two example requirements as ReqIF, import them into a trial of the tool, and compare the fields with the mapping table under RM tools.</p></div></li>
     </ul>
     <h3 class="sh">Taken into the concept <span class="crumb">(15)</span></h3>
     <p class="sub">The main design decisions, with the reason.</p>
@@ -1958,9 +1999,9 @@ Closes #31</pre>
   "use strict";
   // Work packages: one source for the table, the Gantt, the KPIs and the verdict text.
   var WP=[
-    {id:"WP1",n:"Repo skeleton and ID scheme",k:"setup",lo:.75,d:1,hi:1.5,ai:0.25,dep:[],sc:"Folders, readme, templates, project.yml, ID and status rules",re:"Layout of recipe_box"},
+    {id:"WP1",n:"Repo skeleton and ID scheme",k:"setup",lo:.75,d:1,hi:1.5,ai:0.25,dep:[],sc:"Folders, readme, templates, project.yml, ID and status rules, fixed value lists",re:"Layout of recipe_box"},
     {id:"WP2",n:"Issue forms and PR template",k:"setup",lo:.75,d:1.25,hi:1.75,ai:0.5,dep:["WP1"],sc:"Request form that asks for the need (problem, who, how often, outcome, source) and six privacy and security questions, Change request form, labels, pull request template with the Ready and Done lists, and the changes to the issue template (implements and Feature lines, the ID with version in each requirement row, violates for bugs)",re:"Ticket structure of the issue template"},
-    {id:"WP3",n:"Schemas and validator",k:"code",lo:2.5,d:3,hi:4,ai:1,dep:["WP1"],sc:"JSON Schemas for requirement and spec, ID uniqueness, link resolution, depends_on pinned to a version, owner, acceptance, category and reviews with a reason, Ready and Done checks in gate_check, and a warn-only scan of the diff for e-mail addresses and your internal domain",re:"-"},
+    {id:"WP3",n:"Schemas and validator",k:"code",lo:2.5,d:3,hi:4,ai:1,dep:["WP1"],sc:"JSON Schemas for requirement and spec, ID uniqueness, link resolution, depends_on pinned to a version, owner, acceptance, type, category, rationale, a plain-text statement and reviews with a reason, Ready and Done checks in gate_check, and a warn-only scan of the diff for e-mail addresses and your internal domain",re:"-"},
     {id:"WP4",n:"Index builder and matrix",k:"code",lo:2.5,d:3,hi:4,ai:1,dep:["WP3"],sc:"index.json, trace matrix, suspect links, changelog, time waiting at each gate",re:"Validator parser from WP3"},
     {id:"WP5",n:"PR checks and review rules",k:"code",lo:1.5,d:2,hi:3,ai:1.25,dep:["WP3"],sc:"validate workflow, CODEOWNERS with one owner list per gate, branch protection: code-owner review, no direct push, stale approvals dismissed when new commits are pushed; workflow that requests the data protection officer or the security reviewer on tagged spec pull requests, with a required check; a test repo to try these rules first (B3, B4, B10)",re:"PR flow of recipe_box"},
     {id:"WP6",n:"Explorer page on Pages",k:"code",lo:3,d:3.5,hi:4.5,ai:1,dep:["WP4"],sc:"Explorer, matrix, history, and map and network views of the dependencies, reading index.json",re:"Styles and mock of this page"},
