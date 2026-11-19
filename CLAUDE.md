@@ -33,6 +33,14 @@ right heading.
   `sphinx-needs`.
 - **GitHub user and organisation names cannot contain `_`.** Example handles and organisations are one lower-case word,
   with a number where needed: `@owner1`, `@lead2`, `yourorg`.
+- **A branch name has three levels: `<step>/<type>/<name>`,** for example `spec/feature/issue31_pdf_export`.
+  - The step is the process step whose review the change needs: `concept` (the concept, rules and templates),
+    `requirement` (G1), `spec` (G2), `implementation` (code, tests and setup) or `acceptance` (G3).
+  - The type is one of the types of Conventional Branch: `feature`, `bugfix`, `hotfix`, `release` or `chore`.
+  - The name is lower snake case. When the change closes an issue, it starts with `issue<number>_`, the issue's number
+    on GitHub, never a requirement or feature ID.
+  - If the session started on another branch, rename it with `git branch -m` before the first commit. Enforced by
+    `req_req_trail_0150`, a check built in work package 5; until then, the review.
 - **Prose stays prose.** Headings, sentences, gate names (G0 to G3), statuses and hat names are written normally.
 
 ## Content
