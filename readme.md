@@ -21,6 +21,8 @@ req_trail/
 │  ├─ recipe_box/     # example project with made-up data
 │  └─ req_trail/      # req_trail's own requirements
 ├─ concept/           # the concept page and the roles dashboard
+├─ setup/             # the one-click setup of a maintainer's PC on Windows
+├─ install_prerequisites.cmd
 ├─ CLAUDE.md          # rules for AI assistants working in this repository
 ├─ readme.md
 └─ license
@@ -37,6 +39,12 @@ req_trail/
 | `CLAUDE.md` | Rules for AI assistants working in this repository: lower snake case for every name, written out in full, generic English content |
 
 Open the HTML files in a browser; they need no server, and the two concept pages link to each other.
+
+## Setup
+
+The engine's tools are JavaScript on Node. On Windows, double-click `install_prerequisites.cmd`: it checks for Git and
+Node.js 22 or newer and installs what is missing with winget. `install_prerequisites.cmd -check_only` only reports. On
+other systems, install Git and Node.js LTS by hand. The concept pages need neither.
 
 ## Adding a project
 

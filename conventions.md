@@ -128,3 +128,18 @@ Nobody approves what they wrote. Who holds which hat lives in `roles.yml`, the s
   `Describe 'req_recipe_box_0003 convert_to_recipe_text'`. Test tools write these names into their JUnit XML report, which the
   index reads, so the code repo can use any language and test tool.
 - The index finds code and tests through these lines and names; requirement files hold no code or test links.
+
+## Languages and test tools
+
+Each part is tested with the tool of its own language. req_trail prescribes no test tool for a code repo; it reads only
+JUnit XML.
+
+| Part | Language | Tests with | What req_trail reads |
+|---|---|---|---|
+| req_trail's engine: checks, index builder, explorer | JavaScript on Node | Node's test runner, `node --test` | JUnit XML from `node --test --test-reporter=junit`, like any code repo |
+| A code repo, such as `recipe_box` | Its own; `recipe_box` is PowerShell | Its own; `recipe_box` uses Pester | JUnit XML, with the requirement ID in the name of the test or of its group |
+| The setup of a maintainer's PC, in `setup/` | PowerShell, on Windows | A manual run | Nothing |
+
+- The engine needs Git and Node.js 22 or newer, and nothing else at run time. On Windows, `install_prerequisites.cmd`
+  installs both.
+- A test tool that cannot write JUnit XML needs a converter in the code repo's CI before its results count as evidence.
