@@ -1,3 +1,8 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="logo/logo_on_dark.svg">
+  <img src="logo/logo_on_light.svg" alt="req_trail logo" width="96">
+</picture>
+
 # req_trail
 
 **Requirements as code.** Write down the need; Git keeps the trail.
@@ -21,6 +26,7 @@ req_trail/
 │  ├─ recipe_box/     # example project with made-up data
 │  └─ req_trail/      # req_trail's own requirements
 ├─ concept/           # the concept page and the roles dashboard
+├─ logo/              # the logo as SVG, for dark and light backgrounds
 ├─ setup/             # the one-click setup of a maintainer's PC on Windows
 ├─ install_prerequisites.cmd
 ├─ CLAUDE.md          # rules for AI assistants working in this repository
@@ -36,6 +42,7 @@ req_trail/
 | `projects/req_trail/` | req_trail's own requirements: one feature per work package, and for each requirement its rationale and the acceptance criteria that say how it is tested. The dry run takes them through the gates like any project |
 | `concept/concept.html` | The concept page: the process from request to technical spec, the gates, repos and issues, community intake, a working demo of the requirements tracker, Obsidian as a viewer, the architecture, options, an effort estimate and a review list |
 | `concept/roles.html` | The roles dashboard: hats instead of people, duties per phase and gate, a simulated history of who held which hat, and the checks that read the roles |
+| `logo/` | The logo as SVG, one file for dark and one for light backgrounds (see [Logo](#logo)) |
 | `CLAUDE.md` | Rules for AI assistants working in this repository: lower snake case for every name, written out in full, generic English content |
 
 Open the HTML files in a browser; they need no server, and the two concept pages link to each other.
@@ -55,6 +62,13 @@ other systems, install Git and Node.js LTS by hand. The concept pages need neith
 All example data is made up. The example code repo is `recipe_box`, a fictional PowerShell tool set with a PDF export of
 recipe collections and an import checker. People appear only as role handles such as `@owner1` or `@lead1`. Every name
 is in lower snake case, except where a tool needs another spelling (see `CLAUDE.md`).
+
+## Logo
+
+The logo is an R drawn as a Git graph inside an open seal. Main, in gold, starts at the open ring at the foot of the
+stem and runs up to the middle commit and out along the leg. A branch, in blue, leaves main there, goes up and around
+the bowl and merges back where the leg begins. The leg runs out through a gap in the seal and ends in a release tag:
+the need comes in as an open ring and leaves as a tagged release.
 
 ## Licence
 

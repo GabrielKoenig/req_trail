@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>req_trail roles</title>
+<link rel="icon" type="image/svg+xml" href="../logo/logo_on_dark.svg">
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
 /* Layout: one tabbed dashboard in the look of the concept page (gold on dark, dark only). Hats on the left, time on the right. */
@@ -23,7 +24,7 @@ code{font-family:var(--mono);font-size:12.5px;color:var(--gold-t);background:#1b
 .wrap{max-width:1340px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
 .top{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:8px;font-weight:600}
-.dot{width:10px;height:10px;border-radius:50%;background:var(--gold-d)}
+.brand svg{width:22px;height:22px;flex:none}
 .crumb{color:var(--g09)}
 .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .tag{margin-left:auto;font-size:12px;color:var(--g12);border:1px solid var(--g05);border-radius:20px;padding:3px 10px}
@@ -124,12 +125,13 @@ footer p{margin:0 0 8px}
 <body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="logo" viewBox="0 0 40 40"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd75e"/><stop offset=".55" stop-color="#f0b90b"/><stop offset="1" stop-color="#b78a00"/></linearGradient></defs><circle cx="20" cy="20" r="19" fill="url(#lg)"/><text x="20" y="25" text-anchor="middle" font-family="Segoe UI,system-ui,sans-serif" font-weight="800" font-size="13" fill="#1a1400">RT</text></symbol>
+  <!-- Logo: an R drawn as a Git graph in an open seal. Main (gold) runs from the start ring to the release tag, a branch (blue) goes up and around the bowl. Same drawing as logo/logo_on_dark.svg. -->
+  <symbol id="logo" viewBox="5 5 92 92"><defs><mask id="logo_cut" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><g fill="#000"><circle cx="37.84" cy="47" r="6.8"/><circle cx="54.48" cy="50.2" r="6.8"/><circle cx="37.84" cy="22.68" r="6.8"/><circle cx="62.16" cy="34.84" r="6.8"/><circle cx="37.84" cy="71.32" r="5.1"/><circle cx="80.3" cy="87.1" r="5.1"/></g></mask></defs><g stroke="none"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M70 84.64A40 40 0 1 1 80.64 75.71" stroke="#f0b90b" stroke-width="3"/><g mask="url(#logo_cut)" stroke-width="4.8"><path d="M37.84 47V22.68H49.36C58.32 22.68 62.16 27.8 62.16 34.84C62.16 41.88 58.32 47 54.48 50.2" stroke="#569cc6"/><path d="M37.84 71.32V47H45.52C50 47 52.56 48.28 54.48 50.2L80.3 87.1" stroke="#f0b90b"/></g><circle cx="37.84" cy="71.32" r="6.5" stroke="#f0b90b" stroke-width="2.8"/><g transform="translate(80.3 87.1) rotate(55)"><path d="M-5.1 0L-1.07 -4.03H6.08V4.03H-1.07ZM0.37 0a1.24 1.24 0 1 0 -2.48 0a1.24 1.24 0 1 0 2.48 0Z" fill="#f0b90b" fill-rule="evenodd"/><path d="M-5.1 0L-1.07 -4.03H6.08V4.03H-1.07Z" stroke="#f0b90b" stroke-width="1.4"/></g></g><circle cx="37.84" cy="47" r="5.2" fill="#f0b90b"/><circle cx="54.48" cy="50.2" r="5.2" fill="#f0b90b"/><circle cx="37.84" cy="22.68" r="5.2" fill="#569cc6"/><circle cx="62.16" cy="34.84" r="5.2" fill="#569cc6"/></g></symbol>
 </svg>
 
 <div class="wrap">
   <header class="top">
-    <div class="brand"><span class="dot"></span>req_trail</div>
+    <div class="brand"><svg aria-hidden="true"><use href="#logo"/></svg>req_trail</div>
     <div class="crumb">Requirements as code / project_management / <span class="grad-text"><b data-i="crumb"></b></span></div>
     <span class="tag" data-i="tag"></span>
     

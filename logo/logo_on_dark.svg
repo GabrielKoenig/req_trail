@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="5 5 92 92" width="92" height="92" role="img" aria-labelledby="logo_title">
+  <title id="logo_title">req_trail</title>
+  <!-- An R drawn as a Git graph in an open seal. Main (gold) runs from the start ring at the foot of the stem
+       to the release tag at the end of the leg. A branch (blue) goes up and around the bowl and merges back.
+       The leg leaves the seal: the release goes out to the people who asked for it. For dark backgrounds. -->
+  <defs>
+    <mask id="logo_cut" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
+      <rect width="100" height="100" fill="#fff"/>
+      <g fill="#000">
+        <circle cx="37.84" cy="47" r="6.8"/>
+        <circle cx="54.48" cy="50.2" r="6.8"/>
+        <circle cx="37.84" cy="22.68" r="6.8"/>
+        <circle cx="62.16" cy="34.84" r="6.8"/>
+        <circle cx="37.84" cy="71.32" r="5.1"/>
+        <circle cx="80.3" cy="87.1" r="5.1"/>
+      </g>
+    </mask>
+  </defs>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M70 84.64A40 40 0 1 1 80.64 75.71" stroke="#f0b90b" stroke-width="3"/>
+    <g mask="url(#logo_cut)" stroke-width="4.8">
+      <path d="M37.84 47V22.68H49.36C58.32 22.68 62.16 27.8 62.16 34.84C62.16 41.88 58.32 47 54.48 50.2" stroke="#569cc6"/>
+      <path d="M37.84 71.32V47H45.52C50 47 52.56 48.28 54.48 50.2L80.3 87.1" stroke="#f0b90b"/>
+    </g>
+    <circle cx="37.84" cy="71.32" r="6.5" stroke="#f0b90b" stroke-width="2.8"/>
+    <g transform="translate(80.3 87.1) rotate(55)">
+      <path d="M-5.1 0L-1.07 -4.03H6.08V4.03H-1.07ZM0.37 0a1.24 1.24 0 1 0 -2.48 0a1.24 1.24 0 1 0 2.48 0Z" fill="#f0b90b" fill-rule="evenodd"/>
+      <path d="M-5.1 0L-1.07 -4.03H6.08V4.03H-1.07Z" stroke="#f0b90b" stroke-width="1.4"/>
+    </g>
+  </g>
+  <circle cx="37.84" cy="47" r="5.2" fill="#f0b90b"/>
+  <circle cx="54.48" cy="50.2" r="5.2" fill="#f0b90b"/>
+  <circle cx="37.84" cy="22.68" r="5.2" fill="#569cc6"/>
+  <circle cx="62.16" cy="34.84" r="5.2" fill="#569cc6"/>
+</svg>
