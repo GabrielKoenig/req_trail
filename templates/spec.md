@@ -3,7 +3,7 @@
 id: spec_<project>_<nnnn>
 title: <short name>
 feature: feature_<project>_<nn>
-version: 1                       # +1 for every substantive change
+version: 1                       # stays 1 until G2, then +1 per substantive change; an editorial change keeps it
 covers: [req_<project>_<nnnn>@1] # every requirement it builds, pinned to the version it was written for
 mockup: null                     # mockups/<name>.html, or n/a
 estimate_days: <best guess>
