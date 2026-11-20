@@ -3,7 +3,7 @@ id: req_req_trail_0048
 title: Suspect links
 feature: feature_req_trail_04
 owner: "@GabrielKoenig"
-version: 2
+version: 1
 priority: must
 type: functional
 category: ""
@@ -26,5 +26,5 @@ links:
   spec: null
 ---
 
-Version 2: a code pull request takes the place of a test. A test carries no version, while a code pull request pins
-one in its implements line. A requirement that pins the older version in `depends_on` is suspect too.
+Code pull requests become suspect, not tests: a test carries no version, while a code pull request pins one in its
+implements line. A requirement that pins the older version in `depends_on` is suspect too.

@@ -3,7 +3,7 @@ id: req_req_trail_0084
 title: Every label in labels.yml
 feature: feature_req_trail_02
 owner: "@GabrielKoenig"
-version: 2
+version: 1
 priority: should
 type: functional
 category: ""
@@ -23,5 +23,5 @@ links:
   spec: null
 ---
 
-Version 2: the list holds every label the engine sets or reads, not only the triage decisions, and the requirement
-moves to feature_req_trail_02, which builds labels.yml.
+The list holds every label the engine sets or reads, not only the triage decisions. The requirement belongs to
+feature_req_trail_02, which builds labels.yml.

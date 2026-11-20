@@ -7,7 +7,7 @@ version: 1
 priority: could
 type: functional
 category: ""
-depends_on: [req_req_trail_0137@2]
+depends_on: [req_req_trail_0137@1]
 reviews: []
 reviews_reason: "Opens GitHub's own pages; writes nothing itself."
 source: "concept/concept.html#estimate"

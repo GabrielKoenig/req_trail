@@ -7,7 +7,7 @@ version: 1
 priority: must
 type: non_functional
 category: "security"
-depends_on: [req_req_trail_0064@2]
+depends_on: [req_req_trail_0064@1]
 reviews: [security]
 reviews_reason: "Requirement text comes from anyone who can open a pull request, and the explorer shows it to every reader."
 source: "concept/architecture.html#risks"

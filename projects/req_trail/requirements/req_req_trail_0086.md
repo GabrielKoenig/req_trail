@@ -3,7 +3,7 @@ id: req_req_trail_0086
 title: ID in the test name
 feature: feature_req_trail_11
 owner: "@GabrielKoenig"
-version: 2
+version: 1
 priority: must
 type: functional
 category: ""
@@ -25,5 +25,4 @@ links:
   spec: null
 ---
 
-Version 2: the ID counts only as a whole token, so a test named req_recipe_box_00031 does not count for
-req_recipe_box_0003.
+The ID counts only as a whole token, so a test named req_recipe_box_00031 does not count for req_recipe_box_0003.

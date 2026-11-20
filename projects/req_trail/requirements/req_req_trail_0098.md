@@ -3,7 +3,7 @@ id: req_req_trail_0098
 title: Independent approvals
 feature: feature_req_trail_14
 owner: "@GabrielKoenig"
-version: 2
+version: 1
 priority: must
 type: functional
 category: ""
@@ -24,8 +24,8 @@ links:
   spec: null
 ---
 
-Version 2: req_trail has one maintainer until the required reviews of work package 5 are on, so it starts in solo
-mode (req_req_trail_0165). From then on a second reviewer approves.
+req_trail has one maintainer until the required reviews of work package 5 are on, so it starts in solo mode
+(req_req_trail_0165). From then on a second reviewer approves.
 
 ## Manual test
 

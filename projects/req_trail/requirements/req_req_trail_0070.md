@@ -3,7 +3,7 @@ id: req_req_trail_0070
 title: Fast for 1,000 requirements
 feature: feature_req_trail_06
 owner: "@GabrielKoenig"
-version: 2
+version: 1
 priority: should
 type: non_functional
 category: "performance"
@@ -23,5 +23,5 @@ links:
   spec: null
 ---
 
-Version 2: measured in headless Chromium on a GitHub-hosted runner as the median of 5 loads, instead of on a
-mid-range laptop, so that CI can repeat the measurement.
+The load is measured in headless Chromium on a GitHub-hosted runner as the median of 5 loads, not on a mid-range
+laptop, so that CI can repeat the measurement.

@@ -3,7 +3,7 @@ id: req_req_trail_0064
 title: Requirement detail
 feature: feature_req_trail_06
 owner: "@GabrielKoenig"
-version: 2
+version: 1
 priority: must
 type: functional
 category: ""
@@ -25,8 +25,8 @@ links:
   spec: null
 ---
 
-Version 2: the statement is shown as plain text, as an export carries it; Markdown is rendered only in the criteria
-and the notes.
+The statement is shown as plain text, as an export carries it; Markdown is rendered only in the criteria and the
+notes.
 
 ## Manual test
 

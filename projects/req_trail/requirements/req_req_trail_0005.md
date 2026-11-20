@@ -3,7 +3,7 @@ id: req_req_trail_0005
 title: Statuses and their events
 feature: feature_req_trail_01
 owner: "@GabrielKoenig"
-version: 2
+version: 1
 priority: must
 type: functional
 category: ""
@@ -22,7 +22,7 @@ links:
   spec: null
 ---
 
-Version 2: Withdrawn is the seventh status, set when a merged pull request deletes the requirement file.
+Withdrawn is the seventh status, set when a merged pull request deletes the requirement file.
 
 ## Manual test
 

@@ -131,7 +131,7 @@
     <h2>Three scenarios</h2>
     <div class="three">
       <div class="card"><h3>A requirement changes</h3><ol class="steps">
-        <li>The owner works on a branch such as <code>change_request/recipe_box/feature_recipe_box_01_issue31</code> and raises <code>version</code> for a substantive change.</li>
+        <li>The owner works on a branch such as <code>change_request/recipe_box/feature_recipe_box_01_issue31</code> and raises <code>version</code> for a substantive change once the requirement has passed G1.</li>
         <li>The pull request starts <code>validate</code>, <code>text_check</code> and <code>gate_check</code>. The model rejects a wrong field before anything else runs.</li>
         <li>Every pin on the old version becomes suspect, and the explorer lists what depends on it.</li>
         <li>The Principal Engineer approves (G1) and merges. <code>build_index</code> writes <code>index.json</code>; Pages publishes the explorer.</li>
@@ -196,7 +196,7 @@
         <li>A requirement that touches personal data carries a privacy review, decided at G2.</li>
       </ul></div>
       <div class="card"><h3>Tests and evidence</h3><ul>
-        <li>Each acceptance criterion names its test kind: Unit, Integration, Static or Manual.</li>
+        <li>Each acceptance criterion names its test kind: Unit, Integration, Smoke, Static or Manual.</li>
         <li>A test names the requirement ID; JUnit XML carries it to the index from any language.</li>
       </ul></div>
     </div>
@@ -276,7 +276,7 @@
   "use strict";
   var data = window.CONCEPT_DATA || { projects: [], testKinds: [] };
   var project = data.projects.filter(function (p) { return p.name === "req_trail"; })[0];
-  var kinds = data.testKinds || ["Unit", "Integration", "Static", "Manual"];
+  var kinds = data.testKinds || ["Unit", "Integration", "Smoke", "Static", "Manual"];
   function byId(id) { return document.getElementById(id); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   if (!project) {

@@ -3,7 +3,7 @@ id: req_req_trail_0133
 title: The AI review only comments
 feature: feature_req_trail_18
 owner: "@GabrielKoenig"
-version: 2
+version: 1
 priority: must
 type: non_functional
 category: "security"
@@ -24,4 +24,4 @@ links:
   spec: null
 ---
 
-Version 2: the AI review never fails a pull request, not on findings and not on an error of the provider.
+The AI review never fails a pull request, not on findings and not on an error of the provider.

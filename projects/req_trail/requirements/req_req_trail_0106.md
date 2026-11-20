@@ -3,7 +3,7 @@ id: req_req_trail_0106
 title: Steps for each task
 feature: feature_req_trail_15
 owner: "@GabrielKoenig"
-version: 2
+version: 1
 priority: should
 type: functional
 category: ""
@@ -23,8 +23,7 @@ links:
   spec: null
 ---
 
-Version 2: a workflow sets the baselines (req_req_trail_0171), so the runbook explains how to use one, not how to set
-it.
+A workflow sets the baselines (req_req_trail_0171), so the runbook explains how to use one, not how to set it.
 
 ## Manual test
 

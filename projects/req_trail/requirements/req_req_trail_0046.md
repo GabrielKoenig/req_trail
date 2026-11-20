@@ -3,11 +3,11 @@ id: req_req_trail_0046
 title: Status from events
 feature: feature_req_trail_04
 owner: "@GabrielKoenig"
-version: 2
+version: 1
 priority: must
 type: functional
 category: ""
-depends_on: [req_req_trail_0005@2]
+depends_on: [req_req_trail_0005@1]
 reviews: []
 reviews_reason: "Reads repository files and pull request events; handles appear only as GitHub already shows them."
 source: "concept/concept.html#estimate"
@@ -26,5 +26,5 @@ links:
   spec: null
 ---
 
-Version 2: the status is the furthest stage reached at the current version. New criteria cover a new version after
-Verified, a spec change alone, two specs for one requirement and test results that arrive before the code.
+The status is the furthest stage reached at the current version. The criteria cover a new version after Verified, a
+spec change alone, two specs for one requirement and test results that arrive before the code.

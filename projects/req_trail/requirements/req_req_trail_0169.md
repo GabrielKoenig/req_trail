@@ -7,7 +7,7 @@ version: 1
 priority: should
 type: functional
 category: ""
-depends_on: [req_req_trail_0046@2]
+depends_on: [req_req_trail_0046@1]
 reviews: []
 reviews_reason: "Reads repository files and the published index; no personal data or credentials."
 source: "concept/concept.html#gates"

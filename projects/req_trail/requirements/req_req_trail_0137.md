@@ -3,7 +3,7 @@ id: req_req_trail_0137
 title: From change request to pull request
 feature: feature_req_trail_19
 owner: "@GabrielKoenig"
-version: 2
+version: 1
 priority: should
 type: non_functional
 category: "security"
@@ -26,5 +26,5 @@ links:
   spec: null
 ---
 
-Version 2: the branch follows the scheme in `CLAUDE.md`, and the pull request body closes the change request issue
-with `Closes #<number>`.
+The branch follows the scheme in `CLAUDE.md`, and the pull request body closes the change request issue with `Closes
+#<number>`.

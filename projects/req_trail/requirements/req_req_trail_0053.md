@@ -3,7 +3,7 @@ id: req_req_trail_0053
 title: Index for 1,000 requirements
 feature: feature_req_trail_04
 owner: "@GabrielKoenig"
-version: 2
+version: 1
 priority: should
 type: non_functional
 category: "performance"
@@ -22,4 +22,4 @@ links:
   spec: null
 ---
 
-Version 2: the time is the median of 3 runs, so that one slow runner does not decide it.
+The time is the median of 3 runs, so that one slow runner does not decide it.

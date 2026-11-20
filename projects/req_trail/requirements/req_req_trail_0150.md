@@ -3,7 +3,7 @@ id: req_req_trail_0150
 title: Branch named after phase, project, feature and issue
 feature: feature_req_trail_05
 owner: "@GabrielKoenig"
-version: 2
+version: 1
 priority: should
 type: constraint
 category: ""
@@ -29,11 +29,8 @@ links:
   spec: null
 ---
 
-Version 2: the levels are the phase (`idea`, `concept`, `dev`, `release` or `change_request`), the project and the
-feature instead of the step, a Conventional Branch type and a name.
-
-Version 3: the feature is optional, so the filler `no_feature` is gone. A branch is `<phase>/<project>/<topic>`, or
-`<phase>/<project>/<feature>_<topic>` when the change belongs to a feature. A feature is recognized by its ID form
-`feature_<project>_<nn>`, so a topic may not start with `feature_`. A branch that a tool creates, such as
-`dependabot/`, passes when its prefix is listed, because the tool cannot follow the scheme. The spec at G2 decides
-where the lists of phases and tool prefixes live.
+The levels are the phase (`idea`, `concept`, `dev`, `release` or `change_request`), the project and an optional
+feature. A branch is `<phase>/<project>/<topic>`, or `<phase>/<project>/<feature>_<topic>` when the change belongs to
+a feature. A feature is recognized by its ID form `feature_<project>_<nn>`, so a topic may not start with `feature_`.
+A branch that a tool creates, such as `dependabot/`, passes when its prefix is listed, because the tool cannot follow
+the scheme. The spec at G2 decides where the lists of phases and tool prefixes live.

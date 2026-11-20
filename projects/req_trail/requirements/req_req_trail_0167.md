@@ -12,7 +12,7 @@ reviews: []
 reviews_reason: "Reads repository files only; no personal data or credentials."
 source: "concept/concept.html#gates"
 statement: >
-  validate shall fail when an acceptance criterion does not start with `Unit:`, `Integration:`, `Static:` or `Manual:`.
+  validate shall fail when an acceptance criterion does not start with `Unit:`, `Integration:`, `Smoke:`, `Static:` or `Manual:`.
 rationale: >
   The kind of test decides who checks a criterion and what evidence G3 needs.
 acceptance:

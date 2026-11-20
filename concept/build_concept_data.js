@@ -18,7 +18,7 @@ const YAML = require("yaml");
 const repoRoot = path.resolve(__dirname, "..");
 const projectsDir = path.join(repoRoot, "projects");
 const outputFile = path.join(__dirname, "concept_data.js");
-const testKinds = ["Unit", "Integration", "Static", "Manual"];
+const testKinds = ["Unit", "Integration", "Smoke", "Static", "Manual"];
 
 function readText(file) {
   return fs.readFileSync(file, "utf8").replace(/\r\n/g, "\n");

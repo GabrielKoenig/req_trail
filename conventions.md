@@ -51,9 +51,12 @@ a feature. A spec says how one or more requirements are built.
 ## Versions and pinned references
 
 - Every requirement and spec has `version`, a whole number that starts at 1.
-- A substantive change raises the version by one. An editorial change (a typo, wording that keeps the meaning) keeps
-  it; the pull request says which it is. A pull request that changes a statement or an acceptance criterion without
-  raising the version carries the label `editorial`.
+- A requirement keeps version 1 until it passes G1. Before that nothing is specified, built or tested against it, so
+  every change is part of the draft. `validate` fails a pull request that breaks this (`req_req_trail_0175`).
+- After G1, a substantive change raises the version by one, once per pull request however many commits it has. An
+  editorial change (a typo, wording that keeps the meaning) keeps it; the pull request says which it is. A pull
+  request that changes the statement or an acceptance criterion of such a requirement without raising the version
+  carries the label `editorial` (`req_req_trail_0155`). A spec raises its version with every substantive change.
 - A reference to a requirement or spec names the version it was made against: `req_recipe_box_0001@1`. This applies to
   `depends_on`, `covers`, `links.spec` and `requirement`.
 - When the target moves to a higher version, every reference to the old one is suspect until someone confirms it.
@@ -107,6 +110,7 @@ Every acceptance criterion can be checked on its own and starts with its test ki
 |---|---|---|
 | `Unit` | An automated test of one part, with made-up input | The JUnit XML report of the CI run |
 | `Integration` | An automated test of several parts together, often on a test repo | The JUnit XML report, or a test record when it does not run in CI |
+| `Smoke` | A short automated check of a deployed build, right after the deploy | The report of that run, stored as a test record |
 | `Static` | A check of files, names or settings, without running the code | The output of the check in CI |
 | `Manual` | A person who follows written steps | A test record by the tester |
 

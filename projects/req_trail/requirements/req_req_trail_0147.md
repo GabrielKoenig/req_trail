@@ -3,7 +3,7 @@ id: req_req_trail_0147
 title: Migration as a pull request
 feature: feature_req_trail_17
 owner: "@GabrielKoenig"
-version: 2
+version: 1
 priority: should
 type: functional
 category: ""
@@ -25,5 +25,5 @@ links:
   spec: null
 ---
 
-Version 2: the branch follows the scheme in `CLAUDE.md`. A migration changes merged files, so its phase is
-`change_request`, and it names no feature.
+The branch follows the scheme in `CLAUDE.md`. A migration changes merged files, so its phase is `change_request`, and
+it names no feature.

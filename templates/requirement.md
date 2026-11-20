@@ -4,7 +4,7 @@ id: req_<project>_<nnnn>
 title: <short name>
 feature: feature_<project>_<nn>
 owner: "@<handle>"            # answerable for this requirement; one of the project's requirements owners
-version: 1                    # +1 for every substantive change; an editorial change keeps it
+version: 1                    # stays 1 until G1, then +1 per substantive change; an editorial change keeps it
 priority: must                # must, should or could
 type: functional              # functional, non_functional or constraint
 category: ""                  # only for non_functional: security, privacy, usability or performance
@@ -16,7 +16,7 @@ statement: >                  # plain text of at most 80 words: code in backtick
   The <system> shall <one testable behaviour>.
 rationale: >                  # one sentence on why the requirement exists; it travels with it into an export
   <the problem it solves or the need behind it>
-acceptance:                   # each starts with its test kind: Unit, Integration, Static or Manual
+acceptance:                   # each starts with its test kind: Unit, Integration, Smoke, Static or Manual
   - "Unit: <one criterion that can be checked on its own>"
 links:
   mockup: null                # mockups/<name>.html, or n/a when none is needed

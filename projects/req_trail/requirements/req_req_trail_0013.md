@@ -3,7 +3,7 @@ id: req_req_trail_0013
 title: Review labels from the answers
 feature: feature_req_trail_02
 owner: "@GabrielKoenig"
-version: 2
+version: 1
 priority: should
 type: functional
 category: ""
@@ -23,4 +23,4 @@ links:
   spec: null
 ---
 
-Version 2: the labels are named review_privacy and review_security, as in labels.yml.
+The labels are named review_privacy and review_security, as in labels.yml.
