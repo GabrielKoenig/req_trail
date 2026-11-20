@@ -16,6 +16,7 @@ metric:
   baseline: 4
   target: 1
   direction: at_most
+estimate: 1
 target_release: "1.0"
 ---
 

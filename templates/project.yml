@@ -5,3 +5,5 @@ format_version: 1        # the format that all files of this project follow; onl
 description: <one sentence on what the code repo does>
 code_repos:
   - <organisation>/<repo>
+gates_after: null        # the last commit that reached main without passing a gate; null when every merge passed one
+solo_mode: false         # true while the project has one maintainer: merges without a second approval are marked solo

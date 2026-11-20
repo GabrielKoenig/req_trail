@@ -7,7 +7,7 @@ version: 1
 priority: must
 type: functional
 category: ""
-depends_on: [req_req_trail_0046@1]
+depends_on: [req_req_trail_0046@2]
 reviews: []
 reviews_reason: "Reads repository files and pull request events; handles appear only as GitHub already shows them."
 source: "concept/concept.html#estimate"

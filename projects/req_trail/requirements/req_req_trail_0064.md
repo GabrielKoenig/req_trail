@@ -3,7 +3,7 @@ id: req_req_trail_0064
 title: Requirement detail
 feature: feature_req_trail_06
 owner: "@GabrielKoenig"
-version: 1
+version: 2
 priority: must
 type: functional
 category: ""
@@ -12,17 +12,21 @@ reviews: []
 reviews_reason: "Shows only what index.json holds; handles appear as GitHub already shows them."
 source: "concept/concept.html#estimate"
 statement: >
-  The explorer shall show a requirement's statement, acceptance criteria, history and links, with Markdown
-  rendered as HTML.
+  The explorer shall show a requirement's statement as plain text and its acceptance criteria, history, links and
+  notes, rendering Markdown as HTML only in the criteria and notes.
 rationale: >
-  A reader needs everything about one requirement on one screen, formatted for reading rather than as raw
-  Markdown.
+  A reader needs everything about one requirement on one screen, with the statement exactly as an export carries it
+  and the rest formatted for reading.
 acceptance:
   - "Manual: req_recipe_box_0003 shows its statement, three criteria, two versions and its links, and its notes render as HTML."
+  - "Unit: a statement that holds **bold** shows the asterisks as written, while the same text in an acceptance criterion or a note renders as bold."
 links:
   mockup: null
   spec: null
 ---
+
+Version 2: the statement is shown as plain text, as an export carries it; Markdown is rendered only in the criteria
+and the notes.
 
 ## Manual test
 

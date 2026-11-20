@@ -7,7 +7,7 @@ version: 1
 priority: should
 type: functional
 category: ""
-depends_on: [req_req_trail_0086@1]
+depends_on: [req_req_trail_0086@2]
 reviews: []
 reviews_reason: "Runs on the engine's own repo; pull requests show handles as GitHub already does."
 source: "concept/concept.html#estimate"

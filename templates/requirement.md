@@ -11,16 +11,17 @@ category: ""                  # only for non_functional: security, privacy, usab
 depends_on: []                # pinned, for example [req_<project>_<nnnn>@1]
 reviews: []                   # privacy, security, both, or [] for none
 reviews_reason: "<why no review is needed, or what makes one necessary>"
-source: "#<request issue>"
-statement: >                  # plain text: code in backticks is fine, no tables, images, lists or links
+source: "#<request issue>"    # #<issue>, <owner>/<repo>#<issue>, or a path in the repo with an optional #<anchor>
+statement: >                  # plain text of at most 80 words: code in backticks is fine, no tables, images, lists or links
   The <system> shall <one testable behaviour>.
 rationale: >                  # one sentence on why the requirement exists; it travels with it into an export
   <the problem it solves or the need behind it>
-acceptance:
-  - <one criterion that can be checked on its own>
+acceptance:                   # each starts with its test kind: Unit, Integration, Static or Manual
+  - "Unit: <one criterion that can be checked on its own>"
 links:
   mockup: null                # mockups/<name>.html, or n/a when none is needed
   spec: null                  # pinned, for example spec_<project>_<nnnn>@1
 ---
 
-<Optional notes: examples, what changed in each version. Not part of the requirement and not exported.>
+<Optional notes: examples, what changed in each version. Not part of the requirement and not exported. A Manual
+criterion needs a section ## Manual test: who tests it, the steps, and when it passes.>

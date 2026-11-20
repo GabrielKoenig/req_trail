@@ -4,3 +4,5 @@ format_version: 1
 description: A PowerShell tool set that exports recipe collections as PDF and checks a folder before an import.
 code_repos:
   - yourorg/recipe_box
+gates_after: null
+solo_mode: false

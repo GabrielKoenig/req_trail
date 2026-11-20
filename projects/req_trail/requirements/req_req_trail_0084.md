@@ -1,23 +1,27 @@
 ---
 id: req_req_trail_0084
-title: Labels for the triage decision
-feature: feature_req_trail_10
+title: Every label in labels.yml
+feature: feature_req_trail_02
 owner: "@GabrielKoenig"
-version: 1
+version: 2
 priority: should
 type: functional
 category: ""
 depends_on: [req_req_trail_0016@1]
 reviews: []
-reviews_reason: "Posts only a link back to the issue."
+reviews_reason: "Defines label names only; no personal data or credentials."
 source: "concept/concept.html#estimate"
 statement: >
-  labels.yml shall hold one label for each triage decision: accepted, declined, duplicate and needs_info.
+  labels.yml shall hold the labels triage, accepted, declined, duplicate, needs_info, draft, gate_exception,
+  review_privacy, review_security, source_github, source_community and editorial, each with a description.
 rationale: >
-  A G0 decision recorded as a label can be counted, filtered and shown in the Triage view.
+  A label that one workflow sets and another reads has to be spelled the same in every repo.
 acceptance:
-  - "Static: labels.yml holds the four labels, each with a description."
+  - "Static: labels.yml holds exactly these twelve labels, each with a description."
 links:
   mockup: n/a
   spec: null
 ---
+
+Version 2: the list holds every label the engine sets or reads, not only the triage decisions, and the requirement
+moves to feature_req_trail_02, which builds labels.yml.

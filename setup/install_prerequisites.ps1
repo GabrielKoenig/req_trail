@@ -11,116 +11,116 @@
 
     This script only installs. All of req_trail's checks and tools are JavaScript on Node.
 
-.PARAMETER check_only
+.PARAMETER CheckOnly
     Report what is there and what is missing, and install nothing.
 
 .EXAMPLE
-    .\setup\install_prerequisites.ps1 -check_only
+    .\setup\install_prerequisites.ps1 -CheckOnly
 #>
 [CmdletBinding()]
 param(
-    [switch]$check_only
+    [switch]$CheckOnly
 )
 
 $ErrorActionPreference = 'Stop'
-$repo_root = Split-Path -Parent $PSScriptRoot
+$repoRoot = Split-Path -Parent $PSScriptRoot
 
-# One row per tool. version_pattern finds the major version in the output of "<command> --version". install_folder is
+# One row per tool. VersionPattern finds the major version in the output of "<Command> --version". InstallFolder is
 # where the installer puts the tool, used when PATH does not show it yet.
 $tools = @(
-    @{ name = 'Git';     command = 'git';  winget_id = 'Git.Git';           minimum_major = 2;  version_pattern = 'version (\d+)\.'
-       install_folder = Join-Path $env:ProgramFiles 'Git\cmd' },
-    @{ name = 'Node.js'; command = 'node'; winget_id = 'OpenJS.NodeJS.LTS'; minimum_major = 22; version_pattern = '^v(\d+)\.'
-       install_folder = Join-Path $env:ProgramFiles 'nodejs' }
+    @{ Name = 'Git';     Command = 'git';  WingetId = 'Git.Git';           MinimumMajor = 2;  VersionPattern = 'version (\d+)\.'
+       InstallFolder = Join-Path $env:ProgramFiles 'Git\cmd' },
+    @{ Name = 'Node.js'; Command = 'node'; WingetId = 'OpenJS.NodeJS.LTS'; MinimumMajor = 22; VersionPattern = '^v(\d+)\.'
+       InstallFolder = Join-Path $env:ProgramFiles 'nodejs' }
 )
 
-function write_step([string]$text)    { Write-Host "-> $text" }
-function write_ok([string]$text)      { Write-Host "   ok: $text" -ForegroundColor Green }
-function write_missing([string]$text) { Write-Host "   missing: $text" -ForegroundColor Yellow }
-function write_failed([string]$text)  { Write-Host "   failed: $text" -ForegroundColor Red }
+function Write-Step([string]$Text)    { Write-Host "-> $Text" }
+function Write-Ok([string]$Text)      { Write-Host "   ok: $Text" -ForegroundColor Green }
+function Write-Missing([string]$Text) { Write-Host "   missing: $Text" -ForegroundColor Yellow }
+function Write-Failure([string]$Text) { Write-Host "   failed: $Text" -ForegroundColor Red }
 
-function update_path {
+function Update-Path {
     # An installer writes PATH to the registry. Read it again, so this window finds the new tool.
     $machine = [Environment]::GetEnvironmentVariable('Path', 'Machine')
     $user = [Environment]::GetEnvironmentVariable('Path', 'User')
     $env:Path = (@($machine, $user) | Where-Object { $_ }) -join ';'
 }
 
-function get_version_text($tool) {
-    $found = Get-Command $tool.command -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
-    if (-not $found -and (Test-Path (Join-Path $tool.install_folder "$($tool.command).exe"))) {
+function Get-VersionText($Tool) {
+    $found = Get-Command $Tool.Command -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
+    if (-not $found -and (Test-Path (Join-Path $Tool.InstallFolder "$($Tool.Command).exe"))) {
         # Installed, but this window's PATH does not show it yet: add the folder for this run.
-        $env:Path = "$($tool.install_folder);$env:Path"
-        $found = Get-Command $tool.command -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
+        $env:Path = "$($Tool.InstallFolder);$env:Path"
+        $found = Get-Command $Tool.Command -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
     }
     if (-not $found) { return '' }
     return ((& $found.Source --version) 2>$null | Select-Object -First 1)
 }
 
-function get_major_version($tool) {
-    $text = get_version_text $tool
-    if ($text -match $tool.version_pattern) { return [int]$Matches[1] }
+function Get-MajorVersion($Tool) {
+    $text = Get-VersionText $Tool
+    if ($text -match $Tool.VersionPattern) { return [int]$Matches[1] }
     return 0
 }
 
-function install_tool($tool) {
+function Install-Tool($Tool) {
     if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
-        write_failed "winget is not available. Install $($tool.name) by hand, then run this script again."
+        Write-Failure "winget is not available. Install $($Tool.Name) by hand, then run this script again."
         return $false
     }
     # Out-Host shows winget's progress without making it part of this function's result, which must be one boolean.
-    & winget install --id $tool.winget_id --exact --source winget | Out-Host
-    $winget_exit_code = $LASTEXITCODE
-    update_path
-    $major = get_major_version $tool
-    if ($major -ge $tool.minimum_major) {
-        write_ok "$($tool.name): $(get_version_text $tool)"
+    & winget install --id $Tool.WingetId --exact --source winget | Out-Host
+    $wingetExitCode = $LASTEXITCODE
+    Update-Path
+    $major = Get-MajorVersion $Tool
+    if ($major -ge $Tool.MinimumMajor) {
+        Write-Ok "$($Tool.Name): $(Get-VersionText $Tool)"
         return $true
     }
-    write_failed "$($tool.name) is still missing or too old after winget (exit code $winget_exit_code)."
+    Write-Failure "$($Tool.Name) is still missing or too old after winget (exit code $wingetExitCode)."
     return $false
 }
 
 $mode = ''
-if ($check_only) { $mode = ', check only' }
+if ($CheckOnly) { $mode = ', check only' }
 Write-Host "req_trail: prerequisites$mode"
 $complete = $true
-update_path   # a window opened before an earlier install sees the tools installed since
+Update-Path   # a window opened before an earlier install sees the tools installed since
 
 foreach ($tool in $tools) {
-    write_step "$($tool.name) $($tool.minimum_major) or newer"
-    $major = get_major_version $tool
-    if ($major -ge $tool.minimum_major) {
-        write_ok "$($tool.name): $(get_version_text $tool)"
+    Write-Step "$($tool.Name) $($tool.MinimumMajor) or newer"
+    $major = Get-MajorVersion $tool
+    if ($major -ge $tool.MinimumMajor) {
+        Write-Ok "$($tool.Name): $(Get-VersionText $tool)"
         continue
     }
-    if ($major -gt 0) { write_missing "$($tool.name) $(get_version_text $tool) is too old" }
-    else { write_missing "$($tool.name) is not installed" }
-    if ($check_only) { $complete = $false; continue }
-    $installed = install_tool $tool
+    if ($major -gt 0) { Write-Missing "$($tool.Name) $(Get-VersionText $tool) is too old" }
+    else { Write-Missing "$($tool.Name) is not installed" }
+    if ($CheckOnly) { $complete = $false; continue }
+    $installed = Install-Tool $tool
     # Only a single $true counts. Anything else, such as stray output mixed into the result, is a failure.
     if (-not ($installed -is [bool] -and $installed)) { $complete = $false }
 }
 
-write_step 'npm packages'
-$node_ready = (get_major_version $tools[1]) -ge $tools[1].minimum_major
-if (-not (Test-Path (Join-Path $repo_root 'package.json'))) {
-    write_ok 'none yet: the repo has no package.json'
+Write-Step 'npm packages'
+$nodeReady = (Get-MajorVersion $tools[1]) -ge $tools[1].MinimumMajor
+if (-not (Test-Path (Join-Path $repoRoot 'package.json'))) {
+    Write-Ok 'none yet: the repo has no package.json'
 }
-elseif (-not $node_ready) {
-    write_missing 'skipped, because Node.js is missing'
+elseif (-not $nodeReady) {
+    Write-Missing 'skipped, because Node.js is missing'
     $complete = $false
 }
-elseif ($check_only) {
-    if (Test-Path (Join-Path $repo_root 'node_modules')) { write_ok 'node_modules is there' }
-    else { write_missing 'not installed yet'; $complete = $false }
+elseif ($CheckOnly) {
+    if (Test-Path (Join-Path $repoRoot 'node_modules')) { Write-Ok 'node_modules is there' }
+    else { Write-Missing 'not installed yet'; $complete = $false }
 }
 else {
-    Push-Location $repo_root
+    Push-Location $repoRoot
     try {
-        if (Test-Path (Join-Path $repo_root 'package-lock.json')) { & npm.cmd ci } else { & npm.cmd install }
-        if ($LASTEXITCODE -eq 0) { write_ok 'installed' }
-        else { write_failed "npm stopped with exit code $LASTEXITCODE"; $complete = $false }
+        if (Test-Path (Join-Path $repoRoot 'package-lock.json')) { & npm.cmd ci } else { & npm.cmd install }
+        if ($LASTEXITCODE -eq 0) { Write-Ok 'installed' }
+        else { Write-Failure "npm stopped with exit code $LASTEXITCODE"; $complete = $false }
     }
     finally {
         Pop-Location
@@ -132,8 +132,8 @@ if ($complete) {
     Write-Host "Done: req_trail's tools can run on this PC." -ForegroundColor Green
     exit 0
 }
-if ($check_only) {
-    Write-Host 'Something is missing. Run the script without -check_only to install it.' -ForegroundColor Yellow
+if ($CheckOnly) {
+    Write-Host 'Something is missing. Run the script without -CheckOnly to install it.' -ForegroundColor Yellow
 }
 else {
     Write-Host 'Not complete. See the lines above.' -ForegroundColor Red

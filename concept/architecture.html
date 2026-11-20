@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>req_trail architecture</title>
+<link rel="icon" type="image/svg+xml" href="../logo/logo_on_dark.svg">
+<link rel="stylesheet" href="concept.css">
+<style>
+/* Only what the shared stylesheet does not have. */
+.dia{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:12px}
+.dia svg{display:block;min-width:760px;width:100%;height:auto}
+.dia text{font:12px system-ui,sans-serif;fill:var(--g12)}
+.dia .t{font-weight:600;fill:var(--g14)}
+.dia .s{font-size:11px;fill:var(--g09)}
+.dia .n{fill:var(--card);stroke:var(--gold);stroke-width:1.5}
+.dia .e{fill:rgba(14,113,174,.1);stroke:var(--blue07);stroke-width:1.2}
+.dia .p{fill:var(--g03);stroke:var(--g06);stroke-width:1.2}
+.dia .l{stroke:var(--g06);stroke-width:1.2;fill:none}
+.dia .lt{font-size:11px;fill:var(--g09)}
+.steps{margin:0;padding-left:20px;color:var(--g12);font-size:13px}
+.steps li{margin:5px 0}
+.count{margin-top:6px;font-size:11.5px;color:var(--gold-t)}
+.gen{color:var(--g09);font-size:12px;margin:8px 0 0}
+.mt td{vertical-align:top}
+.mt td:first-child{white-space:nowrap}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><img src="../logo/logo_on_dark.svg" alt="" width="22" height="22">req_trail</div>
+    <div class="crumb">Requirements as code / <span class="grad-text"><b>architecture</b></span></div>
+    <span class="tag">Design &middot; arc42 template</span>
+  </header>
+  <nav class="toc" aria-label="Sections"><a href="#goals">1 Goals</a><a href="#constraints">2 Constraints</a><a href="#context">3 Context</a><a href="#strategy">4 Strategy</a><a href="#blocks">5 Building blocks</a><a href="#runtime">6 Runtime</a><a href="#deployment">7 Deployment</a><a href="#concepts">8 Concepts</a><a href="#decisions">9 Decisions</a><a href="#quality">10 Quality</a><a href="#risks">11 Risks</a><a href="#glossary">12 Glossary</a><a href="concept.html">Concept</a><a href="roles.html">Roles dashboard</a></nav>
+
+  <section id="goals">
+    <div class="eyebrow">1 &middot; Introduction and goals</div>
+    <h2>Requirements as files, gates as pull requests, everything else generated</h2>
+    <p class="sub">req_trail keeps the requests, requirements, specs and acceptance records of several projects as Markdown files in Git. A pull request is the only way to change them, so Git holds the trail and GitHub's reviews are the gates. A small engine checks the files, builds an index and publishes a static explorer. This page describes that engine along the twelve sections of the <a href="https://arc42.org/overview">arc42 template</a>, with diagrams at the levels of the <a href="https://c4model.com/">C4 model</a>: both are established and free to use, so we reuse them instead of inventing a structure.</p>
+    <div class="three">
+      <div class="card"><h3>What it must do</h3><ul>
+        <li><b>Trace every requirement</b> from the request to the spec, the code, the test and the release, by ID and pinned version.</li>
+        <li><b>Stop a wrong file at the pull request,</b> not in a review weeks later.</li>
+        <li><b>Show where work waits,</b> at which gate and for how long.</li>
+      </ul></div>
+      <div class="card"><h3>Top quality goals</h3><ul>
+        <li><b>Safe by design:</b> a rule is a schema, a class or a check, never only a sentence.</li>
+        <li><b>Maintainable by one small team:</b> one language, no build step, established libraries.</li>
+        <li><b>Nothing to run:</b> no server and no database; GitHub and static files only.</li>
+      </ul></div>
+      <div class="card"><h3>Stakeholders</h3><ul>
+        <li><b>Requirements owner:</b> decides at G0 and accepts at G3.</li>
+        <li><b>Principal Engineer:</b> signs the requirement at G1.</li>
+        <li><b>Architecture owner,</b> with privacy and security when tagged: approves the spec at G2.</li>
+        <li><b>Tech lead and developers:</b> build and link code and tests. <b>Requesters:</b> bring the needs.</li>
+      </ul></div>
+    </div>
+    <p class="gen" id="summary"></p>
+  </section>
+
+  <section id="constraints">
+    <div class="eyebrow">2 &middot; Constraints</div>
+    <h2>What limits how the engine may be built</h2>
+    <p class="sub">The requirements of type <code>constraint</code> in <code>projects/req_trail/</code>, read from the files when the page loads.</p>
+    <div class="tw"><table class="mt" id="constraintTable"></table></div>
+  </section>
+
+  <section id="context">
+    <div class="eyebrow">3 &middot; Context and scope</div>
+    <h2>One engine between people, GitHub and the code repos</h2>
+    <p class="sub">C4 level 1, the system context. req_trail owns the files and the engine; everything blue is a GitHub feature or another tool it uses through its normal interface.</p>
+    <div class="dia"><svg viewBox="0 0 900 400" role="img" aria-label="System context: requesters, owners and gatekeepers, and developers use req_trail through GitHub. req_trail reads test results from code repos, publishes the explorer on GitHub Pages and exports ReqIF to a requirements management tool.">
+      <rect class="p" x="20" y="40" width="170" height="64" rx="8"/><text class="t" x="34" y="64">Requesters</text><text class="s" x="34" y="84">community, users, support</text>
+      <rect class="p" x="20" y="168" width="170" height="64" rx="8"/><text class="t" x="34" y="192">Owners and gatekeepers</text><text class="s" x="34" y="212">G0 to G3, roles.yml</text>
+      <rect class="p" x="20" y="296" width="170" height="64" rx="8"/><text class="t" x="34" y="320">Developers</text><text class="s" x="34" y="340">tech lead, code repos</text>
+      <rect class="n" x="330" y="140" width="240" height="120" rx="10"/><text class="t" x="350" y="170">req_trail</text><text class="s" x="350" y="192">files in projects/, model and schemas,</text><text class="s" x="350" y="210">checks, index builder, explorer,</text><text class="s" x="350" y="228">reusable workflows</text>
+      <rect class="e" x="700" y="20" width="180" height="56" rx="8"/><text class="t" x="714" y="44">GitHub</text><text class="s" x="714" y="62">issues, pull requests, Actions</text>
+      <rect class="e" x="700" y="108" width="180" height="56" rx="8"/><text class="t" x="714" y="132">GitHub Pages</text><text class="s" x="714" y="150">the published explorer</text>
+      <rect class="e" x="700" y="196" width="180" height="56" rx="8"/><text class="t" x="714" y="220">Code repos</text><text class="s" x="714" y="238">CI with JUnit XML</text>
+      <rect class="e" x="700" y="284" width="180" height="56" rx="8"/><text class="t" x="714" y="308">RM tool</text><text class="s" x="714" y="326">imports ReqIF</text>
+      <path class="l" d="M190 72H260V170H330"/><text class="lt" x="200" y="64">open a request issue</text>
+      <path class="l" d="M190 200H330"/><text class="lt" x="200" y="192">review, approve</text>
+      <path class="l" d="M190 328H260V230H330"/><text class="lt" x="200" y="350">implements: lines</text>
+      <path class="l" d="M570 160H640V48H700"/><text class="lt" x="582" y="152">runs in Actions</text>
+      <path class="l" d="M570 180H640V136H700"/><text class="lt" x="582" y="128" dx="60">publishes</text>
+      <path class="l" d="M570 220H640V224H700"/><text class="lt" x="582" y="240">reads test results</text>
+      <path class="l" d="M570 240H620V312H700"/><text class="lt" x="582" y="300" dx="42">exports</text>
+    </svg></div>
+    <div class="tw" style="margin-top:12px"><table class="mt">
+      <thead><tr><th>Interface</th><th>Direction</th><th>Format</th><th>Work package</th></tr></thead>
+      <tbody>
+        <tr><td>Issue forms and pull request template</td><td>people to req_trail</td><td>GitHub issue forms (YAML), Markdown</td><td>2</td></tr>
+        <tr><td>Requirement, spec and acceptance files</td><td>people to req_trail, by pull request</td><td>Markdown with YAML front matter, format version in <code>project.yml</code></td><td>1, 3</td></tr>
+        <tr><td><code>implements:</code> lines in code repo pull requests</td><td>code repos to req_trail</td><td>one line per requirement, <code>req_&lt;project&gt;_&lt;nnnn&gt;@&lt;version&gt;</code></td><td>8</td></tr>
+        <tr><td>Test results</td><td>code repos to req_trail</td><td>JUnit XML, the requirement ID in the test or group name</td><td>11</td></tr>
+        <tr><td><code>index.json</code> and the explorer</td><td>req_trail to readers</td><td>JSON, static HTML on GitHub Pages</td><td>4, 6</td></tr>
+        <tr><td>Export to a requirements management tool</td><td>req_trail to the RM tool</td><td>ReqIF, statements as plain XHTML</td><td>later</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="strategy">
+    <div class="eyebrow">4 &middot; Solution strategy</div>
+    <h2>Six choices that shape everything else</h2>
+    <div class="three">
+      <div class="card"><h3>Files are the truth</h3><p class="crumb">One Markdown file per item, in Git. Statuses, matrices, release notes and dashboards are derived and never typed in.</p></div>
+      <div class="card"><h3>Gates are merges</h3><p class="crumb">G1 to G3 are pull request reviews with CODEOWNERS and required checks. G0 is a label on the request issue.</p></div>
+      <div class="card"><h3>Formats are code</h3><p class="crumb">One class per object type loads a file only through the JSON Schema of its format version. Each format change comes with a migration.</p></div>
+      <div class="card"><h3>One language, no build</h3><p class="crumb">JavaScript on Node for every check and tool, run from source. Tests with <code>node --test</code>.</p></div>
+      <div class="card"><h3>Static views</h3><p class="crumb">The explorer reads <code>index.json</code> on GitHub Pages. No server, no database, no login of its own.</p></div>
+      <div class="card"><h3>Reuse before building</h3><p class="crumb">Established libraries and standards first: yaml, Ajv, markdown-it, JUnit XML, ReqIF, arc42. Each spec records what was considered.</p></div>
+    </div>
+  </section>
+
+  <section id="blocks">
+    <div class="eyebrow">5 &middot; Building block view</div>
+    <h2>Seven layers, each with its own work packages</h2>
+    <p class="sub">C4 levels 2 and 3. Each block names its files and the work packages that build it; the count under it is the number of requirements and planned tests of those work packages, read from the files.</p>
+    <div class="layers" id="blockLayers"></div>
+    <div class="legend"><span><i style="background:var(--gold)"></i>New code or files we write</span><span><i style="background:var(--blue07)"></i>GitHub feature we configure</span><span><i style="background:var(--green)"></i>Used as is</span></div>
+    <h3 class="sh">Dependencies between work packages</h3>
+    <p class="crumb" style="margin:0 0 10px">Read from <code>depends_on</code>: a row lists the other work packages whose requirements it relies on, with the number of links. A block can only be finished after the blocks it relies on.</p>
+    <div class="tw"><table class="mt" id="dependencyTable"></table></div>
+  </section>
+
+  <section id="runtime">
+    <div class="eyebrow">6 &middot; Runtime view</div>
+    <h2>Three scenarios</h2>
+    <div class="three">
+      <div class="card"><h3>A requirement changes</h3><ol class="steps">
+        <li>The owner works on a branch such as <code>change_request/recipe_box/feature_recipe_box_01_issue31</code> and raises <code>version</code> for a substantive change.</li>
+        <li>The pull request starts <code>validate</code>, <code>text_check</code> and <code>gate_check</code>. The model rejects a wrong field before anything else runs.</li>
+        <li>Every pin on the old version becomes suspect, and the explorer lists what depends on it.</li>
+        <li>The Principal Engineer approves (G1) and merges. <code>build_index</code> writes <code>index.json</code>; Pages publishes the explorer.</li>
+      </ol></div>
+      <div class="card"><h3>Evidence arrives</h3><ol class="steps">
+        <li>A code repo pull request says <code>implements: req_recipe_box_0003@2</code>.</li>
+        <li>Its CI runs the tests and keeps the JUnit XML report; a test names the requirement, for example <code>Describe 'req_recipe_box_0003 ConvertTo-RecipeText'</code>.</li>
+        <li>The nightly <code>build_index</code> reads the last run per requirement and shows it as evidence.</li>
+        <li>The tech lead opens the acceptance record; the owner accepts it (G3).</li>
+      </ol></div>
+      <div class="card"><h3>The format changes</h3><ol class="steps">
+        <li>The engine releases format 2 with <code>format_1_to_2.js</code>, only as a new major version.</li>
+        <li>A project pinned to <code>@v1</code> is untouched.</li>
+        <li>After switching to <code>@v2</code>, the engine reads format 1 through the migration in memory; the runner rejects any change to an ID, a statement or a version.</li>
+        <li><code>migrate</code> writes the files in format 2 as one pull request.</li>
+      </ol></div>
+    </div>
+  </section>
+
+  <section id="deployment">
+    <div class="eyebrow">7 &middot; Deployment view</div>
+    <h2>Repositories, not servers</h2>
+    <div class="layers">
+      <div class="lay">GitHub</div>
+      <div class="boxes">
+        <div class="bx new"><b>Engine repo req_trail</b>Model, schemas, tools, explorer and reusable workflows, released with version tags such as <code>v1</code>.<small>work package 17</small></div>
+        <div class="bx new"><b>Project repo</b>Created from the project template: <code>projects/</code>, <code>roles.yml</code>, <code>CODEOWNERS</code> and two short workflows that call the engine at <code>@v1</code>.<small>one per team or project</small></div>
+        <div class="bx ext"><b>GitHub Pages</b>The explorer and <code>index.json</code> of each project repo; an optional hub joins several.<small>static files</small></div>
+        <div class="bx reuse"><b>Code repos</b>Unchanged, except an <code>implements:</code> line per pull request and requirement IDs in test names.<small>any language</small></div>
+      </div>
+      <div class="lay">A maintainer's PC</div>
+      <div class="boxes">
+        <div class="bx new"><b>Setup</b><code>install_prerequisites.cmd</code> installs Git and Node.js 22 or newer with winget; <code>-CheckOnly</code> only reports.<small>setup/, Windows</small></div>
+        <div class="bx reuse"><b>Git and Node.js</b>Everything else the tools need comes from <code>package.json</code> with <code>npm ci</code>.<small>no global installs</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="concepts">
+    <div class="eyebrow">8 &middot; Crosscutting concepts</div>
+    <h2>Rules every block follows</h2>
+    <div class="three">
+      <div class="card"><h3>IDs and versions</h3><ul>
+        <li>IDs such as <code>req_recipe_box_0003</code> are never reused or renamed.</li>
+        <li>A reference pins a version, <code>@2</code>; a newer target makes it suspect until confirmed.</li>
+        <li>No file holds a status: the index derives it from Git and GitHub.</li>
+      </ul></div>
+      <div class="card"><h3>Names and branches</h3><ul>
+        <li>Lower snake case outside code; inside code, the style of the language.</li>
+        <li>Branches are <code>&lt;phase&gt;/&lt;project&gt;/&lt;topic&gt;</code>, or <code>&lt;phase&gt;/&lt;project&gt;/&lt;feature&gt;_&lt;topic&gt;</code> when the change belongs to a feature, for example <code>concept/req_trail/concept_review</code> and <code>concept/recipe_box/feature_recipe_box_01_issue31</code>.</li>
+      </ul></div>
+      <div class="card"><h3>Formats</h3><ul>
+        <li>Every project names its <code>format_version</code>; released formats are frozen by checksum.</li>
+        <li>The schemas are the single source of fields and values; <code>conventions.md</code> explains them.</li>
+      </ul></div>
+      <div class="card"><h3>Security</h3><ul>
+        <li>Workflows get the least permissions they need; a private code repo is read with a read-only token.</li>
+        <li>Every runtime dependency is named in a merged spec with the libraries considered.</li>
+      </ul></div>
+      <div class="card"><h3>Privacy</h3><ul>
+        <li>The repo may be public: validate warns on mail addresses and internal domains in a diff.</li>
+        <li>A requirement that touches personal data carries a privacy review, decided at G2.</li>
+      </ul></div>
+      <div class="card"><h3>Tests and evidence</h3><ul>
+        <li>Each acceptance criterion names its test kind: Unit, Integration, Static or Manual.</li>
+        <li>A test names the requirement ID; JUnit XML carries it to the index from any language.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section id="decisions">
+    <div class="eyebrow">9 &middot; Architecture decisions</div>
+    <h2>What was decided, and what was rejected</h2>
+    <div class="tw"><table class="mt">
+      <thead><tr><th>Decision</th><th>Rejected</th><th>Why</th><th>Where</th></tr></thead>
+      <tbody>
+        <tr><td>Markdown files in Git are the truth</td><td>a database or an RM tool as master</td><td>Review, history and blame come with Git; no second master to keep in sync</td><td>concept, Architecture</td></tr>
+        <tr><td>JavaScript on Node, no build step</td><td>PowerShell, Python</td><td>The explorer needs JavaScript anyway; Node is on every GitHub runner; one toolchain</td><td>concept, C10</td></tr>
+        <tr><td>JSON Schema with Ajv, one class per object type</td><td>rules written only in <code>conventions.md</code></td><td>A wrong file must never become an object; prose cannot enforce that</td><td>concept, C16</td></tr>
+        <tr><td>Format versions with one migration per change</td><td>changing the format in place</td><td>Older projects stay readable, and a migration cannot change content</td><td>concept, C16</td></tr>
+        <tr><td>The YAML library yaml</td><td>js-yaml</td><td><code>migrate</code> and the propose_change workflow write files back and must keep comments and layout</td><td>concept, C10</td></tr>
+        <tr><td>Static explorer on GitHub Pages</td><td>a server with a database</td><td>Nothing to run or patch; filters on <code>index.json</code> answer the questions</td><td>concept, B8</td></tr>
+        <tr><td>Test evidence as JUnit XML</td><td>a test tool per language</td><td>Every common test tool writes it, so code repos keep their own tools</td><td>conventions</td></tr>
+        <tr><td>Branches <code>&lt;phase&gt;/&lt;project&gt;/&lt;topic&gt;</code>, with <code>&lt;feature&gt;_</code> before the topic when the change belongs to a feature</td><td><code>&lt;step&gt;/&lt;type&gt;/&lt;name&gt;</code> with the types of Conventional Branch, <code>issue&lt;n&gt;_feature_&lt;name&gt;</code>, the filler <code>no_feature</code> for changes without a feature</td><td>The branch list reads like the process: the phase shows which gate reviews a change, and project and feature show what it belongs to; a feature is recognized by its ID form, so a topic never starts with <code>feature_</code></td><td><code>req_req_trail_0150</code></td></tr>
+        <tr><td>Code names in each language's style</td><td>snake case inside code</td><td>Code reads like its libraries, and the usual linters check it without our own rules</td><td><code>req_req_trail_0151</code></td></tr>
+        <tr><td>This page follows arc42, diagrams follow C4</td><td>a structure of our own</td><td>Reuse before building; reviewers know both</td><td>this page</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="quality">
+    <div class="eyebrow">10 &middot; Quality requirements</div>
+    <h2>How well it must work</h2>
+    <p class="sub">The requirements of type <code>non_functional</code> in <code>projects/req_trail/</code>, grouped by category and read from the files, with the test kinds their acceptance criteria name.</p>
+    <div class="tw"><table class="mt" id="qualityTable"></table></div>
+  </section>
+
+  <section id="risks">
+    <div class="eyebrow">11 &middot; Risks and technical debt</div>
+    <h2>What could go wrong, and what limits it</h2>
+    <div class="tw"><table class="mt">
+      <thead><tr><th>Risk or debt</th><th>Effect</th><th>What limits it</th></tr></thead>
+      <tbody>
+        <tr><td>No check runs yet</td><td>Until work package 3, only the review at G1 catches a wrong file</td><td>The model and validate come first; the rules already name the requirement that will enforce them</td></tr>
+        <tr><td>req_trail's own requirements have not passed G1</td><td>They are on <code>main</code> but unreviewed, so the tracker shows them as Draft</td><td>The pilot (work package 14) takes them through their own gates</td></tr>
+        <tr><td>The YAML library has one maintainer</td><td>Fixes could stall</td><td>Very wide use; a round-trip test protects the comments; the model is the only place that parses YAML, so a switch touches one file; until work package 3, <code>build_concept_data.js</code> also parses YAML, and it moves to the model then</td></tr>
+        <tr><td>Generated data in the repo can go stale</td><td><code>concept_data.js</code> could differ from the files</td><td><code>npm run check_concept_data</code> fails when it does; <code>req_req_trail_0152</code> runs it on every pull request</td></tr>
+        <tr><td>Bound to GitHub</td><td>Gates, workflows and Pages are GitHub features</td><td>The files are plain Markdown in Git and move with any Git host; ReqIF leaves a way out to an RM tool</td></tr>
+        <tr><td>Many requirements for a small team</td><td>Over 150 requirements can slow the reviews</td><td>Work packages split them; must, should and could set the order</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="glossary">
+    <div class="eyebrow">12 &middot; Glossary</div>
+    <h2>Terms</h2>
+    <div class="tw"><table class="mt">
+      <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>Gate</td><td>A decision point, G0 to G3, with a named gatekeeper; G1 to G3 are pull request merges.</td></tr>
+        <tr><td>Hat</td><td>A role at a gate, such as Principal Engineer; <code>roles.yml</code> says who wears it.</td></tr>
+        <tr><td>Pinned reference</td><td>A reference with the version it was made against, such as <code>req_recipe_box_0001@1</code>.</td></tr>
+        <tr><td>Suspect link</td><td>A pinned reference whose target has a newer version; it needs a confirmation.</td></tr>
+        <tr><td>Format version</td><td>The version of the file format a project follows, in <code>project.yml</code>.</td></tr>
+        <tr><td>Migration</td><td>Code that turns files of one format version into the next, without changing their content.</td></tr>
+        <tr><td>Index</td><td><code>index.json</code>, built from the files, Git and the test reports; every view reads it.</td></tr>
+        <tr><td>Explorer</td><td>The static page on GitHub Pages that shows the index; the tracker on the concept page is its demo.</td></tr>
+        <tr><td>Work package</td><td>A unit of the estimate; each is one feature of the project <code>req_trail</code>.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <footer>
+    <p><b>Generated parts:</b> the summary, the constraints, the counts per building block, the dependencies between work packages and the quality requirements are read from <code>concept_data.js</code>, which <code>npm run concept_data</code> writes from the files in <code>projects/</code>. Everything else on this page is written by hand and changes by pull request.</p>
+    <p>Structure: <a href="https://arc42.org/overview">arc42</a> (CC BY-SA 4.0) and the <a href="https://c4model.com/">C4 model</a>.</p>
+  </footer>
+</div>
+
+<script src="concept_data.js"></script>
+<script>
+(function () {
+  "use strict";
+  var data = window.CONCEPT_DATA || { projects: [], testKinds: [] };
+  var project = data.projects.filter(function (p) { return p.name === "req_trail"; })[0];
+  var kinds = data.testKinds || ["Unit", "Integration", "Static", "Manual"];
+  function byId(id) { return document.getElementById(id); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  if (!project) {
+    byId("summary").textContent = "concept_data.js is missing: run npm run concept_data.";
+    return;
+  }
+  var requirements = project.requirements;
+  var features = {};
+  project.features.forEach(function (f) { features[f.id] = f; });
+  function workPackage(featureId) { return Number(featureId.slice(-2)); }
+  function testSummary(list) {
+    var counts = {};
+    list.forEach(function (r) { r.acceptance.forEach(function (a) { if (a.kind) counts[a.kind] = (counts[a.kind] || 0) + 1; }); });
+    return kinds.filter(function (k) { return counts[k]; }).map(function (k) { return counts[k] + " " + k; }).join(", ");
+  }
+  function count(list, key) {
+    var out = {};
+    list.forEach(function (r) { out[r[key]] = (out[r[key]] || 0) + 1; });
+    return out;
+  }
+
+  // Summary under section 1.
+  var priority = count(requirements, "priority"), type = count(requirements, "type");
+  byId("summary").innerHTML = "From the files: <b>" + requirements.length + "</b> requirements in " + project.features.length +
+    " work packages, " + (priority.must || 0) + " must, " + (priority.should || 0) + " should, " + (priority.could || 0) +
+    " could; " + (type.functional || 0) + " functional, " + (type.non_functional || 0) + " non-functional, " +
+    (type.constraint || 0) + " constraints. Planned tests: " + esc(testSummary(requirements)) + ".";
+
+  function requirementRow(r) {
+    return "<tr><td><code>" + r.id + "</code></td><td><b>" + esc(r.title) + "</b><br><span class=\"crumb\">" + esc(r.statement) +
+      "</span></td><td>" + r.priority + "</td><td>" + workPackage(r.feature) + "</td><td>" + esc(testSummary([r]) || "-") + "</td></tr>";
+  }
+  var head = "<thead><tr><th>ID</th><th>Requirement</th><th>Priority</th><th>Work package</th><th>Tests</th></tr></thead>";
+
+  // Section 2: constraints.
+  var constraints = requirements.filter(function (r) { return r.type === "constraint"; });
+  byId("constraintTable").innerHTML = head + "<tbody>" + constraints.map(requirementRow).join("") + "</tbody>";
+
+  // Section 10: quality requirements by category.
+  var quality = requirements.filter(function (r) { return r.type === "non_functional"; });
+  var categories = quality.map(function (r) { return r.category || "other"; }).filter(function (c, i, a) { return a.indexOf(c) === i; }).sort();
+  byId("qualityTable").innerHTML = head + "<tbody>" + categories.map(function (c) {
+    var rows = quality.filter(function (r) { return (r.category || "other") === c; });
+    return "<tr><th colspan=\"5\">" + esc(c) + " (" + rows.length + ")</th></tr>" + rows.map(requirementRow).join("");
+  }).join("") + "</tbody>";
+
+  // Section 5: building blocks with the requirements of their work packages.
+  var layers = [
+    ["Files", [
+      { kind: "new", name: "Projects, templates and conventions", text: "One Markdown file per item, the templates and the rules they follow.", files: "projects/, templates/, conventions.md", wps: [1] },
+      { kind: "ext", name: "Issue forms and pull request template", text: "Request and change request forms, Ready and Done lists.", files: ".github/ISSUE_TEMPLATE/, pull_request_template.md", wps: [2] },
+      { kind: "new", name: "Roles", text: "Who wears which hat; CODEOWNERS is generated from it.", files: "roles.yml, CODEOWNERS", wps: [16] }
+    ]],
+    ["Model", [
+      { kind: "new", name: "Model and schemas", text: "One class per object type; a file becomes an object only through the schema of its format version.", files: "tools/model.js, model/format_<n>/", wps: [3] },
+      { kind: "new", name: "Formats and migrations", text: "Frozen formats, one migration per change, migrate as a pull request.", files: "model/migrations/, model/frozen.json, tools/migrate.js", wps: [17] }
+    ]],
+    ["Checks", [
+      { kind: "new", name: "Pull request checks", text: "validate and gate_check on every pull request, with the review rules.", files: "tools/validate.js, .github/workflows/", wps: [5] },
+      { kind: "new", name: "Text checks", text: "Vague words, missing shall, similar requirements, an optional AI review.", files: "tools/text_check.js", wps: [18] }
+    ]],
+    ["Index", [
+      { kind: "new", name: "Index builder", text: "Writes index.json: matrix, links, statuses, waiting times.", files: "tools/build_index.js", wps: [4] },
+      { kind: "new", name: "Links and evidence", text: "Reads implements: lines and JUnit XML from the code repos.", files: "in build_index", wps: [8, 11] },
+      { kind: "new", name: "Releases and value review", text: "Release notes by ID and the value review six weeks later.", files: ".github/workflows/", wps: [12] }
+    ]],
+    ["Views", [
+      { kind: "new", name: "Explorer", text: "The static page on GitHub Pages: dashboard, matrix, dependencies, KPIs, gates and triage.", files: "docs/", wps: [6, 9, 13] },
+      { kind: "new", name: "Edit from the explorer", text: "Propose change opens a change request; a workflow turns it into a pull request.", files: "explorer, .github/workflows/", wps: [19] },
+      { kind: "ext", name: "Project board", text: "Roadmap and status across projects.", files: "GitHub Projects", wps: [7] }
+    ]],
+    ["Intake", [
+      { kind: "ext", name: "Community intake", text: "A forum post with #request becomes a request issue.", files: "automation flow", wps: [10] }
+    ]],
+    ["Delivery", [
+      { kind: "new", name: "Engine releases and templates", text: "Version tags, reusable workflows, the project template and the optional hub.", files: "engine repo", wps: [17] },
+      { kind: "new", name: "Pilot and runbook", text: "req_trail through its own gates, and how to run it.", files: "projects/req_trail/, runbook", wps: [14, 15] }
+    ]]
+  ];
+  byId("blockLayers").innerHTML = layers.map(function (layer) {
+    return "<div class=\"lay\">" + layer[0] + "</div><div class=\"boxes\">" + layer[1].map(function (b) {
+      var list = requirements.filter(function (r) { return b.wps.indexOf(workPackage(r.feature)) >= 0; });
+      var names = b.wps.map(function (n) { var f = features["feature_req_trail_" + ("0" + n).slice(-2)]; return n + " " + (f ? f.title : ""); }).join("; ");
+      return "<div class=\"bx " + b.kind + "\"><b>" + esc(b.name) + "</b>" + esc(b.text) + "<small>" + esc(b.files) + "</small>" +
+        "<small>Work package " + esc(names) + "</small><div class=\"count\">" + list.length + " requirements" +
+        (testSummary(list) ? " &middot; " + esc(testSummary(list)) : "") + "</div></div>";
+    }).join("") + "</div>";
+  }).join("");
+
+  // Section 5: dependencies between work packages, from depends_on.
+  var featureOf = {};
+  requirements.forEach(function (r) { featureOf[r.id] = r.feature; });
+  var rows = project.features.map(function (f) {
+    var links = {};
+    requirements.filter(function (r) { return r.feature === f.id; }).forEach(function (r) {
+      r.dependsOn.forEach(function (d) {
+        var target = featureOf[d.id];
+        if (target && target !== f.id) links[target] = (links[target] || 0) + 1;
+      });
+    });
+    var keys = Object.keys(links).sort();
+    return "<tr><td>" + workPackage(f.id) + " " + esc(f.title) + "</td><td>" + (keys.length ? keys.map(function (k) {
+      return workPackage(k) + " " + esc(features[k] ? features[k].title : k) + " <span class=\"crumb\">(" + links[k] + ")</span>";
+    }).join("<br>") : "<span class=\"crumb\">none</span>") + "</td></tr>";
+  });
+  byId("dependencyTable").innerHTML = "<thead><tr><th>Work package</th><th>Relies on</th></tr></thead><tbody>" + rows.join("") + "</tbody>";
+})();
+</script>
+</body>
+</html>

@@ -21,7 +21,7 @@ short forms are `req` and `spec`, for example in `req_recipe_box_0003`, `spec_re
 ```
 projects/
 └─ <project>/                    # the project name, for example recipe_box
-   ├─ project.yml                # name, format version, description, code repos
+   ├─ project.yml                # name, format version, description, code repos, gates_after, solo_mode
    ├─ metrics.yml                # measured outcomes after a release
    ├─ features/<feature id>.md
    ├─ requirements/<requirement id>.md
@@ -52,7 +52,8 @@ a feature. A spec says how one or more requirements are built.
 
 - Every requirement and spec has `version`, a whole number that starts at 1.
 - A substantive change raises the version by one. An editorial change (a typo, wording that keeps the meaning) keeps
-  it; the pull request says which it is.
+  it; the pull request says which it is. A pull request that changes a statement or an acceptance criterion without
+  raising the version carries the label `editorial`.
 - A reference to a requirement or spec names the version it was made against: `req_recipe_box_0001@1`. This applies to
   `depends_on`, `covers`, `links.spec` and `requirement`.
 - When the target moves to a higher version, every reference to the old one is suspect until someone confirms it.
@@ -88,11 +89,29 @@ so a mapping to the values of another tool, such as a requirements management to
 
 ## Text fields
 
-- `statement` is one sentence with "shall", in plain text. Code in backticks is fine; tables, images, lists and links
-  are not, because an export to ReqIF carries the text as simple XHTML.
+- `statement` is one sentence with "shall", in plain text, of at most 80 words; `text_check` warns above 40. Code in
+  backticks is fine; tables, images, lists and links are not, because an export to ReqIF carries the text as simple
+  XHTML.
 - `rationale` is one sentence on why the requirement exists: the problem it solves or the need behind it. It travels
   with the requirement into an export; the request issue does not.
+- `source` of a requirement and each `origin` of a feature take one of three forms: `#<issue>` for an issue in the same
+  repo, `<owner>/<repo>#<issue>` for an issue in another repo, or a path in the repository with an optional
+  `#<anchor>`, such as `concept/concept.html#estimate`.
 - Notes below the front matter are optional and are not exported.
+
+## Acceptance criteria
+
+Every acceptance criterion can be checked on its own and starts with its test kind:
+
+| Kind | What checks it | Evidence at G3 |
+|---|---|---|
+| `Unit` | An automated test of one part, with made-up input | The JUnit XML report of the CI run |
+| `Integration` | An automated test of several parts together, often on a test repo | The JUnit XML report, or a test record when it does not run in CI |
+| `Static` | A check of files, names or settings, without running the code | The output of the check in CI |
+| `Manual` | A person who follows written steps | A test record by the tester |
+
+A requirement with a `Manual` criterion has a section `## Manual test` in its notes: who tests it, the steps, and when
+it passes.
 
 ## Statuses
 
@@ -106,8 +125,19 @@ No file holds a status. The index derives it from what happened in GitHub:
 | Specified | A spec that covers the requirement at its current version is merged: gate G2. |
 | Implemented | A merged pull request in the code repo names it in an `implements:` line. |
 | Verified | Its acceptance record is merged: gate G3. |
+| Withdrawn | A merged pull request deletes the requirement file. Its ID is never used again. |
 
-A substantive change after G1 sends the requirement back to Approved, once the new version is merged.
+Until it is withdrawn, a requirement's status is the furthest stage it has reached at its current version. Evidence
+for an older version, such as a spec that covers `req_recipe_box_0003@1` when the requirement is at version 2, makes
+that link suspect and does not count toward the status. So a substantive change after G1 sends the requirement back
+to Approved, once the new version is merged.
+
+`project.yml` holds two settings for the gates:
+
+- `gates_after` names the last commit that reached `main` without passing a gate. A requirement that only merges up to
+  that commit changed counts as Draft. `null` means every merge passed a gate.
+- `solo_mode: true` says the project has one maintainer for now. A gate merge without a second person's approval then
+  counts, and the index marks it solo. Once a second person approves, the project sets it to `false`.
 
 ## Gates
 
@@ -125,7 +155,7 @@ Nobody approves what they wrote. Who holds which hat lives in `roles.yml`, the s
 - A work issue and a pull request in the code repo name what they build: `implements: req_recipe_box_0003@2`. A change with
   nothing to link says `no_req: refactor` (or `docs`, `build`).
 - A test carries the requirement ID in its name or in the name of its group, for example
-  `Describe 'req_recipe_box_0003 convert_to_recipe_text'`. Test tools write these names into their JUnit XML report, which the
+  `Describe 'req_recipe_box_0003 ConvertTo-RecipeText'`. Test tools write these names into their JUnit XML report, which the
   index reads, so the code repo can use any language and test tool.
 - The index finds code and tests through these lines and names; requirement files hold no code or test links.
 

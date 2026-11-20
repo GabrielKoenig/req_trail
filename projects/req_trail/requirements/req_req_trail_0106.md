@@ -3,7 +3,7 @@ id: req_req_trail_0106
 title: Steps for each task
 feature: feature_req_trail_15
 owner: "@GabrielKoenig"
-version: 1
+version: 2
 priority: should
 type: functional
 category: ""
@@ -13,7 +13,7 @@ reviews_reason: "Documentation only."
 source: "concept/concept.html#estimate"
 statement: >
   The runbook shall give step-by-step instructions for adding a project, adding a requirement, changing a
-  requirement, setting a baseline and running the intake.
+  requirement, using a baseline and running the intake.
 rationale: >
   A new team should be able to start without a maintainer at hand.
 acceptance:
@@ -22,6 +22,9 @@ links:
   mockup: n/a
   spec: null
 ---
+
+Version 2: a workflow sets the baselines (req_req_trail_0171), so the runbook explains how to use one, not how to set
+it.
 
 ## Manual test
 

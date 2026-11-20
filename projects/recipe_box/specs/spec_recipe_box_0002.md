@@ -10,12 +10,12 @@ estimate_days: 1.5
 
 ## Architecture
 
-`convert_to_recipe_text` turns amounts, units, links and notes into plain text for the PDF. `get_safe_url` lets only
+`ConvertTo-RecipeText` turns amounts, units, links and notes into plain text for the PDF. `Get-SafeUrl` lets only
 http and https links through; any other link is printed as text.
 
 ## Interfaces
 
-`convert_to_recipe_text -recipe <object>` returns the text of each field, in the order of the ingredient table.
+`ConvertTo-RecipeText -Recipe <object>` returns the text of each field, in the order of the ingredient table.
 
 ## Decisions
 
@@ -25,8 +25,8 @@ Version 2 follows `req_recipe_box_0003@2`: links other than http and https are n
 
 | Part | Library | Release, licence, use | Decision |
 |---|---|---|---|
-| `get_safe_url` | The URL class of .NET, `System.Uri` | Part of the runtime | Used: it reads the scheme, so no pattern of our own decides what a link is |
-| `convert_to_recipe_text` | None found | | Built: the fields and their order are recipe_box's own |
+| `Get-SafeUrl` | The URL class of .NET, `System.Uri` | Part of the runtime | Used: it reads the scheme, so no pattern of our own decides what a link is |
+| `ConvertTo-RecipeText` | None found | | Built: the fields and their order are recipe_box's own |
 
 ## Risks
 

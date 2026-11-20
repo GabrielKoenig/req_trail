@@ -16,9 +16,9 @@ statement: >
 rationale: >
   Raw amounts and link markup make a printed recipe hard to cook from.
 acceptance:
-  - An amount shows with its unit.
-  - A linked recipe shows its title.
-  - Only http and https links stay clickable.
+  - "Unit: an amount shows with its unit."
+  - "Unit: a linked recipe shows its title."
+  - "Unit: only http and https links stay clickable."
 links:
   mockup: n/a
   spec: spec_recipe_box_0002@2

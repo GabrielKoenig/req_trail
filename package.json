@@ -1,0 +1,17 @@
+{
+  "name": "req_trail",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Requirements as code: requirements, specs and changes in Git, linked by ID.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "concept_data": "node concept/build_concept_data.js",
+    "check_concept_data": "node concept/build_concept_data.js --check"
+  },
+  "devDependencies": {
+    "yaml": "2.9.1"
+  }
+}

@@ -20,8 +20,9 @@ metric:
   baseline: 5
   target: 0
   direction: at_most
+estimate: 3.5
 target_release: "1.0"
 ---
 
-Built in work package 3. It holds 29 requirements. The baseline is an estimate; the value review after
+Built in work package 3. It holds 38 requirements. The baseline is an estimate; the value review after
 the release measures it.

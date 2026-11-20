@@ -10,13 +10,13 @@ estimate_days: 4
 
 ## Architecture
 
-`export_recipe_pdf` reads the recipes of a collection, resolves a saved selection with `resolve_recipe_selection`,
-renders one HTML page per recipe with `convert_to_recipe_print_html` and prints the result to PDF. Messages come from
+`Export-RecipePdf` reads the recipes of a collection, resolves a saved selection with `Resolve-RecipeSelection`,
+renders one HTML page per recipe with `ConvertTo-RecipePrintHtml` and prints the result to PDF. Messages come from
 `resources/<lang>/strings.psd1`.
 
 ## Interfaces
 
-`export_recipe_pdf -collection <name> [-selection <name>] -path <file.pdf>` writes one PDF and returns its path.
+`Export-RecipePdf -Collection <name> [-Selection <name>] -Path <file.pdf>` writes one PDF and returns its path.
 
 ## Decisions
 

@@ -16,8 +16,8 @@ statement: >
 rationale: >
   People want to print a collection, or hand it to someone who does not use recipe_box.
 acceptance:
-  - A collection of 1,000 recipes exports to one PDF with one page per recipe.
-  - The PDF opens without a repair prompt.
+  - "Integration: a collection of 1,000 recipes exports to one PDF with one page per recipe."
+  - "Integration: the PDF opens without a repair prompt."
 links:
   mockup: mockups/pdf_layout.html
   spec: spec_recipe_box_0001@1
