@@ -22,7 +22,6 @@ acceptance:
   - "Integration: the pull request for change request issue #31 on req_recipe_box_0003 comes from the branch change_request/recipe_box/feature_recipe_box_01_issue31, and its body holds Closes #31."
   - "Unit: proposed text that holds YAML or shell syntax ends up as plain text in the statement."
 links:
-  mockup: n/a
   spec: null
 ---
 

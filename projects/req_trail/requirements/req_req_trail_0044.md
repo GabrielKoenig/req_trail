@@ -19,7 +19,6 @@ acceptance:
   - "Manual: on a Windows PC without Node.js, starting install_prerequisites.cmd installs Node.js 22 or newer."
   - "Integration: install_prerequisites.cmd -CheckOnly then reports every prerequisite as ok and exits with code 0."
 links:
-  mockup: n/a
   spec: null
 ---
 

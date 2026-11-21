@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Integration: the test post gets a reply with the issue link."
 links:
-  mockup: n/a
   spec: null
 ---

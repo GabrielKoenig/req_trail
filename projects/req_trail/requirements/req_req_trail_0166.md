@@ -18,7 +18,6 @@ rationale: >
 acceptance:
   - "Unit: implements: req_recipe_box_0003@2 for an Approved requirement without a merged spec warns, and the check still passes."
 links:
-  mockup: n/a
   spec: null
 ---
 

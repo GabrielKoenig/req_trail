@@ -20,6 +20,5 @@ acceptance:
   - "Unit: a copy of req_recipe_box_0003 with one word changed lists req_recipe_box_0003."
   - "Unit: an unrelated statement lists nothing."
 links:
-  mockup: n/a
   spec: null
 ---

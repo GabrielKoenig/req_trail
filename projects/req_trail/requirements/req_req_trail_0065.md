@@ -19,6 +19,5 @@ acceptance:
   - "Unit: the cell function returns gap for a missing spec of a Specified requirement."
   - "Unit: the cell function returns suspect for a link to an older version."
 links:
-  mockup: null
   spec: null
 ---

@@ -19,6 +19,5 @@ acceptance:
   - "Unit: a substantive change to req_recipe_box_0003 at version 2 writes version 3."
   - "Unit: an editorial change keeps version 2."
 links:
-  mockup: n/a
   spec: null
 ---

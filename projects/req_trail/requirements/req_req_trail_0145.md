@@ -20,6 +20,5 @@ acceptance:
   - "Unit: a test migration that edits a statement is rejected, and the error names the migration and the requirement."
   - "Unit: a test migration whose result lacks a required field of the new format is rejected."
 links:
-  mockup: n/a
   spec: null
 ---

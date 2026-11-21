@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Static: no file under templates/ or projects/ has a line that starts with status:."
 links:
-  mockup: n/a
   spec: null
 ---

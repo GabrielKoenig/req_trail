@@ -19,6 +19,5 @@ acceptance:
   - "Unit: depends_on: [req_recipe_box_0099@1] fails when req_recipe_box_0099 does not exist."
   - "Unit: the same holds for covers, links.spec and requirement."
 links:
-  mockup: n/a
   spec: null
 ---

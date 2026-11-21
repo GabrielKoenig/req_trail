@@ -20,6 +20,5 @@ acceptance:
   - "Unit: 'The export works well.' warns."
   - "Unit: 'The export writes three pages.' does not warn."
 links:
-  mockup: n/a
   spec: null
 ---

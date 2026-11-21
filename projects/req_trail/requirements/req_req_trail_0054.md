@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Integration: on the test repo a pull request with a schema error cannot be merged."
 links:
-  mockup: n/a
   spec: null
 ---

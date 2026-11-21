@@ -19,6 +19,5 @@ acceptance:
   - "Unit: approved but untested returns the requirements at Approved or later that have no test."
   - "Unit: changed since a baseline returns the requirements whose version rose after the given tag."
 links:
-  mockup: null
   spec: null
 ---

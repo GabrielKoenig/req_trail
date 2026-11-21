@@ -18,7 +18,6 @@ rationale: >
 acceptance:
   - "Unit: an index built at 06:00 UTC on 2026-11-19 from commit a1b2c3d shows that time and that commit on every view."
 links:
-  mockup: n/a
   spec: null
 ---
 

@@ -19,7 +19,6 @@ rationale: >
 acceptance:
   - "Static: labels.yml holds exactly these twelve labels, each with a description."
 links:
-  mockup: n/a
   spec: null
 ---
 

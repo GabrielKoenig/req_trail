@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Unit: a requirement with an empty rationale fails and names the file."
 links:
-  mockup: n/a
   spec: null
 ---

@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Unit: a requirement with priority: urgent makes validate exit with code 1 and print the file, the field priority and the allowed values."
 links:
-  mockup: n/a
   spec: null
 ---

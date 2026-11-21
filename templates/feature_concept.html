@@ -1,0 +1,68 @@
+<!doctype html>
+<!-- One page per feature, at projects/<project>/concepts/<feature id>.html: the implementation concept of the work
+package. It is written in the concept phase, at the latest with the first spec of the feature, and G2 approves it
+together with the specs. Keep the five sections and their ids, because validate checks them (req_req_trail_0177).
+Draw the design with made-up data. The table in requirements_to_specs is generated: run npm run concept_data and never
+edit it by hand (req_req_trail_0179). The overview concept of the project is linked in project.yml. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>&lt;feature title&gt; concept</title>
+<style>
+:root{--paper:#ffffff;--ink:#1d1d1f;--muted:#6b6b70;--rule:#d9d9de;--accent:#8a5a00;--desk:#f4f4f6;--bad:#b3261e}
+@media (prefers-color-scheme:dark){:root{--paper:#1c1c1f;--ink:#ececf0;--muted:#a0a0a8;--rule:#3a3a40;--accent:#f0b90b;--desk:#121214;--bad:#ff8a80}}
+body{margin:0;background:var(--desk);color:var(--ink);font:15px/1.55 "Segoe UI",system-ui,sans-serif}
+main{max-width:880px;margin:0 auto;padding:24px 16px 48px}
+.id{font-family:ui-monospace,Consolas,monospace;color:var(--muted);font-size:13px}
+h1{font-size:26px;margin:4px 0 6px}
+section{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:18px 20px;margin:16px 0;overflow-x:auto}
+h2{font-size:17px;margin:0 0 10px;color:var(--accent)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+code{font-family:ui-monospace,Consolas,monospace;font-size:.92em}
+small{color:var(--muted)}
+.suspect{color:var(--bad);font-weight:600}
+svg{max-width:100%;height:auto}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div class="id">&lt;feature id&gt; &middot; implementation concept</div>
+  <h1>&lt;feature title&gt;</h1>
+  <p>&lt;One sentence on what the work package builds and for whom.&gt;</p>
+</header>
+
+<section id="flow">
+  <h2>User flow</h2>
+  <p>&lt;Who does what, step by step, and what they see at each step.&gt;</p>
+</section>
+
+<section id="design">
+  <h2>Design and mockups</h2>
+  <p>&lt;The screens, pages or output the user sees, drawn here in HTML or SVG with made-up data. When nobody sees the
+  feature, say so and why.&gt;</p>
+</section>
+
+<section id="architecture">
+  <h2>Architecture</h2>
+  <p>&lt;The building blocks of the work package, their interfaces and the data flow, as a diagram and a few sentences,
+  and how they fit the overview concept.&gt;</p>
+</section>
+
+<section id="tests">
+  <h2>Test approach</h2>
+  <p>&lt;How the acceptance criteria are tested: which test kinds, which test data, what runs in CI and what a person
+  checks.&gt;</p>
+</section>
+
+<section id="requirements_to_specs">
+  <h2>Requirements to specs</h2>
+  <!-- generated: requirements_to_specs -->
+  <!-- end generated -->
+</section>
+</main>
+</body>
+</html>

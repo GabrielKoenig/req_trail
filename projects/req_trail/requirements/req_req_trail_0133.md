@@ -20,7 +20,6 @@ acceptance:
   - "Integration: after the AI step the pull request has one new comment and no new commit."
   - "Integration: the AI step passes both when it has findings and when the provider returns an error."
 links:
-  mockup: n/a
   spec: null
 ---
 

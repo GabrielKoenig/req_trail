@@ -19,6 +19,5 @@ rationale: >
 acceptance:
   - "Integration: the test project repo runs all three through uses: lines that end in @v1."
 links:
-  mockup: n/a
   spec: null
 ---

@@ -19,7 +19,6 @@ acceptance:
   - "Static: the hub workflow uses no secret other than the app's key."
   - "Manual: the app's repository permissions are all read-only."
 links:
-  mockup: n/a
   spec: null
 ---
 

@@ -19,7 +19,6 @@ rationale: >
 acceptance:
   - "Manual: the co-author does both tasks without asking the maintainers and notes every unclear step as a finding."
 links:
-  mockup: n/a
   spec: null
 ---
 

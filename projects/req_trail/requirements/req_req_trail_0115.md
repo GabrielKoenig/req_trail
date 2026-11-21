@@ -19,6 +19,5 @@ rationale: >
 acceptance:
   - "Integration: a merge in the test code repo shows in the index after the next nightly run."
 links:
-  mockup: n/a
   spec: null
 ---

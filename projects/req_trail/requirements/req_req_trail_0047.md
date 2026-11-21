@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Unit: a Specified requirement whose version 2 is merged shows Approved."
 links:
-  mockup: n/a
   spec: null
 ---

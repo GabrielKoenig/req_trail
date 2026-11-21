@@ -19,6 +19,5 @@ rationale: >
 acceptance:
   - "Unit: adding model/format_2/ without model/migrations/format_1_to_2.js makes the test fail."
 links:
-  mockup: n/a
   spec: null
 ---

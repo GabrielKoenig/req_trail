@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Unit: the feature schema fails a feature without benefit."
 links:
-  mockup: n/a
   spec: null
 ---

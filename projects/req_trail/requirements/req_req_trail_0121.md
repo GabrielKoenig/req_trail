@@ -19,6 +19,5 @@ rationale: >
 acceptance:
   - "Integration: on the test project repo, changing @v1 to a test major tag is the only change needed to run that version."
 links:
-  mockup: n/a
   spec: null
 ---

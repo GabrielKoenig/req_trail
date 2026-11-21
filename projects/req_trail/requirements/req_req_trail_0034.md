@@ -19,6 +19,5 @@ acceptance:
   - "Unit: a statement with a Markdown link fails."
   - "Unit: a statement with code in backticks passes."
 links:
-  mockup: n/a
   spec: null
 ---

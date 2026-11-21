@@ -21,6 +21,5 @@ acceptance:
   - "Unit: changing one character in a schema of a released format makes the test fail and name the file."
   - "Unit: a schema of the format that is not released yet can change without failing the test."
 links:
-  mockup: n/a
   spec: null
 ---

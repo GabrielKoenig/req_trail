@@ -19,6 +19,5 @@ rationale: >
 acceptance:
   - "Static: conventions.md contains all three formats."
 links:
-  mockup: n/a
   spec: null
 ---

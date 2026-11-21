@@ -19,6 +19,5 @@ rationale: >
 acceptance:
   - "Integration: a pull request with implements: req_recipe_box_0003@2 gets a comment with the status, version 2 and the statement."
 links:
-  mockup: n/a
   spec: null
 ---

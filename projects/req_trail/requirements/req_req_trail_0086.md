@@ -21,7 +21,6 @@ acceptance:
   - "Unit: a test whose names hold no ID counts for no requirement."
   - "Unit: the test names req_recipe_box_00031 and xreq_recipe_box_0003 link to no requirement."
 links:
-  mockup: n/a
   spec: null
 ---
 

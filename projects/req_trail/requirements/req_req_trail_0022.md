@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Unit: front matter with an unclosed quote makes validate fail and print the file and the line."
 links:
-  mockup: n/a
   spec: null
 ---

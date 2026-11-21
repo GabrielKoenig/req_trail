@@ -20,7 +20,6 @@ acceptance:
   - "Unit: with solo_mode: true, a requirement pull request merged by its author without a review shows Approved with the mark solo."
   - "Unit: a gate merge with an approval by another person carries no solo mark."
 links:
-  mockup: n/a
   spec: null
 ---
 

@@ -19,6 +19,5 @@ rationale: >
 acceptance:
   - "Unit: a tag after two pull requests that implement req_recipe_box_0001@1 and req_recipe_box_0003@2 lists both requirements."
 links:
-  mockup: n/a
   spec: null
 ---

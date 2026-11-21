@@ -19,6 +19,5 @@ rationale: >
 acceptance:
   - "Unit: 4 working days shows plain, 5 shows amber and 10 shows red."
 links:
-  mockup: null
   spec: null
 ---

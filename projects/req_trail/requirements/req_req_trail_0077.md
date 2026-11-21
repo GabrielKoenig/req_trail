@@ -19,6 +19,5 @@ acceptance:
   - "Unit: a body without either line gives a warning."
   - "Unit: a body with no_req: refactor passes without a warning."
 links:
-  mockup: n/a
   spec: null
 ---

@@ -1,11 +1,11 @@
 ---
-# One file per spec, at projects/<project>/specs/<id>.md. The architecture owner approves it at G2.
+# One file per requirement, at projects/<project>/specs/<id>.md: how that requirement is built. The architecture owner
+# approves it at G2, together with the feature concept, concepts/<feature id>.html.
 id: spec_<project>_<nnnn>
 title: <short name>
 feature: feature_<project>_<nn>
 version: 1                       # stays 1 until G2, then +1 per substantive change; an editorial change keeps it
-covers: [req_<project>_<nnnn>@1] # every requirement it builds, pinned to the version it was written for
-mockup: null                     # mockups/<name>.html, or n/a
+covers: req_<project>_<nnnn>@1   # the one requirement it builds, pinned to the version it was written for
 estimate_days: <best guess>
 ---
 

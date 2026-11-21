@@ -20,6 +20,5 @@ acceptance:
   - "Static: every feature ID matches feature_<project>_<nn> and every requirement and spec ID matches req_<project>_<nnnn> or spec_<project>_<nnnn>, where <project> is the name of its folder."
   - "Static: the file of measured outcomes is named metrics.yml in templates/ and in every project folder."
 links:
-  mockup: n/a
   spec: null
 ---

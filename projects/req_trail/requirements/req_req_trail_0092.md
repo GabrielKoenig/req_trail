@@ -19,6 +19,5 @@ acceptance:
   - "Unit: a release on 2026-09-01 that delivered feature_recipe_box_01 schedules the issue for 2026-10-13."
   - "Integration: the issue names the feature, its metric and its target."
 links:
-  mockup: n/a
   spec: null
 ---

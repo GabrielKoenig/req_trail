@@ -21,6 +21,5 @@ acceptance:
   - "Static: ESLint with the rule camelcase, property names excepted, passes on tools/ and tests/."
   - "Static: PSScriptAnalyzer gives no PSUseApprovedVerbs finding on setup/, and every function name there has the form Verb-Noun."
 links:
-  mockup: n/a
   spec: null
 ---

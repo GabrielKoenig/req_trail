@@ -22,7 +22,6 @@ acceptance:
   - "Static: no workflow file holds a credential in plain text."
   - "Manual: the security reviewer finds, for each write scope, the step that uses it."
 links:
-  mockup: n/a
   spec: null
 ---
 

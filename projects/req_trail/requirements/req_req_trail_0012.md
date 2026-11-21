@@ -19,6 +19,5 @@ rationale: >
 acceptance:
   - "Static: request.yml has six yes-or-no questions, each marked privacy or security in its description."
 links:
-  mockup: n/a
   spec: null
 ---

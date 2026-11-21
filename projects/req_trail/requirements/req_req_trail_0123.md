@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Integration: with two registered test repos the overview lists the requirements of both."
 links:
-  mockup: n/a
   spec: null
 ---

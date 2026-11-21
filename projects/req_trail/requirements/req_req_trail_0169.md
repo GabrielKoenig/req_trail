@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Unit: an Approved req_recipe_box_0003 that depends on a Draft req_recipe_box_0001 warns, and the check still passes."
 links:
-  mockup: n/a
   spec: null
 ---

@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Integration: a direct push to main on the test repo is rejected, also for an admin (B4)."
 links:
-  mockup: n/a
   spec: null
 ---

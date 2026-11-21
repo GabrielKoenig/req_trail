@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Unit: a diff that adds jane@example.com gives a warning with the file and the line, and validate still passes."
 links:
-  mockup: n/a
   spec: null
 ---

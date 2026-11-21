@@ -21,7 +21,6 @@ acceptance:
   - "Integration: on a test repo with a format 1 project, migrate opens one pull request whose files pass validate at the current format."
   - "Unit: migrating recipe_box to format 2 writes to the branch change_request/recipe_box/format_2."
 links:
-  mockup: n/a
   spec: null
 ---
 

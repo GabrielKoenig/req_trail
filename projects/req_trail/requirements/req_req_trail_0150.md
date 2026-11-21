@@ -25,7 +25,6 @@ acceptance:
   - "Unit: with Closes #31, idea/recipe_box/issue31 passes, and idea/recipe_box/feature_pdf_issue31 fails because a topic may not start with feature_."
   - "Unit: a pull request from dependabot/npm_and_yarn/yaml-2.9.2 passes while dependabot/ is a listed tool prefix, and fails when it is not."
 links:
-  mockup: n/a
   spec: null
 ---
 

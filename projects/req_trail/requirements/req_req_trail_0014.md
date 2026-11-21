@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Static: .github/ISSUE_TEMPLATE/change_request.yml has these three fields, each marked required."
 links:
-  mockup: n/a
   spec: null
 ---

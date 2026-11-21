@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Static: the first cell of the requirement row in the work issue template reads req_<project>_<nnnn>@<version>."
 links:
-  mockup: n/a
   spec: null
 ---

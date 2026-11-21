@@ -19,7 +19,6 @@ acceptance:
   - "Integration: axe-core reports no violations on the list, detail, matrix and KPI views."
   - "Manual: every view can be used with the keyboard alone."
 links:
-  mockup: n/a
   spec: null
 ---
 

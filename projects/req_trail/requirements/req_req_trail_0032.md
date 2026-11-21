@@ -22,6 +22,5 @@ acceptance:
   - "Unit: a functional requirement with category: security fails."
   - "Unit: a functional requirement with an empty category passes."
 links:
-  mockup: n/a
   spec: null
 ---

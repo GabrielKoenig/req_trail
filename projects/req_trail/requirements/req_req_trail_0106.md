@@ -19,7 +19,6 @@ rationale: >
 acceptance:
   - "Manual: a person new to the engine adds a project and a requirement on a test repo with the runbook alone."
 links:
-  mockup: n/a
   spec: null
 ---
 

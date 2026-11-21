@@ -1,8 +1,9 @@
 // Reads every file in projects/ and writes concept/concept_data.js, which the concept pages load with a script tag,
-// so the pages show the files as they are and never a copy kept by hand.
+// so the pages show the files as they are and never a copy kept by hand. It also writes the table of the section
+// requirements_to_specs in each feature concept, projects/<project>/concepts/<feature id>.html (req_req_trail_0179).
 //
-//   npm run concept_data         writes concept/concept_data.js
-//   npm run check_concept_data   fails when concept/concept_data.js differs from the files
+//   npm run concept_data         writes concept/concept_data.js and the tables
+//   npm run check_concept_data   fails when concept/concept_data.js or a table differs from the files
 //
 // Libraries considered: yaml (used; chosen for the engine in d4a3b38 because it can also write files back), js-yaml
 // (rejected, see the same commit). The front matter is split with one regular expression; the spec of work package 3
@@ -63,11 +64,13 @@ function text(value) {
   return value === undefined || value === null ? "" : String(value).trim();
 }
 
-function readFeature(file) {
+function readFeature(file, folder) {
   const { fields } = readMarkdown(file);
   const metric = fields.metric || {};
+  const concept = path.join(folder, "concepts", fields.id + ".html");
   return {
     id: fields.id,
+    concept: fs.existsSync(concept) ? relative(concept) : null,
     title: text(fields.title),
     goal: text(fields.goal),
     scope: fields.scope || [],
@@ -99,7 +102,6 @@ function readRequirement(file) {
     statement: text(fields.statement),
     rationale: text(fields.rationale),
     acceptance: (fields.acceptance || []).map(parseCriterion),
-    mockup: links.mockup ?? null,
     spec: links.spec ? parsePin(links.spec) : null,
     manualTest: section(body, "Manual test"),
   };
@@ -112,8 +114,7 @@ function readSpec(file) {
     title: text(fields.title),
     feature: fields.feature,
     version: fields.version,
-    covers: (fields.covers || []).map(parsePin),
-    mockup: fields.mockup ?? null,
+    covers: fields.covers ? parsePin(fields.covers) : null,
     estimateDays: fields.estimate_days ?? null,
     architecture: section(body, "Architecture"),
   };
@@ -136,7 +137,8 @@ function readProject(folder) {
     formatVersion: project.format_version,
     description: text(project.description),
     codeRepos: project.code_repos || [],
-    features: listFiles(path.join(folder, "features"), ".md").map(readFeature),
+    concept: project.concept ?? null,
+    features: listFiles(path.join(folder, "features"), ".md").map((file) => readFeature(file, folder)),
     requirements: listFiles(path.join(folder, "requirements"), ".md").map(readRequirement),
     specs: listFiles(path.join(folder, "specs"), ".md").map(readSpec),
     acceptance: listFiles(path.join(folder, "acceptance"), ".md").map(readAcceptance),
@@ -150,7 +152,7 @@ function readHistory() {
   let log;
   try {
     log = execFileSync("git", ["log", "--format=@@%h %cs", "--name-only", "--", "projects"], { cwd: repoRoot,
-      encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
+      encoding: "utf8", maxBuffer: 64 * 1024 * 1024, stdio: ["ignore", "pipe", "ignore"] });
   } catch {
     return {};
   }
@@ -186,6 +188,63 @@ function serialize(data) {
     data.projects.map(serializeProject).join(",\n") + "\n]\n}";
 }
 
+// The section requirements_to_specs of a feature concept: each requirement of the feature with the one spec that
+// covers it. Only the part between the two comments is generated; the rest of the page is written by hand.
+const generatedStart = "<!-- generated: requirements_to_specs -->";
+const generatedEnd = "<!-- end generated -->";
+
+function html(value) {
+  return String(value).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c])
+    .replace(/`([^`]+)`/g, "<code>$1</code>");
+}
+
+function requirementsToSpecs(project, featureId) {
+  const rows = project.requirements.filter((r) => r.feature === featureId).map((r) => {
+    const spec = project.specs.find((s) => s.covers && s.covers.id === r.id);
+    const requirement = '<a href="../requirements/' + r.id + '.md"><code>' + r.id + "</code></a> version " + r.version +
+      "<br>" + html(r.title) + "<br><small>" + html(r.statement) + "</small>";
+    let translation = "No spec yet.";
+    if (spec) {
+      const suspect = spec.covers.version < r.version ?
+        ' <span class="suspect">suspect: written for version ' + spec.covers.version + "</span>" : "";
+      translation = '<a href="../specs/' + spec.id + '.md"><code>' + spec.id + "</code></a> version " + spec.version +
+        suspect + "<br>" + html(spec.title) + (spec.architecture ? "<br><small>" + html(spec.architecture) + "</small>" : "");
+    }
+    return "      <tr><td>" + requirement + "</td><td>" + translation + "</td></tr>";
+  });
+  return [generatedStart,
+    "  <table>",
+    "    <thead><tr><th>Requirement</th><th>Spec that translates it</th></tr></thead>",
+    "    <tbody>",
+    ...(rows.length ? rows : ['      <tr><td colspan="2">No requirement belongs to this feature yet.</td></tr>']),
+    "    </tbody>",
+    "  </table>",
+    "  " + generatedEnd].join("\n");
+}
+
+// Every feature concept with its current text and the text it has once its table is generated.
+function conceptPages(projects) {
+  const pages = [];
+  for (const project of projects) {
+    for (const feature of project.features) {
+      if (!feature.concept) continue;
+      const file = path.join(repoRoot, feature.concept);
+      const raw = fs.readFileSync(file, "utf8");
+      const current = raw.replace(/\r\n/g, "\n");
+      const start = current.indexOf(generatedStart);
+      const end = current.indexOf(generatedEnd);
+      if (start < 0 || end < start) {
+        throw new Error(feature.concept + ": the section requirements_to_specs needs the comments " + generatedStart +
+          " and " + generatedEnd);
+      }
+      const updated = current.slice(0, start) + requirementsToSpecs(project, feature.id) +
+        current.slice(end + generatedEnd.length);
+      pages.push({ file, current, updated, lineEnd: raw.includes("\r\n") ? "\r\n" : "\n" });
+    }
+  }
+  return pages;
+}
+
 function build() {
   const projects = fs.readdirSync(projectsDir, { withFileTypes: true }).filter((entry) => entry.isDirectory())
     .map((entry) => entry.name).sort().map((name) => readProject(path.join(projectsDir, name)));
@@ -194,6 +253,7 @@ function build() {
     "npm run concept_data.\n";
   return {
     dataPart,
+    pages: conceptPages(projects),
     text: (history) => {
       const current = {};
       Object.keys(history).sort().forEach((file) => {
@@ -209,15 +269,22 @@ function main() {
   const result = build();
   if (process.argv.includes("--check")) {
     const current = fs.existsSync(outputFile) ? readText(outputFile) : "";
-    if (!current.includes(result.dataPart)) {
-      console.error("concept/concept_data.js differs from the files in projects/. Run: npm run concept_data");
+    const stale = result.pages.filter((page) => page.current !== page.updated).map((page) => relative(page.file));
+    if (!current.includes(result.dataPart) || stale.length) {
+      if (!current.includes(result.dataPart)) console.error("concept/concept_data.js differs from the files in projects/.");
+      stale.forEach((file) => console.error(file + ": the table of requirements_to_specs differs from the files."));
+      console.error("Run: npm run concept_data");
       process.exit(1);
     }
-    console.log("concept/concept_data.js matches the files in projects/.");
+    console.log("concept/concept_data.js and " + result.pages.length + " feature concepts match the files in projects/.");
     return;
   }
   fs.writeFileSync(outputFile, result.text(readHistory()));
   console.log("wrote " + relative(outputFile));
+  result.pages.filter((page) => page.current !== page.updated).forEach((page) => {
+    fs.writeFileSync(page.file, page.updated.split("\n").join(page.lineEnd));
+    console.log("wrote the table of " + relative(page.file));
+  });
 }
 
 main();

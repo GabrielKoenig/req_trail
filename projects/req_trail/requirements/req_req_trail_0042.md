@@ -19,6 +19,5 @@ acceptance:
   - "Integration: node --test passes in CI."
   - "Static: each file in tools/ has a test file of the same base name in tests/."
 links:
-  mockup: n/a
   spec: null
 ---

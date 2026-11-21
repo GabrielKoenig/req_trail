@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Unit: a statement that breaks every rule gives warnings and exit code 0."
 links:
-  mockup: n/a
   spec: null
 ---

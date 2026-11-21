@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Integration: an approved pull request that gets one more commit shows no approval."
 links:
-  mockup: n/a
   spec: null
 ---

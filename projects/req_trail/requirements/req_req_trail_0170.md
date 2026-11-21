@@ -19,7 +19,6 @@ rationale: >
 acceptance:
   - "Integration: a work issue with the row req_recipe_box_0003@1, while req_recipe_box_0003 is at version 2, gets a comment that names the row and version 2."
 links:
-  mockup: n/a
   spec: null
 ---
 

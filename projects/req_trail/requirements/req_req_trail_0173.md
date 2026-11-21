@@ -18,7 +18,6 @@ rationale: >
 acceptance:
   - "Unit: a statement of 81 words fails the schema, and one of 80 words passes."
 links:
-  mockup: n/a
   spec: null
 ---
 

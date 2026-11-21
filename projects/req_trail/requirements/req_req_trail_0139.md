@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Static: templates/project.yml and every projects/*/project.yml hold format_version as a whole number."
 links:
-  mockup: n/a
   spec: null
 ---

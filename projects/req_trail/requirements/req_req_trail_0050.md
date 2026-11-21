@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Unit: req_recipe_box_0003 lists version 1 and version 2, each with its merge date and pull request number."
 links:
-  mockup: n/a
   spec: null
 ---

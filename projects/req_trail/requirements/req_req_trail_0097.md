@@ -20,7 +20,6 @@ rationale: >
 acceptance:
   - "Manual: in the explorer, every must requirement of a finished work package shows Verified and links its three merged gate pull requests."
 links:
-  mockup: n/a
   spec: null
 ---
 

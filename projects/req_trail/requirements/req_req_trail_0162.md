@@ -19,6 +19,5 @@ acceptance:
   - "Unit: for a pull request that changes req_recipe_box_0003.md and a spec, the request to the provider holds req_recipe_box_0003.md and no other file."
   - "Unit: a pull request that changes no requirement file sends no request to the provider."
 links:
-  mockup: n/a
   spec: null
 ---

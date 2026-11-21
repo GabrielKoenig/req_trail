@@ -25,7 +25,6 @@ acceptance:
   - "Unit: a pull request that raises a spec that has not passed G2 from version 1 to 2 fails."
   - "Unit: a pull request that raises spec_recipe_box_0002 from version 2 to 3 passes."
 links:
-  mockup: n/a
   spec: null
 ---
 

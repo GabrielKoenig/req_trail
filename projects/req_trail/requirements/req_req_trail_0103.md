@@ -18,7 +18,6 @@ rationale: >
 acceptance:
   - "Manual: every finding in the pilot's tracking issue links a merged pull request or a request issue."
 links:
-  mockup: n/a
   spec: null
 ---
 

@@ -19,6 +19,5 @@ acceptance:
   - "Integration: with no setting the workflow skips the AI step."
   - "Integration: with the setting but no key it skips the step and says why."
 links:
-  mockup: n/a
   spec: null
 ---

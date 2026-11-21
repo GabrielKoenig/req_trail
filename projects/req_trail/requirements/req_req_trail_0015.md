@@ -19,6 +19,5 @@ rationale: >
 acceptance:
   - "Static: .github/pull_request_template.md has both lists as task-list items."
 links:
-  mockup: n/a
   spec: null
 ---

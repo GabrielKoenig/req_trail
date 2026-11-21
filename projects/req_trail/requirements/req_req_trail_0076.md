@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Unit: a requirement In review gives a warning, and the check still passes."
 links:
-  mockup: n/a
   spec: null
 ---

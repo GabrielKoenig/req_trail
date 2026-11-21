@@ -19,6 +19,5 @@ acceptance:
   - "Unit: a pull request body with one unticked item under Ready fails and names the item."
   - "Unit: a body with every item ticked passes."
 links:
-  mockup: n/a
   spec: null
 ---

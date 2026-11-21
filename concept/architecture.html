@@ -279,8 +279,13 @@
   var kinds = data.testKinds || ["Unit", "Integration", "Smoke", "Static", "Manual"];
   function byId(id) { return document.getElementById(id); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
-  if (!project) {
+  if (!window.CONCEPT_DATA) {
     byId("summary").textContent = "concept_data.js is missing: run npm run concept_data.";
+    return;
+  }
+  if (!project) {
+    byId("summary").textContent = "This copy of the repository has no projects/req_trail, so the parts read from " +
+      "its files stay empty.";
     return;
   }
   var requirements = project.requirements;

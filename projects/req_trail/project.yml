@@ -3,5 +3,6 @@ format_version: 1
 description: The engine that keeps requirements as code, with its checks, index builder, explorer and reusable workflows.
 code_repos:
   - GabrielKoenig/req_trail
+concept: https://github.com/GabrielKoenig/req_trail/tree/main/concept   # the overview pages of this repo
 gates_after: 4ad250771b5f4f3690b2375435268a2d34628b53   # the last commit that reached main without a pull request
 solo_mode: true          # one maintainer until work package 5 turns on the required reviews

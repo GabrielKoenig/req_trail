@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Static: every workflow file in the project template has 15 lines or fewer."
 links:
-  mockup: n/a
   spec: null
 ---

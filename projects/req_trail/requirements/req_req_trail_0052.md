@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Static: the workflow triggers on a push to main and on a nightly schedule."
 links:
-  mockup: n/a
   spec: null
 ---

@@ -19,6 +19,5 @@ rationale: >
 acceptance:
   - "Static: .github/ISSUE_TEMPLATE/request.yml has these five fields, each marked required."
 links:
-  mockup: n/a
   spec: null
 ---

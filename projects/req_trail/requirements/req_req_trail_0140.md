@@ -22,6 +22,5 @@ acceptance:
   - "Unit: a property of a loaded object cannot be changed."
   - "Static: only tools/model.js parses YAML or front matter."
 links:
-  mockup: n/a
   spec: null
 ---

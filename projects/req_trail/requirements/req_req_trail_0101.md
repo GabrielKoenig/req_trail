@@ -20,7 +20,6 @@ acceptance:
   - "Static: every merged pull request of reqTrail that changes tools/, schema/ or the explorer has an implements line or a no_req line."
   - "Manual: the link comment on such a pull request shows each named requirement with its status."
 links:
-  mockup: n/a
   spec: null
 ---
 

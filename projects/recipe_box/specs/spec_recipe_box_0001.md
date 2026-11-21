@@ -3,8 +3,7 @@ id: spec_recipe_box_0001
 title: PDF export pipeline
 feature: feature_recipe_box_01
 version: 1
-covers: [req_recipe_box_0001@1]
-mockup: mockups/pdf_layout.html
+covers: req_recipe_box_0001@1
 estimate_days: 4
 ---
 

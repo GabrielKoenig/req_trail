@@ -19,7 +19,6 @@ rationale: >
 acceptance:
   - "Manual: Propose change on req_recipe_box_0003 opens the form with req_recipe_box_0003@2 and its statement."
 links:
-  mockup: null
   spec: null
 ---
 

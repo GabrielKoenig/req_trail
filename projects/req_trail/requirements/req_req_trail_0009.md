@@ -19,6 +19,5 @@ acceptance:
   - "Static: conventions.md has a table with one row each for priority, type, category and reviews."
   - "Unit: the values in that table equal the enums of the schemas of the current format version."
 links:
-  mockup: n/a
   spec: null
 ---

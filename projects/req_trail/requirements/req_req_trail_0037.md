@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Unit: with internal_domains: [corp.example] in project.yml, a diff that adds wiki.corp.example gives a warning with the file and the line."
 links:
-  mockup: n/a
   spec: null
 ---

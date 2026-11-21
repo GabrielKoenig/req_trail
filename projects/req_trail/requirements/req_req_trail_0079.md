@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Integration: the workflow runs with no secret set and reads index.json from GitHub Pages."
 links:
-  mockup: n/a
   spec: null
 ---

@@ -20,6 +20,5 @@ acceptance:
   - "Integration: the check fails until the data protection officer approves, then passes."
   - "Integration: the check passes at once when no covered requirement is tagged (B3)."
 links:
-  mockup: n/a
   spec: null
 ---

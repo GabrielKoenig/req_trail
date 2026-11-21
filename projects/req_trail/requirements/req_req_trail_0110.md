@@ -19,6 +19,5 @@ rationale: >
 acceptance:
   - "Unit: a change of the project lead approved only by the project lead fails."
 links:
-  mockup: n/a
   spec: null
 ---

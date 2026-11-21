@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Integration: after a failing run the comment shows req_recipe_box_0003 as failed, with a link to the run."
 links:
-  mockup: n/a
   spec: null
 ---

@@ -19,6 +19,5 @@ acceptance:
   - "Unit: acceptance: [] fails."
   - "Unit: a requirement with one criterion passes."
 links:
-  mockup: n/a
   spec: null
 ---

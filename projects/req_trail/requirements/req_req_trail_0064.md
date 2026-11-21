@@ -21,7 +21,6 @@ acceptance:
   - "Manual: req_recipe_box_0003 shows its statement, three criteria, two versions and its links, and its notes render as HTML."
   - "Unit: a statement that holds **bold** shows the asterisks as written, while the same text in an acceptance criterion or a note renders as bold."
 links:
-  mockup: null
   spec: null
 ---
 

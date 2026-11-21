@@ -19,7 +19,6 @@ rationale: >                  # one sentence on why the requirement exists; it t
 acceptance:                   # each starts with its test kind: Unit, Integration, Smoke, Static or Manual
   - "Unit: <one criterion that can be checked on its own>"
 links:
-  mockup: null                # mockups/<name>.html, or n/a when none is needed
   spec: null                  # pinned, for example spec_<project>_<nnnn>@1
 ---
 

@@ -18,7 +18,6 @@ rationale: >
 acceptance:
   - "Manual: the board's main view lists issues from at least two repos."
 links:
-  mockup: n/a
   spec: null
 ---
 

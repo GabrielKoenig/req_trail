@@ -19,6 +19,5 @@ acceptance:
   - "Static: package.json has no build script."
   - "Integration: a fresh clone runs validate after npm ci."
 links:
-  mockup: n/a
   spec: null
 ---

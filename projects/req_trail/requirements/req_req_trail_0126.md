@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Unit: 'The export writes a PDF.' warns."
 links:
-  mockup: n/a
   spec: null
 ---

@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Static: the work issue template holds the lines implements: and feature:."
 links:
-  mockup: n/a
   spec: null
 ---

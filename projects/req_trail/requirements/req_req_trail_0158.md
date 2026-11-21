@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Integration: a build_index run that fails on a broken file leaves the published index.json and roles_history.json unchanged."
 links:
-  mockup: n/a
   spec: null
 ---

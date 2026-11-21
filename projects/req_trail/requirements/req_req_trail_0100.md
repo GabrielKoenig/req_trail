@@ -19,7 +19,6 @@ rationale: >
 acceptance:
   - "Manual: the requirement moves from Verified to Approved, Specified, Implemented and Verified again, and its spec shows as suspect until the spec's new version is merged."
 links:
-  mockup: n/a
   spec: null
 ---
 

@@ -21,7 +21,6 @@ acceptance:
   - "Unit: implements: req_recipe_box_0999@1 fails and names the ID."
   - "Unit: implements: req_recipe_box_0002@1, whose file a merged pull request deleted, passes with a warning that names the ID as withdrawn."
 links:
-  mockup: n/a
   spec: null
 ---
 

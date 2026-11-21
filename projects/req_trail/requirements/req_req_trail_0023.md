@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Unit: two requirement files with id req_recipe_box_0001 make validate fail and name both files."
 links:
-  mockup: n/a
   spec: null
 ---

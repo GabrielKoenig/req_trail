@@ -19,6 +19,5 @@ acceptance:
   - "Unit: feature_recipe_box_01 with target 10, direction at_most and a latest value of 9 counts as reached."
   - "Unit: a latest value of 12 counts as not reached."
 links:
-  mockup: n/a
   spec: null
 ---

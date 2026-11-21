@@ -23,7 +23,6 @@ acceptance:
   - "Unit: `projects/req_trail`, `req_req_trail_0001`, `GabrielKoenig/req_trail` and `name: req_trail` pass."
   - "Unit: a sentence that names the repo in a code span, as in the repo `req_trail`, passes."
 links:
-  mockup: n/a
   spec: null
 ---
 

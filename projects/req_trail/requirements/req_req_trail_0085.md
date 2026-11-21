@@ -19,6 +19,5 @@ rationale: >
 acceptance:
   - "Unit: a Pester report and a pytest report, each with tests for req_recipe_box_0003, give the right counts."
 links:
-  mockup: n/a
   spec: null
 ---

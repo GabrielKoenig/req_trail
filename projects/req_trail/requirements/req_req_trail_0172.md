@@ -19,6 +19,5 @@ acceptance:
   - "Static: templates/feature.md and every projects/*/features/*.md hold estimate as a number."
   - "Unit: the feature schema fails a feature without estimate."
 links:
-  mockup: n/a
   spec: null
 ---

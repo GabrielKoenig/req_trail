@@ -18,7 +18,6 @@ rationale: >
 acceptance:
   - "Manual: choosing a date before a hat changed shows the earlier holder."
 links:
-  mockup: null
   spec: null
 ---
 

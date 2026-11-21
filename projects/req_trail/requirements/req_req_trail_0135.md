@@ -19,7 +19,6 @@ acceptance:
   - "Manual: Edit on req_recipe_box_0003 opens the editor on projects/recipe_box/requirements/req_recipe_box_0003.md."
   - "Manual: saving offers a new branch and a pull request, because main is protected (B12)."
 links:
-  mockup: null
   spec: null
 ---
 

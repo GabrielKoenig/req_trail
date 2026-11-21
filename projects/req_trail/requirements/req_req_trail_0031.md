@@ -20,6 +20,5 @@ acceptance:
   - "Unit: type: feature fails and lists the allowed types."
   - "Unit: a requirement without type fails."
 links:
-  mockup: n/a
   spec: null
 ---

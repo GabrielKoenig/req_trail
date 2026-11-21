@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Unit: the filter function returns the expected requirements for each filter alone and for two together."
 links:
-  mockup: null
   spec: null
 ---

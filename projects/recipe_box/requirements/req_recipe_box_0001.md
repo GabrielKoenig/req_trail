@@ -19,6 +19,5 @@ acceptance:
   - "Integration: a collection of 1,000 recipes exports to one PDF with one page per recipe."
   - "Integration: the PDF opens without a repair prompt."
 links:
-  mockup: mockups/pdf_layout.html
   spec: spec_recipe_box_0001@1
 ---

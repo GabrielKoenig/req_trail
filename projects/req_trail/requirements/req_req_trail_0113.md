@@ -19,6 +19,5 @@ rationale: >
 acceptance:
   - "Unit: two merged changes to roles.yml give two entries with their dates and pull requests."
 links:
-  mockup: n/a
   spec: null
 ---

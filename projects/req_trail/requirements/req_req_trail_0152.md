@@ -20,6 +20,5 @@ acceptance:
   - "Integration: a pull request that changes a requirement without running npm run concept_data fails, and the message names that command."
   - "Integration: npm run check_concept_data exits with code 0 on main."
 links:
-  mockup: n/a
   spec: null
 ---

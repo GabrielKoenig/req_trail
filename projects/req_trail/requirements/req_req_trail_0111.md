@@ -19,6 +19,5 @@ rationale: >
 acceptance:
   - "Integration: a developer sets accepted on a test request; the label is gone within 5 minutes and a comment explains why."
 links:
-  mockup: n/a
   spec: null
 ---

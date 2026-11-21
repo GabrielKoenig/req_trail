@@ -18,7 +18,6 @@ rationale: >
 acceptance:
   - "Manual: the section Statuses of conventions.md lists Draft, In review, Approved, Specified, Implemented, Verified and Withdrawn, each with its event."
 links:
-  mockup: n/a
   spec: null
 ---
 

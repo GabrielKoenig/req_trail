@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Unit: 'The tool shall export and print the list.' warns."
 links:
-  mockup: n/a
   spec: null
 ---

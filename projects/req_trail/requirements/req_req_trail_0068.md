@@ -18,7 +18,6 @@ rationale: >
 acceptance:
   - "Manual: the explorer address followed by #req_recipe_box_0003 opens that requirement."
 links:
-  mockup: n/a
   spec: null
 ---
 

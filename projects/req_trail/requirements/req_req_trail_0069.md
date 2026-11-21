@@ -18,7 +18,6 @@ rationale: >
 acceptance:
   - "Manual: at 375 pixels every view is readable and the page does not scroll sideways."
 links:
-  mockup: n/a
   spec: null
 ---
 

@@ -19,7 +19,6 @@ acceptance:
   - "Unit: a request body with a yes to a privacy question gets the label review_privacy."
   - "Unit: a request body with six no answers gets neither label."
 links:
-  mockup: n/a
   spec: null
 ---
 

@@ -21,6 +21,5 @@ acceptance:
   - "Static: each file in tools/ and each entry under dependencies in package.json is named in the section Libraries considered of a merged spec of project `req_trail`."
   - "Unit: a row of that section that names a part but neither a library nor None found fails the check, which names the spec and the part."
 links:
-  mockup: n/a
   spec: null
 ---

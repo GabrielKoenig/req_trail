@@ -19,7 +19,6 @@ rationale: >
 acceptance:
   - "Integration: with a generated index of 1,000 requirements, the median of 5 loads in headless Chromium on a GitHub-hosted runner shows the list in under 2 seconds."
 links:
-  mockup: n/a
   spec: null
 ---
 

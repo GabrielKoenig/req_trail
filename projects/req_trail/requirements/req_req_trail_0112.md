@@ -20,6 +20,5 @@ acceptance:
   - "Unit: the acceptance schema fails a record without a commit."
   - "Unit: the acceptance schema fails a record without test counts or manual checks."
 links:
-  mockup: n/a
   spec: null
 ---

@@ -19,6 +19,5 @@ rationale: >
 acceptance:
   - "Unit: a diff that adds an entry to package.json, requirements.txt or a PowerShell module manifest warns when no named requirement has reviews: [security]."
 links:
-  mockup: n/a
   spec: null
 ---

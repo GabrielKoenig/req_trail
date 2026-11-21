@@ -20,6 +20,5 @@ acceptance:
   - "Integration: merging a spec pull request of recipe_box after recipe_box_baseline_3 sets recipe_box_baseline_4 on the merge commit."
   - "Integration: a merge that changes no spec sets no tag."
 links:
-  mockup: n/a
   spec: null
 ---

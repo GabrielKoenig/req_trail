@@ -19,6 +19,5 @@ acceptance:
   - "Unit: the example roles.yml produces the expected CODEOWNERS."
   - "Unit: validate fails when the committed CODEOWNERS differs from the generated one."
 links:
-  mockup: n/a
   spec: null
 ---

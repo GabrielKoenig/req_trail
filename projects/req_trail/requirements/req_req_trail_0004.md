@@ -18,7 +18,6 @@ rationale: >
 acceptance:
   - "Manual: the reviewer finds the rule in the section IDs of conventions.md."
 links:
-  mockup: n/a
   spec: null
 ---
 

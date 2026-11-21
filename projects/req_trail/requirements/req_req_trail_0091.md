@@ -18,7 +18,6 @@ rationale: >
 acceptance:
   - "Manual: the Releases view of the example data shows release 0.4 with its requirements."
 links:
-  mockup: null
   spec: null
 ---
 

@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Integration: a new request issue appears on the board with its project and priority set."
 links:
-  mockup: n/a
   spec: null
 ---

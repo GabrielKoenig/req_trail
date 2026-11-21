@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Unit: on projects/recipe_box the index holds feature_recipe_box_01, req_recipe_box_0001, req_recipe_box_0003, spec_recipe_box_0001 and spec_recipe_box_0002 with all their fields."
 links:
-  mockup: n/a
   spec: null
 ---

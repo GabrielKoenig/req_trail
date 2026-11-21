@@ -20,7 +20,6 @@ rationale: >
 acceptance:
   - "Manual: for every requirement and spec pull request of reqTrail merged after solo_mode was set to false, the approver differs from the author."
 links:
-  mockup: n/a
   spec: null
 ---
 

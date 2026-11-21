@@ -19,6 +19,5 @@ rationale: >
 acceptance:
   - "Static: each entry under dependencies in package.json appears in a merged spec of project `req_trail`."
 links:
-  mockup: n/a
   spec: null
 ---

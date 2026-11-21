@@ -19,6 +19,5 @@ acceptance:
   - "Integration: on an empty test repo the label script creates every label in labels.yml."
   - "Integration: a second run changes nothing."
 links:
-  mockup: n/a
   spec: null
 ---

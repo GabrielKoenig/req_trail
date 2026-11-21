@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Unit: adding the project recipe_box a second time fails."
 links:
-  mockup: n/a
   spec: null
 ---

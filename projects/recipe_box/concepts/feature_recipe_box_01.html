@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PDF export concept</title>
+<style>
+/* Implementation concept of feature_recipe_box_01 in the example project recipe_box (made-up data). */
+:root{--paper:#ffffff;--ink:#1d1d1f;--muted:#6b6b70;--rule:#d9d9de;--accent:#8a5a00;--desk:#f4f4f6;--bad:#b3261e;--sheet:#ffffff;--sheet-ink:#1d1d1f}
+@media (prefers-color-scheme:dark){:root{--paper:#1c1c1f;--ink:#ececf0;--muted:#a0a0a8;--rule:#3a3a40;--accent:#f0b90b;--desk:#121214;--bad:#ff8a80}}
+body{margin:0;background:var(--desk);color:var(--ink);font:15px/1.55 "Segoe UI",system-ui,sans-serif}
+main{max-width:880px;margin:0 auto;padding:24px 16px 48px}
+.id{font-family:ui-monospace,Consolas,monospace;color:var(--muted);font-size:13px}
+h1{font-size:26px;margin:4px 0 6px}
+section{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:18px 20px;margin:16px 0;overflow-x:auto}
+h2{font-size:17px;margin:0 0 10px;color:var(--accent)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+code{font-family:ui-monospace,Consolas,monospace;font-size:.92em}
+small{color:var(--muted)}
+.suspect{color:var(--bad);font-weight:600}
+svg{max-width:100%;height:auto}
+svg .box{fill:var(--desk);stroke:var(--accent);stroke-width:1.5}
+svg .ext{fill:var(--desk);stroke:var(--muted);stroke-width:1.5;stroke-dasharray:5 4}
+svg text{fill:var(--ink);font:13px "Segoe UI",system-ui,sans-serif}
+svg .arrow{stroke:var(--muted);stroke-width:1.5;fill:none;marker-end:url(#head)}
+/* The PDF page: A4 portrait, one recipe per page. It stays white like paper in both colour schemes. */
+.sheet{background:var(--sheet);color:var(--sheet-ink);max-width:595px;margin:8px auto;aspect-ratio:210/297;padding:40px 44px;box-shadow:0 2px 12px rgba(0,0,0,.18);box-sizing:border-box}
+.sheet .head{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #d9d9de;padding-bottom:8px;color:#6b6b70;font-size:11px}
+.sheet h3{font-size:22px;margin:22px 0 4px}
+.sheet .meta{color:#6b6b70;font-size:12px;margin-bottom:18px}
+.sheet table{font-size:13px;font-variant-numeric:tabular-nums}
+.sheet th,.sheet td{border-bottom:1px solid #d9d9de}
+.sheet th{color:#6b6b70}
+.sheet td.n{text-align:right;white-space:nowrap}
+.sheet h4{font-size:14px;margin:20px 0 6px;color:#8a5a00}
+.sheet ol{margin:0;padding-left:20px}
+.sheet .foot{margin-top:24px;color:#6b6b70;font-size:11px}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div class="id">feature_recipe_box_01 &middot; implementation concept</div>
+  <h1>PDF export</h1>
+  <p>People print a recipe collection, or a saved selection of it, as a PDF that is easy to cook from.</p>
+</header>
+
+<section id="flow">
+  <h2>User flow</h2>
+  <ol>
+    <li>A person runs <code>Export-RecipePdf -Collection "weeknight dinners" -Path dinners.pdf</code> in a PowerShell
+      session, and adds <code>-Selection winter</code> to print only part of the collection.</li>
+    <li>The command writes one PDF with one page per recipe and returns its path. Messages appear in German or English,
+      following the language of the session.</li>
+    <li>The person opens the PDF and prints it, or hands it to someone who does not use recipe_box.</li>
+  </ol>
+</section>
+
+<section id="design">
+  <h2>Design and mockups</h2>
+  <p>One page of the PDF, A4 portrait. Amounts, units, links and notes stay readable text.</p>
+  <div class="sheet" role="img" aria-label="Mockup of one PDF page: page header, recipe title, ingredient table, steps and page footer">
+    <div class="head"><span>Collection: weeknight dinners</span><span>2026-10-02</span></div>
+    <h3>Lentil soup</h3>
+    <div class="meta">4 servings &middot; 40 minutes &middot; selection: winter</div>
+    <table>
+      <thead><tr><th>Amount</th><th>Unit</th><th>Ingredient</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td class="n">250</td><td>g</td><td>red lentils</td><td>rinsed</td></tr>
+        <tr><td class="n">1</td><td>l</td><td>vegetable stock</td><td></td></tr>
+        <tr><td class="n">2</td><td>pc</td><td>carrots</td><td>diced</td></tr>
+        <tr><td class="n">1</td><td>tsp</td><td>cumin</td><td>see the linked recipe "Spice mix"</td></tr>
+      </tbody>
+    </table>
+    <h4>Steps</h4>
+    <ol><li>Soften the carrots in a little oil.</li><li>Add lentils, stock and cumin; simmer for 25 minutes.</li><li>Blend half of the soup and stir it back in.</li></ol>
+    <div class="foot">Page 1 of 1</div>
+  </div>
+</section>
+
+<section id="architecture">
+  <h2>Architecture</h2>
+  <svg viewBox="0 0 840 150" role="img" aria-label="Data flow: Export-RecipePdf calls Resolve-RecipeSelection, ConvertTo-RecipeText and ConvertTo-RecipePrintHtml, and the print engine of the operating system writes the PDF">
+    <defs><marker id="head" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#6b6b70"/></marker></defs>
+    <rect class="box" x="10" y="45" width="150" height="60" rx="8"/><text x="85" y="72" text-anchor="middle">Export-RecipePdf</text><text x="85" y="90" text-anchor="middle">the command</text>
+    <rect class="box" x="200" y="45" width="180" height="60" rx="8"/><text x="290" y="72" text-anchor="middle">Resolve-RecipeSelection</text><text x="290" y="90" text-anchor="middle">which recipes</text>
+    <rect class="box" x="420" y="10" width="190" height="55" rx="8"/><text x="515" y="35" text-anchor="middle">ConvertTo-RecipeText</text><text x="515" y="53" text-anchor="middle">fields as plain text</text>
+    <rect class="box" x="420" y="85" width="190" height="55" rx="8"/><text x="515" y="110" text-anchor="middle">ConvertTo-RecipePrintHtml</text><text x="515" y="128" text-anchor="middle">one HTML page each</text>
+    <rect class="ext" x="650" y="45" width="180" height="60" rx="8"/><text x="740" y="72" text-anchor="middle">System print engine</text><text x="740" y="90" text-anchor="middle">writes the PDF</text>
+    <path class="arrow" d="M160 75H198"/><path class="arrow" d="M380 65L418 40"/><path class="arrow" d="M515 65V83"/><path class="arrow" d="M610 112L648 85"/>
+  </svg>
+  <p><code>Export-RecipePdf</code> is the only command people call. It resolves a saved selection, turns each recipe's
+  fields into plain text, lays out one HTML page per recipe and lets the print engine of the operating system write the
+  PDF, so the layout lives in one HTML template. Messages come from <code>resources/&lt;lang&gt;/strings.psd1</code>.
+  Recipes are read and written on the same computer; nothing is uploaded.</p>
+</section>
+
+<section id="tests">
+  <h2>Test approach</h2>
+  <ul>
+    <li><b>Integration</b> for <code>req_recipe_box_0001</code>: export a made-up collection of 1,000 recipes, then count
+      the pages and open the PDF without a repair prompt.</li>
+    <li><b>Unit</b> for <code>req_recipe_box_0003</code>: Pester tests of <code>ConvertTo-RecipeText</code> and
+      <code>Get-SafeUrl</code> with amounts, units, links of every scheme and notes.</li>
+    <li>Each test carries the requirement ID in its <code>Describe</code> name, so the JUnit XML report of the CI run
+      links it back.</li>
+  </ul>
+</section>
+
+<section id="requirements_to_specs">
+  <h2>Requirements to specs</h2>
+  <!-- generated: requirements_to_specs -->
+  <table>
+    <thead><tr><th>Requirement</th><th>Spec that translates it</th></tr></thead>
+    <tbody>
+      <tr><td><a href="../requirements/req_recipe_box_0001.md"><code>req_recipe_box_0001</code></a> version 1<br>Export a collection as PDF<br><small>The module shall export all recipes of a collection to a PDF file, one page per recipe.</small></td><td><a href="../specs/spec_recipe_box_0001.md"><code>spec_recipe_box_0001</code></a> version 1<br>PDF export pipeline<br><small><code>Export-RecipePdf</code> reads the recipes of a collection, resolves a saved selection with <code>Resolve-RecipeSelection</code>, renders one HTML page per recipe with <code>ConvertTo-RecipePrintHtml</code> and prints the result to PDF. Messages come from <code>resources/&lt;lang&gt;/strings.psd1</code>.</small></td></tr>
+      <tr><td><a href="../requirements/req_recipe_box_0003.md"><code>req_recipe_box_0003</code></a> version 2<br>Readable ingredient lists<br><small>The PDF shall show amounts, units, links and notes as readable text.</small></td><td><a href="../specs/spec_recipe_box_0002.md"><code>spec_recipe_box_0002</code></a> version 2<br>Ingredient text conversion<br><small><code>ConvertTo-RecipeText</code> turns amounts, units, links and notes into plain text for the PDF. <code>Get-SafeUrl</code> lets only http and https links through; any other link is printed as text.</small></td></tr>
+    </tbody>
+  </table>
+  <!-- end generated -->
+</section>
+</main>
+</body>
+</html>

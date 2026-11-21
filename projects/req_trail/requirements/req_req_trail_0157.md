@@ -20,6 +20,5 @@ acceptance:
   - "Static: no workflow commits or pushes index.json or roles_history.json."
   - "Integration: after a run on a test repo, index.json and roles_history.json are on its Pages site, and no branch has a new commit."
 links:
-  mockup: n/a
   spec: null
 ---

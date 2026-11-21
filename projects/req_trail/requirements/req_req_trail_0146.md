@@ -21,6 +21,5 @@ acceptance:
   - "Unit: a format 1 test project loads in a test engine whose current format is 3, through two migrations in memory."
   - "Unit: the files of the test project are unchanged afterwards."
 links:
-  mockup: n/a
   spec: null
 ---

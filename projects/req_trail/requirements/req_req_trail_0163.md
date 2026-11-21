@@ -21,7 +21,6 @@ acceptance:
   - "Unit: a pull request merged after c2 that changes that requirement makes it Approved."
   - "Unit: in a project without gates_after, every merge counts."
 links:
-  mockup: n/a
   spec: null
 ---
 

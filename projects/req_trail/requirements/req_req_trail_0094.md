@@ -20,6 +20,5 @@ acceptance:
   - "Unit: a result without a decision fails the metrics schema."
   - "Unit: a result with all four fields passes."
 links:
-  mockup: n/a
   spec: null
 ---

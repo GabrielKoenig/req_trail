@@ -21,7 +21,6 @@ acceptance:
   - "Integration: a test post with #request creates a request issue within 15 minutes (B2)."
   - "Manual: the issue holds the link and an excerpt, and no name."
 links:
-  mockup: n/a
   spec: null
 ---
 

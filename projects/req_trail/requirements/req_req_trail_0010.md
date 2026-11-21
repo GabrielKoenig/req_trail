@@ -20,7 +20,6 @@ rationale: >
 acceptance:
   - "Manual: the reviewer finds both rules in the section Text fields of conventions.md."
 links:
-  mockup: n/a
   spec: null
 ---
 

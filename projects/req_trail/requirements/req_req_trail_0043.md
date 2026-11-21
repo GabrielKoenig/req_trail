@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Static: every file under tools/ ends in .js, and the only PowerShell file in the repo is setup/install_prerequisites.ps1."
 links:
-  mockup: n/a
   spec: null
 ---

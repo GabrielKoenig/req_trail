@@ -25,7 +25,6 @@ acceptance:
   - "Unit: a pull request that changes the text of spec_recipe_box_0002 and keeps version 2 fails and names the file."
   - "Unit: a pull request that changes the text of a spec that has not passed G2 and keeps version 1 passes without the label editorial."
 links:
-  mockup: n/a
   spec: null
 ---
 

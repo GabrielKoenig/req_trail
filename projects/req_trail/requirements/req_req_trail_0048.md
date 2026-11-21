@@ -22,7 +22,6 @@ acceptance:
   - "Unit: a merged code pull request with implements: req_recipe_box_0003@1 is suspect once req_recipe_box_0003 is at version 2."
   - "Unit: a requirement whose depends_on pins req_recipe_box_0003@1 is suspect once req_recipe_box_0003 is at version 2."
 links:
-  mockup: n/a
   spec: null
 ---
 

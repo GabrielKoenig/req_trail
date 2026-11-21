@@ -19,6 +19,5 @@ rationale: >
 acceptance:
   - "Static: the section Languages and test tools of conventions.md names node --test for the engine and JUnit XML for code repos."
 links:
-  mockup: n/a
   spec: null
 ---

@@ -20,7 +20,6 @@ acceptance:
   - "Unit: a requirement file added in an open draft pull request is in index.json as Draft, and one in a pull request that is ready for review as In review."
   - "Unit: once that pull request is closed without a merge, the requirement is gone from index.json."
 links:
-  mockup: n/a
   spec: null
 ---
 

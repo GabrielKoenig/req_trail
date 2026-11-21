@@ -19,6 +19,5 @@ acceptance:
   - "Unit: the criterion 'The PDF opens without a repair prompt.' fails and names the file."
   - "Unit: the criterion 'Manual: the PDF opens without a repair prompt.' passes."
 links:
-  mockup: n/a
   spec: null
 ---

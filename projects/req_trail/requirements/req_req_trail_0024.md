@@ -19,6 +19,5 @@ acceptance:
   - "Unit: req_recipe_box_0009.md with id req_recipe_box_0010 makes validate fail."
   - "Unit: an acceptance record whose file name differs from its requirement's ID makes validate fail."
 links:
-  mockup: n/a
   spec: null
 ---

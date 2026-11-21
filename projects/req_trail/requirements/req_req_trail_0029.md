@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Unit: a requirement without owner fails and names the field owner."
 links:
-  mockup: n/a
   spec: null
 ---

@@ -19,6 +19,5 @@ acceptance:
   - "Unit: an acceptance pull request opened by the author of the implementing pull request fails."
   - "Unit: an acceptance pull request approved by that author fails."
 links:
-  mockup: n/a
   spec: null
 ---

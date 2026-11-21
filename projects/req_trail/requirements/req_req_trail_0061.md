@@ -19,6 +19,5 @@ acceptance:
   - "Integration: a requirement merged on the test repo shows in the explorer within 10 minutes."
   - "Smoke: after each deploy to Pages, the explorer loads and shows the commit of the latest merge to main."
 links:
-  mockup: null
   spec: null
 ---

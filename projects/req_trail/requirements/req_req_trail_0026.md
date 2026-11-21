@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Unit: req_recipe_box_0001@2 fails while req_recipe_box_0001 is at version 1."
 links:
-  mockup: n/a
   spec: null
 ---

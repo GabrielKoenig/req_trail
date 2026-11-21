@@ -20,6 +20,5 @@ acceptance:
   - "Unit: a requirement pull request approved only by a tech lead fails."
   - "Unit: a requirement pull request approved by the Principal Engineer passes."
 links:
-  mockup: n/a
   spec: null
 ---

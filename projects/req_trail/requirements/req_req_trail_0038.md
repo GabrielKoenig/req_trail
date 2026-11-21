@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Integration: npm run validate on a clone and the CI job on the same commit print the same messages and exit with the same code."
 links:
-  mockup: n/a
   spec: null
 ---

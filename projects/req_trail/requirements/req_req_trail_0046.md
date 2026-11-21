@@ -22,7 +22,6 @@ acceptance:
   - "Unit: a requirement that two specs cover shows Specified once the first of them is merged, and still Specified after the second."
   - "Unit: passing test results for a Specified requirement whose implementing code pull request is not merged yet leave it Specified."
 links:
-  mockup: n/a
   spec: null
 ---
 

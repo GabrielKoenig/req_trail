@@ -19,6 +19,5 @@ acceptance:
   - "Unit: 'The export shall be fast.' warns on fast."
   - "Unit: a word that a project adds to its own list also warns."
 links:
-  mockup: n/a
   spec: null
 ---

@@ -19,6 +19,5 @@ acceptance:
   - "Unit: req_recipe_box_0002, whose file a merged pull request deleted, is in index.json with the status Withdrawn and that pull request."
   - "Unit: a requirement whose file is deleted only in an open pull request keeps its status."
 links:
-  mockup: n/a
   spec: null
 ---

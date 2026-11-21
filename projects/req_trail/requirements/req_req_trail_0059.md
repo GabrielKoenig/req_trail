@@ -18,8 +18,7 @@ rationale: >
   A privacy or security review is easy to forget when nobody is asked for it automatically.
 acceptance:
   - "Integration: a spec that covers a requirement with reviews: [privacy] requests the data protection officer hat."
-  - "Integration: a spec that covers only untagged requirements requests neither."
+  - "Integration: a spec that covers an untagged requirement requests neither."
 links:
-  mockup: n/a
   spec: null
 ---

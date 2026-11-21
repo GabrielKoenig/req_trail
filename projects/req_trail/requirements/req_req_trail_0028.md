@@ -19,6 +19,5 @@ acceptance:
   - "Unit: reviews: [] with an empty reviews_reason fails."
   - "Unit: reviews: [privacy] with a reason passes."
 links:
-  mockup: n/a
   spec: null
 ---

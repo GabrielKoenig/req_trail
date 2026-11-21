@@ -20,6 +20,5 @@ acceptance:
   - "Integration: after release v1.2.0, the tag v1 points to the same commit as v1.2.0."
   - "Smoke: after each release, a workflow on the test repo that uses the tag v1 runs validate and passes."
 links:
-  mockup: n/a
   spec: null
 ---

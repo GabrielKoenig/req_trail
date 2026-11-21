@@ -19,6 +19,5 @@ acceptance:
   - "Unit: a pull request opened on a Monday and still open on the Wednesday of the next week has waited 7 working days."
   - "Unit: Saturdays and Sundays do not count."
 links:
-  mockup: n/a
   spec: null
 ---

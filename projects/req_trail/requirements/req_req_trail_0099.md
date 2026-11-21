@@ -19,7 +19,6 @@ rationale: >
 acceptance:
   - "Manual: each merged pull request with gate_exception names its reason in one sentence."
 links:
-  mockup: n/a
   spec: null
 ---
 

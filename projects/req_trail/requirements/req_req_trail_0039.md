@@ -19,6 +19,5 @@ acceptance:
   - "Integration: the CI job sets up only Node.js and passes."
   - "Static: no file in tools/ starts pwsh, python or another interpreter."
 links:
-  mockup: n/a
   spec: null
 ---

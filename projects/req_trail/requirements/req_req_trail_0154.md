@@ -19,7 +19,6 @@ acceptance:
   - "Unit: a new file req_recipe_box_0002.md, after a merged pull request deleted the file with that ID, makes validate fail and names the commit that deleted it."
   - "Unit: a new file with an ID that no file ever held passes."
 links:
-  mockup: n/a
   spec: null
 ---
 

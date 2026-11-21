@@ -20,6 +20,5 @@ acceptance:
   - "Unit: #18, yourorg/project_management#18 and concept/concept.html#estimate pass."
   - "Unit: the source 'see forum' fails, and so does a path that does not exist."
 links:
-  mockup: n/a
   spec: null
 ---

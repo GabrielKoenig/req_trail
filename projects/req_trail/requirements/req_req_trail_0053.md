@@ -18,7 +18,6 @@ rationale: >
 acceptance:
   - "Integration: a generated project with 1,000 requirements and 200 specs builds in under 2 minutes, as the median of 3 runs."
 links:
-  mockup: n/a
   spec: null
 ---
 

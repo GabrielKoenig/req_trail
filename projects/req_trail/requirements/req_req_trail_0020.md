@@ -19,6 +19,5 @@ acceptance:
   - "Static: model/format_1/ holds six files ending in .schema.json: project, feature, requirement, spec, acceptance and metrics."
   - "Unit: every file in projects/recipe_box and projects/req_trail passes the schema of its project's format version."
 links:
-  mockup: n/a
   spec: null
 ---

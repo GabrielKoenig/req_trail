@@ -19,6 +19,5 @@ rationale: >
 acceptance:
   - "Static: templates/ holds exactly these six files."
 links:
-  mockup: n/a
   spec: null
 ---

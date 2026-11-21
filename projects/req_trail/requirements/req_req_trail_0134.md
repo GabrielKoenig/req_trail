@@ -19,7 +19,6 @@ acceptance:
   - "Static: the explorer and text_check import the same rules module."
   - "Manual: typing 'fast' into the proposed text shows the vague-word warning."
 links:
-  mockup: null
   spec: null
 ---
 

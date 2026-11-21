@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Static: the bug template holds the line violates:."
 links:
-  mockup: n/a
   spec: null
 ---

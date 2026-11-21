@@ -18,7 +18,6 @@ rationale: >
 acceptance:
   - "Manual: the pilot's tracking issue lists, for every finished work package, the estimate and the hours spent."
 links:
-  mockup: n/a
   spec: null
 ---
 

@@ -16,10 +16,9 @@ statement: >
 rationale: >
   A complete example shows a new author every file type in use and doubles as test input for the checks.
 acceptance:
-  - "Static: projects/recipe_box holds a project file, a feature, a requirement, a spec, a mockup, an acceptance record and a metrics file."
+  - "Static: projects/recipe_box holds a project file, a feature, a feature concept, a requirement, a spec, an acceptance record and a metrics file."
   - "Manual: the reviewer finds no real person, organisation or system in projects/recipe_box."
 links:
-  mockup: n/a
   spec: null
 ---
 

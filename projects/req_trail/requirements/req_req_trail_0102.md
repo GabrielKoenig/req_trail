@@ -19,6 +19,5 @@ rationale: >
 acceptance:
   - "Static: the JUnit XML report of the engine's tests holds, for each such criterion's requirement, at least one test whose name holds its ID."
 links:
-  mockup: n/a
   spec: null
 ---

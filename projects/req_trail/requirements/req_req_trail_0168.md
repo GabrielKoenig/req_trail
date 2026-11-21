@@ -19,6 +19,5 @@ acceptance:
   - "Unit: req_recipe_box_0001 depending on req_recipe_box_0003, which depends on req_recipe_box_0001, fails and names both IDs."
   - "Unit: a requirement that depends on itself fails."
 links:
-  mockup: n/a
   spec: null
 ---

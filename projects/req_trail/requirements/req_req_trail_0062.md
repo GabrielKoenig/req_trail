@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Integration: the published folder, served by a plain static file server, shows every main view."
 links:
-  mockup: n/a
   spec: null
 ---

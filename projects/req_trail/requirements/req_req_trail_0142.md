@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Unit: a project.yml with format_version: 99 makes validate fail and name the project and the versions the engine knows."
 links:
-  mockup: n/a
   spec: null
 ---

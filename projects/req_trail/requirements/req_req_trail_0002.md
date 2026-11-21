@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Static: every tracked path part that does not match ^[a-z0-9_]+(\\.[a-z0-9_]+)*$ is listed as a tool exception in CLAUDE.md."
 links:
-  mockup: n/a
   spec: null
 ---

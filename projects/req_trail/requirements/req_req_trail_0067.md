@@ -18,7 +18,6 @@ rationale: >
 acceptance:
   - "Manual: the map of the example data shows req_recipe_box_0003 pointing to req_recipe_box_0001."
 links:
-  mockup: null
   spec: null
 ---
 

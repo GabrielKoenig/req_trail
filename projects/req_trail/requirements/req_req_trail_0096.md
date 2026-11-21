@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Integration: on the test repo an untriaged request shows, and a request labelled accepted does not."
 links:
-  mockup: null
   spec: null
 ---

@@ -46,7 +46,7 @@ right heading.
   belongs to a feature,** for example `concept/req_trail/concept_review` or
   `idea/recipe_box/feature_recipe_box_01_issue31`.
   - The phase is one of five, each with at most one gate: `idea` (feature file and requirements, G1), `concept`
-    (specs and mockups, G2), `dev` (code, tests and acceptance records, G3), `release` (release notes and the value
+    (feature concepts and specs, G2), `dev` (code, tests and acceptance records, G3), `release` (release notes and the value
     review) or `change_request` (a change to a merged requirement). The request (G0) is an issue and has no branch.
     The concept pages, rules and templates of this repo are `concept`; its code, tests and setup are `dev`.
   - The project is the project's ID, the name of its code repo: `recipe_box`, `req_trail`.

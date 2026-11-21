@@ -20,6 +20,5 @@ acceptance:
   - "Static: the template repo has no tools/ or schema/ folder."
   - "Integration: a repo created from the template passes validate on its first pull request."
 links:
-  mockup: n/a
   spec: null
 ---

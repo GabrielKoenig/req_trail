@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Unit: a merged acceptance pull request with gate_exception shows Verified with the exception mark."
 links:
-  mockup: n/a
   spec: null
 ---

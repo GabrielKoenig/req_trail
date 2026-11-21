@@ -19,7 +19,6 @@ rationale: >
 acceptance:
   - "Manual: the KPI view of the example data shows feature_recipe_box_01 with all four values."
 links:
-  mockup: null
   spec: null
 ---
 

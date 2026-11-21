@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Unit: a statement of 41 words warns, and one of 40 words does not."
 links:
-  mockup: n/a
   spec: null
 ---

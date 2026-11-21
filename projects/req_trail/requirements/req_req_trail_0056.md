@@ -19,6 +19,5 @@ acceptance:
   - "Integration: on the test repo a requirement pull request without an approval cannot be merged."
   - "Integration: after a holder of the Principal Engineer hat approves it, it can be merged."
 links:
-  mockup: n/a
   spec: null
 ---

@@ -3,8 +3,7 @@ id: spec_recipe_box_0002
 title: Ingredient text conversion
 feature: feature_recipe_box_01
 version: 2
-covers: [req_recipe_box_0003@2]
-mockup: n/a
+covers: req_recipe_box_0003@2
 estimate_days: 1.5
 ---
 

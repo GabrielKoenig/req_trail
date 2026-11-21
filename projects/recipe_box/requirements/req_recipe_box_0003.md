@@ -20,7 +20,6 @@ acceptance:
   - "Unit: a linked recipe shows its title."
   - "Unit: only http and https links stay clickable."
 links:
-  mockup: n/a
   spec: spec_recipe_box_0002@2
 ---
 

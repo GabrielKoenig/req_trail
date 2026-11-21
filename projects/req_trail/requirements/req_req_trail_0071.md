@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Integration: a request opened in a project repo appears on the board within 5 minutes (B6)."
 links:
-  mockup: n/a
   spec: null
 ---

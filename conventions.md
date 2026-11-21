@@ -21,17 +21,50 @@ short forms are `req` and `spec`, for example in `req_recipe_box_0003`, `spec_re
 ```
 projects/
 └─ <project>/                    # the project name, for example recipe_box
-   ├─ project.yml                # name, format version, description, code repos, gates_after, solo_mode
+   ├─ project.yml                # name, format version, description, code repos, concept, gates_after, solo_mode
    ├─ metrics.yml                # measured outcomes after a release
    ├─ features/<feature id>.md
+   ├─ concepts/<feature id>.html # the implementation concept of one feature, with its design
    ├─ requirements/<requirement id>.md
-   ├─ specs/<spec id>.md
-   ├─ mockups/<name>.html
+   ├─ specs/<spec id>.md         # how one requirement is built
    └─ acceptance/<requirement id>.md   # the G3 record with its evidence
 ```
 
 A project is one code repo. A feature is one tool or capability inside it. A requirement is one testable sentence about
-a feature. A spec says how one or more requirements are built.
+a feature. A spec says how one requirement is built.
+
+Files stay in one folder per kind, not in one folder per feature: a requirement can move to another feature, and then
+only its `feature:` field changes, never its path. Nothing outside `projects/` depends on one project, so a copy of
+the repo without `projects/req_trail` still builds and passes its checks (`req_req_trail_0181`).
+
+## Concepts
+
+A concept says how something is meant to work before it is built. There are two levels.
+
+- **Overview concept:** what the whole project is for, its context and its architecture, along the arc42 template.
+  It lives with the project's code, where its readers are, and `concept` in `project.yml` links to it. reqTrail's
+  overview is the `concept/` folder of this repo. A project needs the link as soon as it has a spec
+  (`req_req_trail_0180`).
+- **Feature concept:** how one feature, one work package, is built. It is an HTML page, `concepts/<feature id>.html`,
+  made from `templates/feature_concept.html`, because most of it is visual: diagrams, screens and the design. A
+  feature needs it as soon as it has a spec (`req_req_trail_0177`). It has five sections, each with a fixed `id`:
+
+| Section | `id` | What it holds |
+|---|---|---|
+| User flow | `flow` | Who does what, step by step, and what they see |
+| Design and mockups | `design` | The screens, pages or output the user sees, drawn on the page with made-up data |
+| Architecture | `architecture` | The building blocks of the work package, their interfaces and data flow, and how they fit the overview |
+| Test approach | `tests` | How the acceptance criteria are tested: test kinds, test data, what runs in CI |
+| Requirements to specs | `requirements_to_specs` | Each requirement of the feature with the spec that translates it, generated from the files |
+
+- **Spec:** one per requirement. `covers` names that one requirement, pinned to the version it was written for, and
+  no other spec covers it (`req_req_trail_0178`). The spec holds what the concept leaves out: interfaces, decisions,
+  libraries considered and the review.
+- `npm run concept_data` writes the table of `requirements_to_specs` between its two comments, and
+  `npm run check_concept_data` fails when it differs from the files (`req_req_trail_0179`).
+- G2 approves the feature concept together with the specs of its requirements. `CODEOWNERS` gives `concepts/` and
+  `specs/` to the architecture owner (`req_req_trail_0055`). The explorer links each feature to its concept and each
+  project to its overview (`req_req_trail_0182`).
 
 ## IDs
 
@@ -150,7 +183,7 @@ to Approved, once the new version is merged.
 |---|---|---|---|
 | G0 | Do we take this request? | Requirements owner | Label `accepted` on the request issue |
 | G1 | Is the requirement clear, buildable and testable? | Principal Engineer | Merge of the requirement pull request |
-| G2 | Is the spec sound and does it fit the estimate? | Architecture owner, plus privacy or security when tagged | Merge of the spec pull request |
+| G2 | Are the feature concept and the specs sound, and do they fit the estimate? | Architecture owner, plus privacy or security when tagged | Merge of the pull request with the feature concept or a spec |
 | G3 | Does it do what the requirement says, shown by evidence? | Tech lead opens, an owner approves | Merge of the acceptance pull request |
 
 Nobody approves what they wrote. Who holds which hat lives in `roles.yml`, the single source for hats.

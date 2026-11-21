@@ -20,6 +20,5 @@ acceptance:
   - "Unit: the keys of each template equal the properties of its schema, in the same order."
   - "Static: no file under tools/ holds a list of allowed values of its own."
 links:
-  mockup: n/a
   spec: null
 ---

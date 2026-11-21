@@ -19,6 +19,5 @@ acceptance:
   - "Unit: an acceptance record that cites a run on an earlier commit fails."
   - "Unit: an acceptance record that cites a run on the merged commit passes."
 links:
-  mockup: n/a
   spec: null
 ---

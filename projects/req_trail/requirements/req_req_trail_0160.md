@@ -19,7 +19,6 @@ acceptance:
   - "Unit: a note with a `<script>` element, an `onerror=` attribute and a `javascript:` link renders with all three removed."
   - "Unit: an image from another origin in a note is not loaded."
 links:
-  mockup: n/a
   spec: null
 ---
 

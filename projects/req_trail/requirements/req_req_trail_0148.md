@@ -19,6 +19,5 @@ rationale: >
 acceptance:
   - "Integration: tagging a minor release that adds model/format_2/ makes the release workflow fail."
 links:
-  mockup: n/a
   spec: null
 ---

@@ -18,6 +18,5 @@ rationale: >
 acceptance:
   - "Unit: depends_on: [req_recipe_box_0001] fails with the hint to write req_recipe_box_0001@1."
 links:
-  mockup: n/a
   spec: null
 ---
