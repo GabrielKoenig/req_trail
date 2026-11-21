@@ -1,7 +1,7 @@
 ---
 id: req_req_trail_0155
 title: A changed requirement or spec needs a new version
-feature: feature_req_trail_03
+feature: feature_req_trail_04
 owner: "@GabrielKoenig"
 version: 1
 priority: must
@@ -30,3 +30,6 @@ links:
 
 The label `editorial` joins `labels.yml` when work package 2 creates it. The reviewer at G1 or G2 checks that a
 change with this label keeps the meaning.
+
+It is built in work package 4, because whether a requirement has passed G1 comes from build_index
+(req_req_trail_0163).

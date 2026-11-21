@@ -12,12 +12,12 @@ reviews: []
 reviews_reason: "Defines file formats only; no personal data, credentials or permissions."
 source: "concept/concept.html#estimate"
 statement: >
-  The engine shall provide one template per file type: project.yml, feature.md, requirement.md, spec.md,
-  acceptance.md and metrics.yml.
+  The engine shall provide one template per file type: project.yml, feature.md, feature_concept.html,
+  requirement.md, spec.md, acceptance.md and metrics.yml.
 rationale: >
   Without a template, every author invents a slightly different format and the checks reject it.
 acceptance:
-  - "Static: templates/ holds exactly these six files."
+  - "Static: templates/ holds exactly these seven files."
 links:
   spec: null
 ---

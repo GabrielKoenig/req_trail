@@ -1,7 +1,7 @@
 ---
 id: req_req_trail_0169
 title: Approved on top of Draft
-feature: feature_req_trail_03
+feature: feature_req_trail_04
 owner: "@GabrielKoenig"
 version: 1
 priority: should
@@ -20,3 +20,6 @@ acceptance:
 links:
   spec: null
 ---
+
+It is built in work package 4, because the statuses Approved and Draft come from build_index
+(req_req_trail_0046).

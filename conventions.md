@@ -186,6 +186,9 @@ to Approved, once the new version is merged.
 | G2 | Are the feature concept and the specs sound, and do they fit the estimate? | Architecture owner, plus privacy or security when tagged | Merge of the pull request with the feature concept or a spec |
 | G3 | Does it do what the requirement says, shown by evidence? | Tech lead opens, an owner approves | Merge of the acceptance pull request |
 
+A gate pull request may carry several files of the same gate, such as all requirements of a feature, or a feature
+concept with the specs of its requirements (`req_req_trail_0097`).
+
 Nobody approves what they wrote. Who holds which hat lives in `roles.yml`, the single source for hats.
 
 ## Links to code and tests

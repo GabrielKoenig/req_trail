@@ -19,11 +19,11 @@ acceptance:
   - "Unit: one fixture per event (draft pull request, ready for review, merged, spec merged, implements merged, acceptance merged) yields Draft, In review, Approved, Specified, Implemented and Verified."
   - "Unit: a Verified requirement whose version 2 is merged shows Approved."
   - "Unit: merging version 2 of the spec that covers an Implemented requirement, whose own version stays the same, leaves it Implemented."
-  - "Unit: a requirement that two specs cover shows Specified once the first of them is merged, and still Specified after the second."
+  - "Unit: a requirement whose spec is only in an open pull request stays Approved, and shows Specified once that pull request is merged."
   - "Unit: passing test results for a Specified requirement whose implementing code pull request is not merged yet leave it Specified."
 links:
   spec: null
 ---
 
 The status is the furthest stage reached at the current version. The criteria cover a new version after Verified, a
-spec change alone, two specs for one requirement and test results that arrive before the code.
+spec change alone, a spec that is not merged yet and test results that arrive before the code.

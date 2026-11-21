@@ -1,7 +1,7 @@
 ---
 id: req_req_trail_0009
 title: Fixed value lists
-feature: feature_req_trail_01
+feature: feature_req_trail_03
 owner: "@GabrielKoenig"
 version: 1
 priority: must
@@ -21,3 +21,5 @@ acceptance:
 links:
   spec: null
 ---
+
+It is built in work package 3, because its test compares the table with the schemas (req_req_trail_0141).

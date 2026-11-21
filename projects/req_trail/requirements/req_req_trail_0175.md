@@ -1,7 +1,7 @@
 ---
 id: req_req_trail_0175
 title: Version 1 until the gate
-feature: feature_req_trail_03
+feature: feature_req_trail_04
 owner: "@GabrielKoenig"
 version: 1
 priority: must
@@ -31,3 +31,6 @@ links:
 A requirement has passed G1, and a spec G2, when its file reached main in a pull request merged after the commit
 that `gates_after` in `project.yml` names (req_req_trail_0163). req_req_trail_0155 covers the other direction:
 after the gate, a substantive change needs a new version or the label `editorial`.
+
+It is built in work package 4, together with req_req_trail_0155, because whether a requirement or a spec
+has passed its gate comes from build_index.

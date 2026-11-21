@@ -17,7 +17,7 @@ statement: >
 rationale: >
   A trace matrix that is generated cannot drift, unlike one that someone keeps up by hand.
 acceptance:
-  - "Unit: req_recipe_box_0001 shows spec_recipe_box_0001@1, pdf_layout.html and its acceptance record, and an empty cell for each missing link."
+  - "Unit: req_recipe_box_0001 shows spec_recipe_box_0001@1, the feature concept projects/recipe_box/concepts/feature_recipe_box_01.html and its acceptance record, and an empty cell for each missing link."
 links:
   spec: null
 ---

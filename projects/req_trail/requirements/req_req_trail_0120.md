@@ -17,7 +17,7 @@ statement: >
 rationale: >
   A template copied with engine code in it would fall behind the engine at once.
 acceptance:
-  - "Static: the template repo has no tools/ or schema/ folder."
+  - "Static: the template repo has no tools/ or model/ folder."
   - "Integration: a repo created from the template passes validate on its first pull request."
 links:
   spec: null
