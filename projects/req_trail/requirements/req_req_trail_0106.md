@@ -27,7 +27,7 @@ A workflow sets the baselines (req_req_trail_0171), so the runbook explains how 
 
 ## Manual test
 
-**Who:** a person who has not worked on req_trail, for example the co-author.
+**Who:** a person who has not worked on reqTrail, for example the co-author.
 
 1. Take an empty test repo and the runbook.
 2. Add a project and one requirement by following only the runbook.

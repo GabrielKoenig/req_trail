@@ -1,13 +1,13 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="logo/logo_on_dark.svg">
-  <img src="logo/logo_on_light.svg" alt="req_trail logo" width="96">
+  <img src="logo/logo_on_light.svg" alt="reqTrail logo" width="96">
 </picture>
 
-# req_trail
+# reqTrail
 
 **Requirements as code.** Write down the need; Git keeps the trail.
 
-req_trail is a concept for keeping the requirements, specs, mockups and changes of several projects in one Git
+reqTrail is a concept for keeping the requirements, specs, mockups and changes of several projects in one Git
 repository, the way docs-as-code keeps documentation next to the code. Every change is a pull request, so the history
 shows who changed what and why. Four gates, G0 to G3, turn a status change into a decision with a named gatekeeper,
 enforced through `CODEOWNERS`, branch protection and checks. In the concept pages, the repository that holds the
@@ -24,7 +24,7 @@ req_trail/
 ├─ templates/         # one template per file type
 ├─ projects/
 │  ├─ recipe_box/     # example project with made-up data
-│  └─ req_trail/      # req_trail's own requirements
+│  └─ req_trail/      # reqTrail's own requirements
 ├─ concept/           # the concept, architecture and roles pages, and the data they read
 ├─ logo/              # the logo as SVG, for dark and light backgrounds
 ├─ setup/             # the one-click setup of a maintainer's PC on Windows
@@ -40,8 +40,8 @@ req_trail/
 | [`conventions.md`](conventions.md) | The rules every file follows: lower snake case names, the ID formats, versions and pinned references, the seven statuses and what sets them, the gates, and how code and tests point back to a requirement |
 | `templates/` | `project.yml`, `feature.md`, `requirement.md`, `spec.md`, `acceptance.md` and `metrics.yml`, each with placeholders and short comments |
 | `projects/recipe_box/` | The example project `recipe_box`: one feature, two requirements, two specs, a mockup, an acceptance record and a measured outcome, the same data as the demo on the concept page |
-| `projects/req_trail/` | req_trail's own requirements: one feature per work package, and for each requirement its rationale and the acceptance criteria that say how it is tested. The dry run takes them through the gates like any project |
-| `concept/concept.html` | The concept page: the process from request to technical spec, the gates, repos and issues, community intake, a working demo of the requirements tracker with the example project and req_trail's own requirements, Obsidian as a viewer, the architecture, options, an effort estimate and a review list |
+| `projects/req_trail/` | reqTrail's own requirements: one feature per work package, and for each requirement its rationale and the acceptance criteria that say how it is tested. The dry run takes them through the gates like any project |
+| `concept/concept.html` | The concept page: the process from request to technical spec, the gates, repos and issues, community intake, a working demo of the requirements tracker with the example project and reqTrail's own requirements, Obsidian as a viewer, the architecture, options, an effort estimate and a review list |
 | `concept/architecture.html` | The architecture along the twelve sections of the arc42 template: goals, constraints, context, building blocks, runtime and deployment, decisions, quality requirements and risks. Constraints, quality requirements and dependencies are read from the files |
 | `concept/concept_data.js` | Generated from the files in `projects/` by `npm run concept_data`; the concept and architecture pages read it. `npm run check_concept_data` fails when it is out of date |
 | `concept/roles.html` | The roles dashboard: hats instead of people, duties per phase and gate, a simulated history of who held which hat, and the checks that read the roles |

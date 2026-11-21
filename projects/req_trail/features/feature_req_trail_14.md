@@ -1,9 +1,9 @@
 ---
 id: feature_req_trail_14
-title: "Pilot: req_trail through its own gates"
+title: "Pilot: reqTrail through its own gates"
 project: req_trail
 goal: >
-  The whole process works on a real project, req_trail itself, before another team relies on it.
+  The whole process works on a real project, reqTrail itself, before another team relies on it.
 scope:
   - "req_trail's own requirements through G0 to G3"
   - "The engine's code and tests linked to those requirements"

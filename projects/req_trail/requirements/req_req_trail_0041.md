@@ -17,7 +17,7 @@ rationale: >
   A runtime dependency is outside code that runs with the engine's permissions, so it needs a reviewed
   decision.
 acceptance:
-  - "Static: each entry under dependencies in package.json appears in a merged spec of project req_trail."
+  - "Static: each entry under dependencies in package.json appears in a merged spec of project `req_trail`."
 links:
   mockup: n/a
   spec: null

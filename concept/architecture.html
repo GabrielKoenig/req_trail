@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>req_trail architecture</title>
+<title>reqTrail architecture</title>
 <link rel="icon" type="image/svg+xml" href="../logo/logo_on_dark.svg">
 <link rel="stylesheet" href="concept.css">
 <style>
@@ -30,7 +30,7 @@
 
 <div class="wrap">
   <header class="top">
-    <div class="brand"><img src="../logo/logo_on_dark.svg" alt="" width="22" height="22">req_trail</div>
+    <div class="brand"><img src="../logo/logo_on_dark.svg" alt="" width="22" height="22">reqTrail</div>
     <div class="crumb">Requirements as code / <span class="grad-text"><b>architecture</b></span></div>
     <span class="tag">Design &middot; arc42 template</span>
   </header>
@@ -39,7 +39,7 @@
   <section id="goals">
     <div class="eyebrow">1 &middot; Introduction and goals</div>
     <h2>Requirements as files, gates as pull requests, everything else generated</h2>
-    <p class="sub">req_trail keeps the requests, requirements, specs and acceptance records of several projects as Markdown files in Git. A pull request is the only way to change them, so Git holds the trail and GitHub's reviews are the gates. A small engine checks the files, builds an index and publishes a static explorer. This page describes that engine along the twelve sections of the <a href="https://arc42.org/overview">arc42 template</a>, with diagrams at the levels of the <a href="https://c4model.com/">C4 model</a>: both are established and free to use, so we reuse them instead of inventing a structure.</p>
+    <p class="sub">reqTrail keeps the requests, requirements, specs and acceptance records of several projects as Markdown files in Git. A pull request is the only way to change them, so Git holds the trail and GitHub's reviews are the gates. A small engine checks the files, builds an index and publishes a static explorer. This page describes that engine along the twelve sections of the <a href="https://arc42.org/overview">arc42 template</a>, with diagrams at the levels of the <a href="https://c4model.com/">C4 model</a>: both are established and free to use, so we reuse them instead of inventing a structure.</p>
     <div class="three">
       <div class="card"><h3>What it must do</h3><ul>
         <li><b>Trace every requirement</b> from the request to the spec, the code, the test and the release, by ID and pinned version.</li>
@@ -71,12 +71,12 @@
   <section id="context">
     <div class="eyebrow">3 &middot; Context and scope</div>
     <h2>One engine between people, GitHub and the code repos</h2>
-    <p class="sub">C4 level 1, the system context. req_trail owns the files and the engine; everything blue is a GitHub feature or another tool it uses through its normal interface.</p>
-    <div class="dia"><svg viewBox="0 0 900 400" role="img" aria-label="System context: requesters, owners and gatekeepers, and developers use req_trail through GitHub. req_trail reads test results from code repos, publishes the explorer on GitHub Pages and exports ReqIF to a requirements management tool.">
+    <p class="sub">C4 level 1, the system context. reqTrail owns the files and the engine; everything blue is a GitHub feature or another tool it uses through its normal interface.</p>
+    <div class="dia"><svg viewBox="0 0 900 400" role="img" aria-label="System context: requesters, owners and gatekeepers, and developers use reqTrail through GitHub. reqTrail reads test results from code repos, publishes the explorer on GitHub Pages and exports ReqIF to a requirements management tool.">
       <rect class="p" x="20" y="40" width="170" height="64" rx="8"/><text class="t" x="34" y="64">Requesters</text><text class="s" x="34" y="84">community, users, support</text>
       <rect class="p" x="20" y="168" width="170" height="64" rx="8"/><text class="t" x="34" y="192">Owners and gatekeepers</text><text class="s" x="34" y="212">G0 to G3, roles.yml</text>
       <rect class="p" x="20" y="296" width="170" height="64" rx="8"/><text class="t" x="34" y="320">Developers</text><text class="s" x="34" y="340">tech lead, code repos</text>
-      <rect class="n" x="330" y="140" width="240" height="120" rx="10"/><text class="t" x="350" y="170">req_trail</text><text class="s" x="350" y="192">files in projects/, model and schemas,</text><text class="s" x="350" y="210">checks, index builder, explorer,</text><text class="s" x="350" y="228">reusable workflows</text>
+      <rect class="n" x="330" y="140" width="240" height="120" rx="10"/><text class="t" x="350" y="170">reqTrail</text><text class="s" x="350" y="192">files in projects/, model and schemas,</text><text class="s" x="350" y="210">checks, index builder, explorer,</text><text class="s" x="350" y="228">reusable workflows</text>
       <rect class="e" x="700" y="20" width="180" height="56" rx="8"/><text class="t" x="714" y="44">GitHub</text><text class="s" x="714" y="62">issues, pull requests, Actions</text>
       <rect class="e" x="700" y="108" width="180" height="56" rx="8"/><text class="t" x="714" y="132">GitHub Pages</text><text class="s" x="714" y="150">the published explorer</text>
       <rect class="e" x="700" y="196" width="180" height="56" rx="8"/><text class="t" x="714" y="220">Code repos</text><text class="s" x="714" y="238">CI with JUnit XML</text>
@@ -92,12 +92,12 @@
     <div class="tw" style="margin-top:12px"><table class="mt">
       <thead><tr><th>Interface</th><th>Direction</th><th>Format</th><th>Work package</th></tr></thead>
       <tbody>
-        <tr><td>Issue forms and pull request template</td><td>people to req_trail</td><td>GitHub issue forms (YAML), Markdown</td><td>2</td></tr>
-        <tr><td>Requirement, spec and acceptance files</td><td>people to req_trail, by pull request</td><td>Markdown with YAML front matter, format version in <code>project.yml</code></td><td>1, 3</td></tr>
-        <tr><td><code>implements:</code> lines in code repo pull requests</td><td>code repos to req_trail</td><td>one line per requirement, <code>req_&lt;project&gt;_&lt;nnnn&gt;@&lt;version&gt;</code></td><td>8</td></tr>
-        <tr><td>Test results</td><td>code repos to req_trail</td><td>JUnit XML, the requirement ID in the test or group name</td><td>11</td></tr>
-        <tr><td><code>index.json</code> and the explorer</td><td>req_trail to readers</td><td>JSON, static HTML on GitHub Pages</td><td>4, 6</td></tr>
-        <tr><td>Export to a requirements management tool</td><td>req_trail to the RM tool</td><td>ReqIF, statements as plain XHTML</td><td>later</td></tr>
+        <tr><td>Issue forms and pull request template</td><td>people to reqTrail</td><td>GitHub issue forms (YAML), Markdown</td><td>2</td></tr>
+        <tr><td>Requirement, spec and acceptance files</td><td>people to reqTrail, by pull request</td><td>Markdown with YAML front matter, format version in <code>project.yml</code></td><td>1, 3</td></tr>
+        <tr><td><code>implements:</code> lines in code repo pull requests</td><td>code repos to reqTrail</td><td>one line per requirement, <code>req_&lt;project&gt;_&lt;nnnn&gt;@&lt;version&gt;</code></td><td>8</td></tr>
+        <tr><td>Test results</td><td>code repos to reqTrail</td><td>JUnit XML, the requirement ID in the test or group name</td><td>11</td></tr>
+        <tr><td><code>index.json</code> and the explorer</td><td>reqTrail to readers</td><td>JSON, static HTML on GitHub Pages</td><td>4, 6</td></tr>
+        <tr><td>Export to a requirements management tool</td><td>reqTrail to the RM tool</td><td>ReqIF, statements as plain XHTML</td><td>later</td></tr>
       </tbody>
     </table></div>
   </section>
@@ -157,7 +157,7 @@
     <div class="layers">
       <div class="lay">GitHub</div>
       <div class="boxes">
-        <div class="bx new"><b>Engine repo req_trail</b>Model, schemas, tools, explorer and reusable workflows, released with version tags such as <code>v1</code>.<small>work package 17</small></div>
+        <div class="bx new"><b>Engine repo <code>req_trail</code></b>Model, schemas, tools, explorer and reusable workflows, released with version tags such as <code>v1</code>.<small>work package 17</small></div>
         <div class="bx new"><b>Project repo</b>Created from the project template: <code>projects/</code>, <code>roles.yml</code>, <code>CODEOWNERS</code> and two short workflows that call the engine at <code>@v1</code>.<small>one per team or project</small></div>
         <div class="bx ext"><b>GitHub Pages</b>The explorer and <code>index.json</code> of each project repo; an optional hub joins several.<small>static files</small></div>
         <div class="bx reuse"><b>Code repos</b>Unchanged, except an <code>implements:</code> line per pull request and requirement IDs in test names.<small>any language</small></div>
@@ -236,7 +236,7 @@
       <thead><tr><th>Risk or debt</th><th>Effect</th><th>What limits it</th></tr></thead>
       <tbody>
         <tr><td>No check runs yet</td><td>Until work package 3, only the review at G1 catches a wrong file</td><td>The model and validate come first; the rules already name the requirement that will enforce them</td></tr>
-        <tr><td>req_trail's own requirements have not passed G1</td><td>They are on <code>main</code> but unreviewed, so the tracker shows them as Draft</td><td>The pilot (work package 14) takes them through their own gates</td></tr>
+        <tr><td>reqTrail's own requirements have not passed G1</td><td>They are on <code>main</code> but unreviewed, so the tracker shows them as Draft</td><td>The pilot (work package 14) takes them through their own gates</td></tr>
         <tr><td>The YAML library has one maintainer</td><td>Fixes could stall</td><td>Very wide use; a round-trip test protects the comments; the model is the only place that parses YAML, so a switch touches one file; until work package 3, <code>build_concept_data.js</code> also parses YAML, and it moves to the model then</td></tr>
         <tr><td>Generated data in the repo can go stale</td><td><code>concept_data.js</code> could differ from the files</td><td><code>npm run check_concept_data</code> fails when it does; <code>req_req_trail_0152</code> runs it on every pull request</td></tr>
         <tr><td>Bound to GitHub</td><td>Gates, workflows and Pages are GitHub features</td><td>The files are plain Markdown in Git and move with any Git host; ReqIF leaves a way out to an RM tool</td></tr>
@@ -353,7 +353,7 @@
     ]],
     ["Delivery", [
       { kind: "new", name: "Engine releases and templates", text: "Version tags, reusable workflows, the project template and the optional hub.", files: "engine repo", wps: [17] },
-      { kind: "new", name: "Pilot and runbook", text: "req_trail through its own gates, and how to run it.", files: "projects/req_trail/, runbook", wps: [14, 15] }
+      { kind: "new", name: "Pilot and runbook", text: "reqTrail through its own gates, and how to run it.", files: "projects/req_trail/, runbook", wps: [14, 15] }
     ]]
   ];
   byId("blockLayers").innerHTML = layers.map(function (layer) {

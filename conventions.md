@@ -166,12 +166,12 @@ Nobody approves what they wrote. Who holds which hat lives in `roles.yml`, the s
 
 ## Languages and test tools
 
-Each part is tested with the tool of its own language. req_trail prescribes no test tool for a code repo; it reads only
+Each part is tested with the tool of its own language. reqTrail prescribes no test tool for a code repo; it reads only
 JUnit XML.
 
-| Part | Language | Tests with | What req_trail reads |
+| Part | Language | Tests with | What reqTrail reads |
 |---|---|---|---|
-| req_trail's engine: checks, index builder, explorer | JavaScript on Node | Node's test runner, `node --test` | JUnit XML from `node --test --test-reporter=junit`, like any code repo |
+| reqTrail's engine: checks, index builder, explorer | JavaScript on Node | Node's test runner, `node --test` | JUnit XML from `node --test --test-reporter=junit`, like any code repo |
 | A code repo, such as `recipe_box` | Its own; `recipe_box` is PowerShell | Its own; `recipe_box` uses Pester | JUnit XML, with the requirement ID in the name of the test or of its group |
 | The setup of a maintainer's PC, in `setup/` | PowerShell, on Windows | A manual run | Nothing |
 

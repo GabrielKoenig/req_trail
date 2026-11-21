@@ -12,7 +12,7 @@ reviews: []
 reviews_reason: "Runs on the engine's own repo; pull requests show handles as GitHub already does."
 source: "concept/concept.html#estimate"
 statement: >
-  A substantive change to a Verified requirement of req_trail shall pass G1, G2 and G3 again and end Verified
+  A substantive change to a Verified requirement of reqTrail shall pass G1, G2 and G3 again and end Verified
   at its new version.
 rationale: >
   A change after verification is the hardest case for the gates, so the pilot has to go through one.
@@ -27,7 +27,7 @@ links:
 
 **Who:** the requirements owner makes the change; the co-author reviews each gate and checks the result.
 
-1. In the explorer, pick a Verified requirement of the project req_trail and press Propose change.
+1. In the explorer, pick a Verified requirement of the project `req_trail` and press Propose change.
 2. Write a substantive change, mark it substantive and send the form.
 3. Review and merge the pull request that the workflow opens (G1).
 4. In the explorer, check that the requirement shows Approved at version 2 and that its spec shows as suspect.

@@ -24,5 +24,5 @@ links:
   spec: null
 ---
 
-req_trail runs in solo mode until work package 5 turns on the required reviews; from then on a second reviewer
+reqTrail runs in solo mode until work package 5 turns on the required reviews; from then on a second reviewer
 approves (review item A3).

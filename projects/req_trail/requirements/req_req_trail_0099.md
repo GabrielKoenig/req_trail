@@ -27,7 +27,7 @@ links:
 
 **Who:** the co-author, at the end of the pilot.
 
-1. On GitHub, filter the pull requests of req_trail with is:merged label:gate_exception.
+1. On GitHub, filter the pull requests of the repo `req_trail` with is:merged label:gate_exception.
 2. Read the description of each one.
 3. Find each one in the explorer.
 

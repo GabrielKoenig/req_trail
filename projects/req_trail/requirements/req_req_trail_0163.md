@@ -25,4 +25,4 @@ links:
   spec: null
 ---
 
-req_trail sets `gates_after` to the last commit that reached main without a pull request.
+reqTrail sets `gates_after` to the last commit that reached main without a pull request.

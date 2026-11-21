@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Installs what req_trail's tools need on a Windows PC: Git, Node.js LTS and, once the repo has a package.json,
+    Installs what reqTrail's tools need on a Windows PC: Git, Node.js LTS and, once the repo has a package.json,
     its npm packages.
 
 .DESCRIPTION
@@ -9,7 +9,7 @@
     with Windows; winget may ask you to accept the package's licence, and the installer may ask for administrator
     rights.
 
-    This script only installs. All of req_trail's checks and tools are JavaScript on Node.
+    This script only installs. All of reqTrail's checks and tools are JavaScript on Node.
 
 .PARAMETER CheckOnly
     Report what is there and what is missing, and install nothing.
@@ -83,7 +83,7 @@ function Install-Tool($Tool) {
 
 $mode = ''
 if ($CheckOnly) { $mode = ', check only' }
-Write-Host "req_trail: prerequisites$mode"
+Write-Host "reqTrail: prerequisites$mode"
 $complete = $true
 Update-Path   # a window opened before an earlier install sees the tools installed since
 
@@ -129,7 +129,7 @@ else {
 
 Write-Host ''
 if ($complete) {
-    Write-Host "Done: req_trail's tools can run on this PC." -ForegroundColor Green
+    Write-Host "Done: reqTrail's tools can run on this PC." -ForegroundColor Green
     exit 0
 }
 if ($CheckOnly) {

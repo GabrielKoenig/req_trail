@@ -24,5 +24,5 @@ estimate: 3.5
 target_release: "1.0"
 ---
 
-Built in work package 3. It holds 39 requirements. The baseline is an estimate; the value review after
+Built in work package 3. It holds 40 requirements. The baseline is an estimate; the value review after
 the release measures it.

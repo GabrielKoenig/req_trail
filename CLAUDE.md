@@ -27,6 +27,10 @@ right heading.
   (`loadProject`), Verb-Noun functions with approved verbs and PascalCase parameters in PowerShell
   (`Export-RecipePdf -CheckOnly`), snake_case in Python (`load_project`). Data keys read in code keep their snake case
   (`project.format_version`). Enforced by `req_req_trail_0151`, built in work package 3; until then, the review.
+- **The product is called reqTrail** in titles, headings and prose, as in `<title>reqTrail architecture</title>`.
+  `req_trail` is only its name where a tool needs one: the repo `GabrielKoenig/req_trail`, the folder
+  `projects/req_trail`, IDs such as `req_req_trail_0001`, and file names. In prose such a name stands in a code span.
+  Enforced by `req_req_trail_0176`, a check built in work package 3; until then, the review.
 - **Write names out in full.** No abbreviations in file, folder, project, ID or key names: `recipe_box`, not `rb`;
   `feature_recipe_box_01`, not `ft_rb_01`; `metrics.yml`, not `kpis.yml`. A project is named after its code repo. The
   only short forms are `req` and `spec`, as in `req_recipe_box_0003`, `spec_recipe_box_0002` and `no_req`, and the
@@ -59,7 +63,7 @@ right heading.
 
 - **Generic only.** No real people, organisations, employers, internal systems or customers. Examples use the made-up
   code repos `recipe_box` and `bike_rental` and role handles such as `@owner1`.
-- **One exception: req_trail's own project.** `projects/req_trail/` holds the requirements of req_trail itself, so it
+- **One exception: reqTrail's own project.** `projects/req_trail/` holds the requirements of reqTrail itself, so it
   names the real repo `GabrielKoenig/req_trail` and the maintainers' GitHub handles, spelled as GitHub has them. Later,
   `roles.yml` and `CODEOWNERS` do the same. Nothing else in the repo names a real person or account.
 - **English only.**

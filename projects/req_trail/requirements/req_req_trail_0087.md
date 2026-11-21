@@ -15,7 +15,7 @@ statement: >
   The conventions shall state that the engine's tests run with node --test and that a code repo may use any
   test tool that writes JUnit XML.
 rationale: >
-  Code repos keep their own language and test tool, so req_trail must not depend on any one of them.
+  Code repos keep their own language and test tool, so reqTrail must not depend on any one of them.
 acceptance:
   - "Static: the section Languages and test tools of conventions.md names node --test for the engine and JUnit XML for code repos."
 links:

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>req_trail</title>
+<title>reqTrail</title>
 <link rel="icon" type="image/svg+xml" href="../logo/logo_on_dark.svg">
 <link rel="stylesheet" href="concept.css">
 </head>
@@ -22,7 +22,7 @@
 
 <div class="wrap">
   <header class="top">
-    <div class="brand"><svg aria-hidden="true"><use href="#logo"/></svg>req_trail</div>
+    <div class="brand"><svg aria-hidden="true"><use href="#logo"/></svg>reqTrail</div>
     <div class="crumb">Requirements as code / <span class="grad-text"><b>project_management</b></span></div>
     <span class="tag">Proposal &middot; generic example</span>
   </header>
@@ -682,7 +682,7 @@ Closes #31</pre>
       </div>
     </div>
     <div class="legend"><span><i style="background:var(--gold)"></i>New code or files we write</span><span><i style="background:var(--blue07)"></i>GitHub feature we configure</span><span><i style="background:var(--green)"></i>Used as is</span></div>
-    <p class="note">The full design, along the twelve sections of the arc42 template and with the requirements of req_trail read from its files, is on the <a href="architecture.html">architecture page</a>.</p>
+    <p class="note">The full design, along the twelve sections of the arc42 template and with the requirements of reqTrail read from its files, is on the <a href="architecture.html">architecture page</a>.</p>
     <div class="two">
       <div class="card"><h3>Repository layout</h3><pre><span class="f">project_management/</span>
 <span class="p">├─</span> projects/
@@ -769,9 +769,9 @@ Closes #31</pre>
   <section id="compatibility">
     <div class="eyebrow">Compatibility</div>
     <h2>Ready for a requirements management tool, without a second master</h2>
-    <p class="sub">Some organisations keep their requirements in a requirements management (RM) tool such as reqSuite rm, IBM DOORS or Polarion, and exchange them through ReqIF, the standard exchange format, or through Excel. req_trail stays the master for its projects. Its fields are chosen so that an export maps cleanly, and no file has to change when an exporter is added later.</p>
+    <p class="sub">Some organisations keep their requirements in a requirements management (RM) tool such as reqSuite rm, IBM DOORS or Polarion, and exchange them through ReqIF, the standard exchange format, or through Excel. reqTrail stays the master for its projects. Its fields are chosen so that an export maps cleanly, and no file has to change when an exporter is added later.</p>
     <div class="tw"><table class="t">
-      <thead><tr><th>Field in req_trail</th><th>In an RM tool</th><th>Why it maps cleanly</th></tr></thead>
+      <thead><tr><th>Field in reqTrail</th><th>In an RM tool</th><th>Why it maps cleanly</th></tr></thead>
       <tbody>
         <tr><td><code>id</code></td><td>Identifier</td><td>Never reused or renamed, so it can serve as the foreign ID.</td></tr>
         <tr><td><code>version</code></td><td>Version</td><td>A whole number: 1 until G1, then raised by every substantive change.</td></tr>
@@ -881,7 +881,7 @@ Closes #31</pre>
     <ul class="rvl">
       <li class="rvi"><input type="checkbox" class="rvc" id="rvc-A1" data-rv="A1"><div class="rvb"><div class="rvh"><span class="rvid">A1</span><span class="tagx o">Review round</span></div><label for="rvc-A1">Public repo, or private with a paid GitHub plan</label><p>The gates need what a private repo on GitHub Free lacks: enforced code owners, required reviews, protected branches, draft pull requests and Pages for the explorer. A public repo has all of it for free; a paid plan adds it to private repos and is billed per user.</p><p class="rvr"><i>Suggestion:</i> Stay private while the concept is reviewed and A2 is answered. Then decide: public with strict content rules, or a paid plan. Check the current prices, and whether outside collaborators count as paid seats.</p></div></li>
       <li class="rvi"><input type="checkbox" class="rvc" id="rvc-A2" data-rv="A2"><div class="rvb"><div class="rvh"><span class="rvid">A2</span><span class="tagx o">Review round</span></div><label for="rvc-A2">What data protection asks for before the repo goes public</label><p>A public repo shows everything, with the whole git history, and nothing can be taken back once it is cloned. Names, roles, reviews and approvals are personal data, and in some organisations membership itself is sensitive. Find out which law applies, whether a deletion request could still be honoured, and how people learn what is published about them.</p><p class="rvr"><i>Suggestion:</i> A rule «no personal data in the repo»: made-up names and data in requirements, mockups and issues; people appear only as GitHub user names, with their consent; the role history stays private or shows hats without names; everyone commits with GitHub's noreply address. Have your data protection officer check it. This is not legal advice.</p></div></li>
-      <li class="rvi"><input type="checkbox" class="rvc" id="rvc-A3" data-rv="A3"><div class="rvb"><div class="rvh"><span class="rvid">A3</span><span class="tagx o">Review round</span><span class="tagx gr">Author</span></div><label for="rvc-A3">Who wears which hat, with GitHub user names</label><p>Requirements owner, Principal Engineer, project lead, architecture owner, tech lead, tester, data protection officer, and a security reviewer named per case. Whoever approves needs write access. Nobody approves what they wrote, so the Principal Engineer must not be the only owner, and the architecture owner not the only tech lead. G3 needs three different people per change: whoever develops it, the tech lead who opens the acceptance pull request, and the owner who approves it.</p><p class="rvr"><i>Suggestion:</i> Name at least three people. For a two-person pilot, let the owner accept a change they built as long as the tech lead did not build it, and let the index show that as an exception.</p><p class="rvr"><i>req_trail:</i> One maintainer until work package 5 turns on the required reviews, so the project runs in solo mode and the index marks every solo merge (<code>req_req_trail_0165</code>). Then a second reviewer approves G1 and G2, and G3 follows the two-person rule above.</p></div></li>
+      <li class="rvi"><input type="checkbox" class="rvc" id="rvc-A3" data-rv="A3"><div class="rvb"><div class="rvh"><span class="rvid">A3</span><span class="tagx o">Review round</span><span class="tagx gr">Author</span></div><label for="rvc-A3">Who wears which hat, with GitHub user names</label><p>Requirements owner, Principal Engineer, project lead, architecture owner, tech lead, tester, data protection officer, and a security reviewer named per case. Whoever approves needs write access. Nobody approves what they wrote, so the Principal Engineer must not be the only owner, and the architecture owner not the only tech lead. G3 needs three different people per change: whoever develops it, the tech lead who opens the acceptance pull request, and the owner who approves it.</p><p class="rvr"><i>Suggestion:</i> Name at least three people. For a two-person pilot, let the owner accept a change they built as long as the tech lead did not build it, and let the index show that as an exception.</p><p class="rvr"><i>reqTrail:</i> One maintainer until work package 5 turns on the required reviews, so the project runs in solo mode and the index marks every solo merge (<code>req_req_trail_0165</code>). Then a second reviewer approves G1 and G2, and G3 follows the two-person rule above.</p></div></li>
       <li class="rvi"><input type="checkbox" class="rvc" id="rvc-A4" data-rv="A4"><div class="rvb"><div class="rvh"><span class="rvid">A4</span><span class="tagx gr">Author</span></div><label for="rvc-A4">Teams or named people in <code>CODEOWNERS</code></label><p>Teams need organisation members; outside collaborators can only be named one by one. <code>roles.yml</code> stays the single source either way.</p><p class="rvr"><i>Suggestion:</i> Named people for the pilot, teams once the circle grows.</p></div></li>
       <li class="rvi"><input type="checkbox" class="rvc" id="rvc-A5" data-rv="A5"><div class="rvb"><div class="rvh"><span class="rvid">A5</span><span class="tagx o">Review round</span></div><label for="rvc-A5">Waiting limits at a gate</label><p>The page says amber after five and red after ten working days, and a value review six weeks after a release. All of it is a guess, and each number lives in one file.</p><p class="rvr"><i>Suggestion:</i> Start with these numbers and change them after the pilot. At red the project lead is mentioned; nothing else happens by itself.</p></div></li>
       <li class="rvi"><input type="checkbox" class="rvc" id="rvc-A6" data-rv="A6"><div class="rvb"><div class="rvh"><span class="rvid">A6</span><span class="tagx gr">Author</span></div><label for="rvc-A6">Licence of a public repo</label><p>Without a licence nobody may legally reuse the content, although everyone can read it. Scripts and documents can carry different licences.</p><p class="rvr"><i>Suggestion:</i> MIT for the scripts and CC BY 4.0 for requirements and documents, or one licence for everything. This is not legal advice.</p></div></li>
