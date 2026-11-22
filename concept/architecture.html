@@ -122,7 +122,7 @@
     <div class="layers" id="blockLayers"></div>
     <div class="legend"><span><i style="background:var(--gold)"></i>New code or files we write</span><span><i style="background:var(--blue07)"></i>GitHub feature we configure</span><span><i style="background:var(--green)"></i>Used as is</span></div>
     <h3 class="sh">Dependencies between work packages</h3>
-    <p class="crumb" style="margin:0 0 10px">Read from <code>depends_on</code>: a row lists the other work packages whose requirements it relies on, with the number of links. A block can only be finished after the blocks it relies on.</p>
+    <p class="crumb" style="margin:0 0 10px">Read from <code>depends_on</code> in each feature file: a row lists the work packages that must be finished before it starts. The number in brackets counts the requirements of the row that depend on requirements of that work package; a need without such a link is a form, page or workflow the work package builds on. A check fails when a requirement depends on a work package its own one does not need, directly or through others.</p>
     <div class="tw"><table class="mt" id="dependencyTable"></table></div>
   </section>
 
@@ -371,7 +371,8 @@
     }).join("") + "</div>";
   }).join("");
 
-  // Section 5: dependencies between work packages, from depends_on.
+  // Section 5: dependencies between work packages, from the depends_on of each feature file, with the number of
+  // requirement dependencies behind each one (req_req_trail_0183, req_req_trail_0184).
   var featureOf = {};
   requirements.forEach(function (r) { featureOf[r.id] = r.feature; });
   var rows = project.features.map(function (f) {
@@ -382,9 +383,10 @@
         if (target && target !== f.id) links[target] = (links[target] || 0) + 1;
       });
     });
-    var keys = Object.keys(links).sort();
+    var keys = f.dependsOn || [];
     return "<tr><td>" + workPackage(f.id) + " " + esc(f.title) + "</td><td>" + (keys.length ? keys.map(function (k) {
-      return workPackage(k) + " " + esc(features[k] ? features[k].title : k) + " <span class=\"crumb\">(" + links[k] + ")</span>";
+      var count = links[k] ? links[k] + " requirement link" + (links[k] > 1 ? "s" : "") : "no requirement link";
+      return workPackage(k) + " " + esc(features[k] ? features[k].title : k) + " <span class=\"crumb\">(" + count + ")</span>";
     }).join("<br>") : "<span class=\"crumb\">none</span>") + "</td></tr>";
   });
   byId("dependencyTable").innerHTML = "<thead><tr><th>Work package</th><th>Relies on</th></tr></thead><tbody>" + rows.join("") + "</tbody>";

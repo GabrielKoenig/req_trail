@@ -21,6 +21,7 @@ metric:
   target: 10
   direction: at_most
 estimate: 1
+depends_on: []
 target_release: "1.0"
 ---
 

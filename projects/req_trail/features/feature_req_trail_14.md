@@ -21,6 +21,19 @@ metric:
   target: 80
   direction: at_least
 estimate: 3
+depends_on:
+  - feature_req_trail_06
+  - feature_req_trail_07
+  - feature_req_trail_08
+  - feature_req_trail_09
+  - feature_req_trail_10
+  - feature_req_trail_11
+  - feature_req_trail_12
+  - feature_req_trail_13
+  - feature_req_trail_16
+  - feature_req_trail_17
+  - feature_req_trail_18
+  - feature_req_trail_19
 target_release: "1.0"
 ---
 

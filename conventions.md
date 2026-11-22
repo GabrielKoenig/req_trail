@@ -92,8 +92,22 @@ A concept says how something is meant to work before it is built. There are two 
   pull request that changes the statement or an acceptance criterion of such a requirement, or the text of such a
   spec, without raising the version carries the label `editorial` (`req_req_trail_0155`).
 - A reference to a requirement or spec names the version it was made against: `req_recipe_box_0001@1`. This applies to
-  `depends_on`, `covers`, `links.spec` and `requirement`.
+  the `depends_on` of a requirement, `covers`, `links.spec` and `requirement`.
 - When the target moves to a higher version, every reference to the old one is suspect until someone confirms it.
+
+## Order of features
+
+- A feature lists in `depends_on` the features of its project that must be finished before its work starts, by ID and
+  without a version, because a feature has none. A feature that needs none has `depends_on: []`. The lists form no
+  cycle (`req_req_trail_0183`).
+- The order of the features comes from these lists, never from their numbers. An ID is never renamed, so a feature
+  keeps its number wherever it falls in the order.
+- A requirement may depend on a requirement of another feature only when its own feature depends on that feature,
+  directly or through the features it lists (`req_req_trail_0184`). A feature may list more than its requirements
+  need, such as a form or a page of another feature that its work builds on.
+- Until work package 3, `npm run concept_data` and `npm run check_concept_data` fail when these rules are broken.
+- The work package table and the schedule of `concept/concept.html` show reqTrail's own features in this order
+  (`req_req_trail_0185`).
 
 ## Format versions
 

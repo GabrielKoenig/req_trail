@@ -690,7 +690,7 @@ Closes #31</pre>
 <span class="p">│  │  ├─</span> project.yml          <span class="c"># name, format version, code repos, overview concept</span>
 <span class="p">│  │  ├─</span> requirements/req_recipe_box_0001.md
 <span class="p">│  │  ├─</span> specs/spec_recipe_box_0001.md
-<span class="p">│  │  ├─</span> features/feature_recipe_box_01.md  <span class="c"># origin, scope, estimate, metric</span>
+<span class="p">│  │  ├─</span> features/feature_recipe_box_01.md  <span class="c"># origin, scope, estimate, depends_on, metric</span>
 <span class="p">│  │  ├─</span> features/feature_recipe_box_02.md
 <span class="p">│  │  ├─</span> metrics.yml               <span class="c"># measured outcomes</span>
 <span class="p">│  │  ├─</span> concepts/feature_recipe_box_01.html  <span class="c"># flow, design, architecture, tests</span>
@@ -830,6 +830,7 @@ Closes #31</pre>
       </div>
     </div>
     <div class="tw"><table class="t" id="wpTable"></table></div>
+    <p class="note">Each work package is a feature of reqTrail's own project, read from its feature file: title, scope, estimate and <code>depends_on</code>. Its number is the feature's ID, which never changes, so the number is not its place in the order. <b>Stage</b> says when a work package can start: one stage after the last work package it needs. Work packages of the same stage can run side by side.</p>
     <div class="card" style="margin-top:16px"><h3>With an AI assistant: about <span class="v-ai">&hellip;</span> person-days</h3><ul>
       <li><b>Writing shrinks most.</b> The skeleton, the forms and the runbook (WP1, WP2, WP15): the AI writes, a person reviews.</li>
       <li><b>Code with clear rules shrinks too, but needs real tests.</b> Validator, index builder, explorer, views, text checks and the Edit buttons (WP3, WP4, WP6, WP9, WP12, WP13, WP18, WP19). The demo on this page already is much of the explorer; most of the remaining time goes into testing against GitHub.</li>
@@ -1003,8 +1004,8 @@ Closes #31</pre>
   // Feature layer: several requirements roll up into one feature. KPIs are derived from the same data.
   var TODAY="2026-11-12";
   var FEATURES={
-    "feature_recipe_box_01":{prj:"recipe_box",concept:"feature_recipe_box_01.html",short:"PDF export",name:"PDF export of recipe collections",target:"release 0.5",est:10,act:8.5},
-    "feature_recipe_box_02":{prj:"recipe_box",concept:"feature_recipe_box_02.html",short:"Import checker",name:"Import checker",target:"release 0.4",est:10,act:8}
+    "feature_recipe_box_01":{prj:"recipe_box",dep:[],concept:"feature_recipe_box_01.html",short:"PDF export",name:"PDF export of recipe collections",target:"release 0.5",est:10,act:8.5},
+    "feature_recipe_box_02":{prj:"recipe_box",dep:["feature_recipe_box_01"],concept:"feature_recipe_box_02.html",short:"Import checker",name:"Import checker",target:"release 0.4",est:10,act:8}
   };
   // Outcome KPIs are measured by people and entered through a pull request (metrics.yml). Example values.
   var OUTC=[
@@ -1131,7 +1132,7 @@ Closes #31</pre>
     var seed=[],x={},acc={},rvr={},feats={},featTx={},outc=[],specs={},concepts={},latest="";
     p.specs.forEach(function(s){specs[s.id]={title:s.title,body:s.architecture.replace(/`/g,"")}});
     p.features.forEach(function(f){
-      feats[f.id]={prj:p.name,short:f.id.slice(-2)+" "+f.title,name:f.title,target:f.targetRelease?"release "+f.targetRelease:"no release yet",est:f.estimate,act:null};
+      feats[f.id]={prj:p.name,dep:f.dependsOn,short:f.id.slice(-2)+" "+f.title,name:f.title,target:f.targetRelease?"release "+f.targetRelease:"no release yet",est:f.estimate,act:null};
       if(f.concept)concepts[f.id]=f.concept;
       featTx[f.id]={scope:f.scope.join("; "),non:f.nonScope.join("; "),risks:[]};
       var m=f.metric;if(m&&m.name)outc.push({feat:f.id,name:m.name,unit:m.unit?" "+m.unit:"",target:m.target,actual:null,base:m.baseline,dir:m.direction==="at_least"?"min":"max",req:null});
@@ -1493,7 +1494,7 @@ Closes #31</pre>
     var orig=data.filter(function(r){return r.feat===fid}).map(function(r){return'"'+r.src+'"'}).filter(function(x,i,a){return a.indexOf(x)===i}).join(", ");
     function k(s){return'<span class="k">'+s+'</span><span class="p">:</span> '}
     function s(v){return'<span class="s">"'+esc(v)+'"</span>'}
-    return'<div class="pnl" style="margin-bottom:12px"><h4>'+L.hFeat+'</h4><pre><span class="p">---</span>\n'+k("id")+s(fid)+'\n'+k("title")+s(f.name)+'\n'+k("estimate")+'<span class="n">'+(f.est!=null?f.est:"null")+'</span>   <span class="c"># person-days</span>\n'+k("origin")+'[ '+orig+' ]   <span class="c"># '+esc(L.fOrigin)+'</span>\n'+k("target_release")+s(f.target.replace(/^[^0-9]*/,""))+'\n'+k("scope")+s(t.scope)+'\n'+k("non_scope")+s(t.non)+'\n'+k("risks")+'[ '+t.risks.map(s).join(", ")+' ]\n'+(o?k("metric")+'{ name: '+s(o.name)+', baseline: <span class="n">'+o.base+'</span>, target: <span class="n">'+o.target+'</span> }\n':'')+'<span class="p">---</span></pre></div>';
+    return'<div class="pnl" style="margin-bottom:12px"><h4>'+L.hFeat+'</h4><pre><span class="p">---</span>\n'+k("id")+s(fid)+'\n'+k("title")+s(f.name)+'\n'+k("estimate")+'<span class="n">'+(f.est!=null?f.est:"null")+'</span>   <span class="c"># person-days</span>\n'+k("depends_on")+'[ '+(f.dep||[]).join(", ")+' ]   <span class="c"># finished before this one starts</span>\n'+k("origin")+'[ '+orig+' ]   <span class="c"># '+esc(L.fOrigin)+'</span>\n'+k("target_release")+s(f.target.replace(/^[^0-9]*/,""))+'\n'+k("scope")+s(t.scope)+'\n'+k("non_scope")+s(t.non)+'\n'+k("risks")+'[ '+t.risks.map(s).join(", ")+' ]\n'+(o?k("metric")+'{ name: '+s(o.name)+', baseline: <span class="n">'+o.base+'</span>, target: <span class="n">'+o.target+'</span> }\n':'')+'<span class="p">---</span></pre></div>';
   }
 
   // Dependencies: a requirement names the requirements it depends on. Everything below reads that one field.
@@ -1709,37 +1710,80 @@ Closes #31</pre>
 })();
 </script>
 
+<!-- Planner figures that the feature files do not hold, keyed by feature ID: the kind of work, the range of the
+     estimate, the effort with an AI assistant and what a work package reuses, plus the milestones.
+     npm run check_concept_data compares them with the features of the project (req_req_trail_0185). -->
+<script type="application/json" id="planner_figures">
+{
+"project": "req_trail",
+"work_packages": {
+"feature_req_trail_01": {"kind":"setup","low":0.75,"high":1.5,"with_ai":0.25,"reuses":"Layout of recipe_box"},
+"feature_req_trail_02": {"kind":"setup","low":0.75,"high":1.75,"with_ai":0.5,"reuses":"Ticket structure of the issue template"},
+"feature_req_trail_03": {"kind":"code","low":3,"high":5,"with_ai":1.25,"reuses":"-"},
+"feature_req_trail_04": {"kind":"code","low":2.5,"high":4,"with_ai":1,"reuses":"Validator parser from WP3"},
+"feature_req_trail_05": {"kind":"code","low":1.5,"high":3,"with_ai":1.25,"reuses":"PR flow of recipe_box"},
+"feature_req_trail_06": {"kind":"code","low":3,"high":4.5,"with_ai":1,"reuses":"Styles and mock of this page"},
+"feature_req_trail_07": {"kind":"setup","low":0.75,"high":1.5,"with_ai":0.5,"reuses":"GitHub Projects"},
+"feature_req_trail_08": {"kind":"code","low":1,"high":2.5,"with_ai":0.75,"reuses":"An existing pipeline check"},
+"feature_req_trail_09": {"kind":"code","low":1.25,"high":2.75,"with_ai":0.5,"reuses":"Index from WP4, explorer from WP6"},
+"feature_req_trail_10": {"kind":"setup","low":0.75,"high":2,"with_ai":0.75,"reuses":"Request form from WP2, an automation tool"},
+"feature_req_trail_11": {"kind":"code","low":1,"high":2.5,"with_ai":0.75,"reuses":"The CI artifact of recipe_box"},
+"feature_req_trail_12": {"kind":"code","low":0.75,"high":1.5,"with_ai":0.5,"reuses":"Tags and releases of recipe_box"},
+"feature_req_trail_13": {"kind":"code","low":0.75,"high":1.5,"with_ai":0.5,"reuses":"Index from WP4"},
+"feature_req_trail_14": {"kind":"setup","low":2,"high":5,"with_ai":2.5,"reuses":"The engine's own repo"},
+"feature_req_trail_15": {"kind":"setup","low":0.75,"high":1.5,"with_ai":0.25,"reuses":"mkdocs setup of recipe_box"},
+"feature_req_trail_16": {"kind":"code","low":3,"high":6,"with_ai":2,"reuses":"Index from WP4, review rules from WP5"},
+"feature_req_trail_17": {"kind":"setup","low":2,"high":3.5,"with_ai":1.25,"reuses":"Reusable workflows from WP5 and WP8"},
+"feature_req_trail_18": {"kind":"code","low":1.5,"high":3,"with_ai":0.75,"reuses":"Validator from WP3, index from WP4"},
+"feature_req_trail_19": {"kind":"code","low":1,"high":2.5,"with_ai":0.5,"reuses":"Explorer from WP6, forms from WP2"}
+},
+"milestones": [
+{"name":"M1 Checks run on every PR","after":["feature_req_trail_03","feature_req_trail_05"]},
+{"name":"M2 Explorer reads the real index","after":["feature_req_trail_06"]},
+{"name":"M3 Pilot done","after":["feature_req_trail_14"]}
+]
+}
+</script>
+
 <script id="planner">
 (function(){
   "use strict";
-  // Work packages: one source for the table, the Gantt, the KPIs and the verdict text.
-  var WP=[
-    {id:"WP1",n:"Repo skeleton and ID scheme",k:"setup",lo:.75,d:1,hi:1.5,ai:0.25,dep:[],sc:"Folders, readme, templates, project.yml with its format version, ID and status rules, fixed value lists",re:"Layout of recipe_box"},
-    {id:"WP2",n:"Issue forms and PR template",k:"setup",lo:.75,d:1.25,hi:1.75,ai:0.5,dep:["WP1"],sc:"Request form that asks for the need (problem, who, how often, outcome, source) and six privacy and security questions, Change request form, labels, pull request template with the Ready and Done lists, and the changes to the issue template (implements and Feature lines, the ID with version in each requirement row, violates for bugs)",re:"Ticket structure of the issue template"},
-    {id:"WP3",n:"Model, schemas and validator",k:"code",lo:3,d:3.5,hi:5,ai:1.25,dep:["WP1","WP2"],sc:"One class per object type that loads a file only through the JSON Schema of its project's format version; the schemas as the single source of fields and values, with the conventions tables generated and the templates checked; an unknown format fails; ID uniqueness, link resolution, depends_on pinned to a version, owner, acceptance, type, category, rationale, a plain-text statement and reviews with a reason, Ready and Done checks in gate_check, and a warn-only scan of the diff for e-mail addresses and your internal domain",re:"-"},
-    {id:"WP4",n:"Index builder and matrix",k:"code",lo:2.5,d:3,hi:4,ai:1,dep:["WP3"],sc:"index.json, trace matrix, suspect links, changelog, time waiting at each gate",re:"Validator parser from WP3"},
-    {id:"WP5",n:"PR checks and review rules",k:"code",lo:1.5,d:2,hi:3,ai:1.25,dep:["WP3"],sc:"validate workflow, CODEOWNERS with one owner list per gate, branch protection: code-owner review, no direct push, stale approvals dismissed when new commits are pushed; workflow that requests the data protection officer or the security reviewer on tagged spec pull requests, with a required check; a test repo to try these rules first (B3, B4, B10)",re:"PR flow of recipe_box"},
-    {id:"WP6",n:"Explorer page on Pages",k:"code",lo:3,d:3.5,hi:4.5,ai:1,dep:["WP4"],sc:"Explorer, matrix, history, and map and network views of the dependencies, reading index.json",re:"Styles and mock of this page"},
-    {id:"WP7",n:"Project board and automation",k:"setup",lo:.75,d:1,hi:1.5,ai:0.5,dep:["WP2"],sc:"Cross-project board, status fields, auto-add of new issues",re:"GitHub Projects"},
-    {id:"WP8",n:"Link from code repos",k:"code",lo:1,d:1.75,hi:2.5,ai:0.75,dep:["WP5"],sc:"Reusable workflow that finds requirement IDs in PRs and comments the link; warns on a new permission scope or dependency without a review tag; the pull request helpers read the implements line",re:"An existing pipeline check"},
-    {id:"WP9",n:"Feature KPI view",k:"code",lo:1.25,d:1.75,hi:2.75,ai:0.5,dep:["WP6"],sc:"Feature file (origin, scope, estimate, metric) and metrics.yml with baselines, KPI formulas in the index builder, thresholds, KPI view in the explorer",re:"Index from WP4, explorer from WP6"},
-    {id:"WP10",n:"Community intake (forum)",k:"setup",lo:.75,d:1,hi:2,ai:0.75,dep:["WP2"],sc:"Flow on the #request marker, request issue fields, reply in the thread, triage labels; spike on the trigger",re:"Request form from WP2, an automation tool"},
-    {id:"WP11",n:"Test results as evidence",k:"code",lo:1,d:1.5,hi:2.5,ai:0.75,dep:["WP4","WP8"],sc:"Spike: which test name reaches the JUnit XML report (B1). The index reads the JUnit XML artifact of each CI run and counts the results per requirement ID; the matrix and the PR comment show pass or fail",re:"The CI artifact of recipe_box"},
-    {id:"WP12",n:"Releases and value review",k:"code",lo:.75,d:1,hi:1.5,ai:0.5,dep:["WP6","WP11"],sc:"Release notes from the implements lines, Releases view, workflow that opens a value review issue six weeks after a release tag, the metric in the feature file as the expected benefit, and the result (measured value, date, source, decision) entered in metrics.yml by pull request",re:"Tags and releases of recipe_box"},
-    {id:"WP13",n:"Triage and gate views",k:"code",lo:.75,d:1,hi:1.5,ai:0.5,dep:["WP6"],sc:"Triage and Gates views in the explorer, request issues read through the GitHub API, waiting time per gate, amber after 5 and red after 10 working days",re:"Index from WP4"},
-    {id:"WP16",n:"Roles, evidence and the return path",k:"code",lo:3,d:4,hi:6,ai:2,dep:["WP4","WP5"],sc:"roles.yml and the script that writes CODEOWNERS with one line per path; the role checks (an approver other than the author, tester and confirming tech lead not the developer); the label guard for accepted; acceptance records with the evidence stored as a file; roles_history.json and the roles dashboard on Pages; a nightly index run that picks up merges, test runs and release tags from the code repos",re:"Index from WP4, review rules from WP5"},
-    {id:"WP17",n:"Modular setup: engine, project template, hub",k:"setup",lo:2,d:2.5,hi:3.5,ai:1.25,dep:["WP5","WP8"],sc:"Release the engine with version tags; format versions: released schemas frozen by checksum, one migration per format change, a runner that keeps IDs, statements and versions, older formats read in memory, migrate as a pull request, a new format only with a new major version; reusable workflows a project repo calls in two lines; a project template repo with projects/, roles.yml, CODEOWNERS and the workflows; an optional hub with the list of project names, a nightly overview index and one inbox; a read-only token for private project repos",re:"Reusable workflows from WP5 and WP8"},
-    {id:"WP18",n:"Requirement text checks and AI review",k:"code",lo:1.5,d:2,hi:3,ai:0.75,dep:["WP3","WP4"],sc:"Warn-only checks for vague words, a missing shall, two behaviours in one sentence, length and uncheckable acceptance criteria; similar requirements by word overlap with the index; an optional AI review comment on the pull request",re:"Validator from WP3, index from WP4"},
-    {id:"WP19",n:"Edit from the explorer",k:"code",lo:1,d:1.5,hi:2.5,ai:0.5,dep:["WP2","WP6"],sc:"Edit button that opens GitHub's web editor on the file; Propose change button that opens the filled-in change request form; workflow that turns the form into a pull request",re:"Explorer from WP6, forms from WP2"},
-    {id:"WP14",n:"Pilot: reqTrail through its own gates",k:"setup",lo:2,d:3,hi:5,ai:2.5,dep:["WP6","WP7","WP8","WP9","WP10","WP11","WP12","WP13","WP16","WP17","WP18","WP19"],sc:"Take reqTrail's own requirements through G0 to G3 with the engine's code and tests linked to them; take one change through all gates again; record the findings and the effort next to the estimate in a tracking issue; fix or record every finding",re:"The engine's own repo"},
-    {id:"WP15",n:"Runbook",k:"setup",lo:.75,d:1,hi:1.5,ai:0.25,dep:["WP14"],sc:"How to add a project, a requirement and a change; baseline steps; running the intake",re:"mkdocs setup of recipe_box"}
-  ];
-  var MS=[{n:"M1 Checks run on every PR",after:["WP3","WP5"]},{n:"M2 Explorer reads the real index",after:["WP6"]},{n:"M3 Pilot done",after:["WP14"]}];
+  // Work packages are the features of the project named in planner_figures, read from their files through
+  // concept_data.js: title, scope, estimate and depends_on. They feed the table, the schedule, the KPIs and the
+  // verdict text; planner_figures adds only what the feature files do not hold (req_req_trail_0185).
+  var FIG=JSON.parse(document.getElementById("planner_figures").textContent);
+  var CD=window.CONCEPT_DATA||{projects:[]},P=CD.projects.filter(function(p){return p.name===FIG.project})[0];
+  var E=function(id){return document.getElementById(id)};
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  function num(fid){return Number(/(\d+)$/.exec(fid)[1])}
+  function wp(fid){return"WP"+num(fid)}
+  var WP=(P?P.features:[]).map(function(f){
+    var g=FIG.work_packages[f.id]||{},d=f.estimate||0;
+    return{id:wp(f.id),fid:f.id,n:f.title,k:g.kind||"code",lo:g.low!=null?g.low:d,d:d,hi:g.high!=null?g.high:d,ai:g.with_ai!=null?g.with_ai:d,dep:f.dependsOn.map(wp),sc:f.scope.join("; "),re:g.reuses||"-"};
+  });
+  if(!WP.length){
+    var none="The feature files in projects/"+FIG.project+" are missing, so there is nothing to plan.";
+    E("k-days").textContent="-";E("k-weeks").textContent=none;E("k-code").textContent="-";
+    E("wpTable").innerHTML="<tbody><tr><td>"+esc(none)+"</td></tr></tbody>";E("gantt").textContent=none;
+    return;
+  }
+  // The order. A work package's stage is one more than the highest stage of the work packages it needs. Sorted by
+  // stage, each one comes after everything it needs, which the schedule relies on. The numbers stay the feature IDs.
+  var byId={};WP.forEach(function(w){byId[w.id]=w});
+  function stageOf(w,trail){
+    if(w.stage)return w.stage;
+    if(trail.indexOf(w.id)>=0)return 0;
+    w.stage=1+w.dep.reduce(function(a,id){return byId[id]?Math.max(a,stageOf(byId[id],trail.concat(w.id))):a},0);
+    return w.stage;
+  }
+  WP.forEach(function(w){stageOf(w,[])});
+  WP.sort(function(a,b){return a.stage-b.stage||num(a.fid)-num(b.fid)});
+  var MS=(FIG.milestones||[]).map(function(m){return{n:m.name,after:m.after.map(wp).filter(function(id){return byId[id]})}});
   function sum(f){return WP.reduce(function(a,w){return a+f(w)},0)}
   function schedule(n){
     var free=[],i,out={};for(i=0;i<n;i++)free.push(0);
     WP.forEach(function(w){
-      var dep=w.dep.reduce(function(a,id){return Math.max(a,out[id].e)},0),best=0,bs=1e9;
+      var dep=w.dep.reduce(function(a,id){return out[id]?Math.max(a,out[id].e):a},0),best=0,bs=1e9;
       free.forEach(function(f,li){var s=Math.max(f,dep);if(s<bs){bs=s;best=li}});
       out[w.id]={s:bs,e:bs+w.d,lane:best};free[best]=bs+w.d;
     });
@@ -1750,7 +1794,6 @@ Closes #31</pre>
   function f2(x){return String(Math.round(x*100)/100).replace(/\.0+$/,"")}
   var total=sum(function(w){return w.d}),lo=sum(function(w){return w.lo}),hi=sum(function(w){return w.hi}),code=sum(function(w){return w.k==="code"?w.d:0}),aiT=sum(function(w){return w.ai});
   var s1=schedule(1),s2=schedule(2),w1=end(s1)/5,w2=end(s2)/5;
-  var E=function(id){return document.getElementById(id)};
   E("k-days").textContent=f2(total)+" dev-days";
   E("k-weeks").textContent="working pilot: "+f1(w1)+" weeks for one developer, "+f1(w2)+" for two; about "+f2(aiT)+" person-days with an AI assistant";[].forEach.call(document.querySelectorAll(".v-ai"),function(e){e.textContent="~"+f2(aiT)});[].forEach.call(document.querySelectorAll(".v-ai-w"),function(e){e.textContent=f1(aiT/5)});
   E("k-code").textContent=Math.round(100*code/total)+"%";
@@ -1758,9 +1801,9 @@ Closes #31</pre>
   E("v-days").textContent="~"+f2(total);E("v-range").textContent=f2(lo)+" to "+f2(hi);E("v-w1").textContent=f1(w1);E("v-w2").textContent=f1(w2);
 
   var rows=WP.map(function(w){
-    return '<tr><td>'+w.id+'</td><td>'+w.n+'</td><td>'+w.sc+'</td><td>'+w.re+'</td><td><span class="tagx '+(w.k==="code"?"o":"v")+'">'+(w.k==="code"?"custom code":"setup")+'</span></td><td class="d">'+f2(w.d)+'</td><td class="d">'+f2(w.lo)+' to '+f2(w.hi)+'</td><td class="d">'+f2(w.ai)+'</td></tr>';
+    return '<tr><td class="d">'+w.stage+'</td><td title="'+w.fid+'">'+w.id+'</td><td>'+esc(w.n)+'</td><td>'+(w.dep.length?w.dep.join(", "):"-")+'</td><td>'+esc(w.sc)+'</td><td>'+esc(w.re)+'</td><td><span class="tagx '+(w.k==="code"?"o":"v")+'">'+(w.k==="code"?"custom code":"setup")+'</span></td><td class="d">'+f2(w.d)+'</td><td class="d">'+f2(w.lo)+' to '+f2(w.hi)+'</td><td class="d">'+f2(w.ai)+'</td></tr>';
   }).join("");
-  E("wpTable").innerHTML='<thead><tr><th>#</th><th>Work package</th><th>Scope</th><th>Reuses</th><th>Type</th><th class="d">Days</th><th class="d">Range</th><th class="d">With AI</th></tr></thead><tbody>'+rows+'</tbody><tfoot><tr><td colspan="5">Shippable v1 (the throwaway demo above is not counted)</td><td class="d">'+f2(total)+'</td><td class="d">'+f2(lo)+' to '+f2(hi)+'</td><td class="d">'+f2(aiT)+'</td></tr></tfoot>';
+  E("wpTable").innerHTML='<thead><tr><th class="d">Stage</th><th>#</th><th>Work package</th><th>Needs</th><th>Scope</th><th>Reuses</th><th>Type</th><th class="d">Days</th><th class="d">Range</th><th class="d">With AI</th></tr></thead><tbody>'+rows+'</tbody><tfoot><tr><td colspan="7">Shippable v1 (the throwaway demo above is not counted)</td><td class="d">'+f2(total)+'</td><td class="d">'+f2(lo)+' to '+f2(hi)+'</td><td class="d">'+f2(aiT)+'</td></tr></tfoot>';
 
   function gantt(n){
     var sch=n===1?s1:s2,T=Math.ceil(end(sch)),pct=100/T;
@@ -1769,11 +1812,11 @@ Closes #31</pre>
     h+='</div></div>';
     WP.forEach(function(w){
       var x=sch[w.id];
-      h+='<div class="grw"><div class="nm" title="'+w.n+'">'+w.id+' '+w.n+'</div><div class="tr" style="--w:'+pct+'%"><div class="bar'+(w.k==="code"?"":" b2")+'" style="left:'+(x.s*pct)+'%;width:'+(w.d*pct)+'%" title="'+w.id+', day '+f2(x.s)+' to '+f2(x.e)+', developer '+"AB"[x.lane]+'">'+(n===2?"Dev "+"AB"[x.lane]:f2(w.d)+" d")+'</div></div></div>';
+      h+='<div class="grw"><div class="nm" title="'+esc(w.n)+'">'+w.id+' '+esc(w.n)+'</div><div class="tr" style="--w:'+pct+'%"><div class="bar'+(w.k==="code"?"":" b2")+'" style="left:'+(x.s*pct)+'%;width:'+(w.d*pct)+'%" title="'+w.id+', stage '+w.stage+', day '+f2(x.s)+' to '+f2(x.e)+', developer '+"AB"[x.lane]+'">'+(n===2?"Dev "+"AB"[x.lane]:f2(w.d)+" d")+'</div></div></div>';
     });
     MS.forEach(function(m){
       var at=m.after.reduce(function(a,id){return Math.max(a,sch[id].e)},0);
-      h+='<div class="grw"><div class="nm" title="'+m.n+'">'+m.n+'</div><div class="tr" style="--w:'+pct+'%"><span class="ms" style="left:'+(at*pct)+'%" title="day '+f2(at)+'"></span></div></div>';
+      h+='<div class="grw"><div class="nm" title="'+esc(m.n)+'">'+esc(m.n)+'</div><div class="tr" style="--w:'+pct+'%"><span class="ms" style="left:'+(at*pct)+'%" title="day '+f2(at)+'"></span></div></div>';
     });
     E("gantt").innerHTML=h;
     E("gSum").textContent=n+" developer"+(n>1?"s":"")+": "+f2(end(sch))+" working days, "+f1(end(sch)/5)+" weeks";

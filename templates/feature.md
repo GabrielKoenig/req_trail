@@ -16,6 +16,7 @@ metric:                        # the outcome the value review measures after a r
   target: <value the feature aims for>
   direction: at_most           # at_most or at_least: which side of the target counts as reached
 estimate: <person-days>        # the estimated effort of the feature, in person-days
+depends_on: []                 # the features that must be finished before this one starts
 target_release: "<release>"
 ---
 

@@ -18,6 +18,9 @@ metric:
   target: 5
   direction: at_most
 estimate: 1
+depends_on:
+  - feature_req_trail_06
+  - feature_req_trail_11
 target_release: "1.0"
 ---
 

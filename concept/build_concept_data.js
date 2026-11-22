@@ -1,6 +1,8 @@
 // Reads every file in projects/ and writes concept/concept_data.js, which the concept pages load with a script tag,
 // so the pages show the files as they are and never a copy kept by hand. It also writes the table of the section
 // requirements_to_specs in each feature concept, projects/<project>/concepts/<feature id>.html (req_req_trail_0179).
+// Both commands stop when the order of the features breaks its rules (req_req_trail_0183, req_req_trail_0184), or
+// when the planner figures on concept.html do not fit the features of their project (req_req_trail_0185).
 //
 //   npm run concept_data         writes concept/concept_data.js and the tables
 //   npm run check_concept_data   fails when concept/concept_data.js or a table differs from the files
@@ -19,7 +21,9 @@ const YAML = require("yaml");
 const repoRoot = path.resolve(__dirname, "..");
 const projectsDir = path.join(repoRoot, "projects");
 const outputFile = path.join(__dirname, "concept_data.js");
+const conceptPage = path.join(__dirname, "concept.html");
 const testKinds = ["Unit", "Integration", "Smoke", "Static", "Manual"];
+const plannerKinds = ["code", "setup"];
 
 function readText(file) {
   return fs.readFileSync(file, "utf8").replace(/\r\n/g, "\n");
@@ -68,6 +72,11 @@ function readFeature(file, folder) {
   const { fields } = readMarkdown(file);
   const metric = fields.metric || {};
   const concept = path.join(folder, "concepts", fields.id + ".html");
+  const dependsOn = fields.depends_on;
+  if (!Array.isArray(dependsOn) || !dependsOn.every((id) => typeof id === "string")) {
+    throw new Error(relative(file) + ": depends_on must be a list of feature IDs, [] when the feature needs none " +
+      "(req_req_trail_0183)");
+  }
   return {
     id: fields.id,
     concept: fs.existsSync(concept) ? relative(concept) : null,
@@ -79,6 +88,7 @@ function readFeature(file, folder) {
     metric: { name: text(metric.name), unit: text(metric.unit), baseline: metric.baseline ?? null,
       target: metric.target ?? null, direction: text(metric.direction) },
     estimate: fields.estimate ?? null,
+    dependsOn,
     targetRelease: text(fields.target_release),
   };
 }
@@ -144,6 +154,98 @@ function readProject(folder) {
     acceptance: listFiles(path.join(folder, "acceptance"), ".md").map(readAcceptance),
     metrics: fs.existsSync(metricsFile) ? YAML.parse(readText(metricsFile)) || [] : [],
   };
+}
+
+// The order of the features: each feature names features of its own project, the lists form no cycle
+// (req_req_trail_0183), and a requirement depends only on requirements of features that its own feature depends on,
+// directly or through the features it names (req_req_trail_0184). Returns one message per problem.
+function orderProblems(project) {
+  const where = "projects/" + project.name + ": ";
+  const features = new Map(project.features.map((feature) => [feature.id, feature]));
+  const problems = [];
+  for (const feature of project.features) {
+    feature.dependsOn.filter((id) => !features.has(id)).forEach((id) => {
+      problems.push(where + feature.id + " depends on " + id + ", which is not a feature of the project.");
+    });
+  }
+  // Every feature that a feature depends on, directly or through others. A feature that reaches itself is in a cycle.
+  const reach = new Map(project.features.map((feature) => {
+    const seen = new Set();
+    const open = [...feature.dependsOn];
+    while (open.length) {
+      const id = open.pop();
+      if (seen.has(id) || !features.has(id)) continue;
+      seen.add(id);
+      open.push(...features.get(id).dependsOn);
+    }
+    return [feature.id, seen];
+  }));
+  project.features.filter((feature) => reach.get(feature.id).has(feature.id)).forEach((feature) => {
+    problems.push(where + feature.id + " is part of a cycle in depends_on.");
+  });
+  const featureOf = new Map(project.requirements.map((requirement) => [requirement.id, requirement.feature]));
+  for (const requirement of project.requirements) {
+    if (!features.has(requirement.feature)) continue;
+    for (const pin of requirement.dependsOn) {
+      const other = featureOf.get(pin.id);
+      if (!other || other === requirement.feature || reach.get(requirement.feature).has(other)) continue;
+      problems.push(where + requirement.id + " depends on " + pin.id + " of " + other + ", but " + requirement.feature +
+        " does not depend on " + other + ", neither directly nor through other features.");
+    }
+  }
+  return problems;
+}
+
+// The figures of the planner on concept.html that the feature files do not hold, keyed by feature ID: the kind of
+// work, the range of the estimate, the effort with an AI assistant and what a work package reuses. They must fit the
+// features of their project; on a copy of the repository without that project there is nothing to compare
+// (req_req_trail_0181, req_req_trail_0185). Returns one message per problem.
+function plannerProblems(projects) {
+  const where = "concept/concept.html, planner_figures: ";
+  const block = /<script type="application\/json" id="planner_figures">([\s\S]*?)<\/script>/;
+  const match = block.exec(readText(conceptPage));
+  if (!match) return [where + "the script block is missing."];
+  let figures;
+  try {
+    figures = JSON.parse(match[1]);
+  } catch (error) {
+    return [where + "not valid JSON: " + error.message];
+  }
+  if (typeof figures.project !== "string") return [where + "project must name the project that the planner shows."];
+  const project = projects.find((candidate) => candidate.name === figures.project);
+  if (!project) return [];
+  const packages = figures.work_packages || {};
+  const ids = project.features.map((feature) => feature.id);
+  const problems = [];
+  Object.keys(packages).filter((id) => !ids.includes(id)).forEach((id) => {
+    problems.push(where + id + " is not a feature of " + project.name + ".");
+  });
+  for (const feature of project.features) {
+    const entry = packages[feature.id];
+    if (!entry) {
+      problems.push(where + "no figures for " + feature.id + ".");
+      continue;
+    }
+    const unknown = Object.keys(entry).filter((key) => !["kind", "low", "high", "with_ai", "reuses"].includes(key));
+    if (unknown.length) problems.push(where + feature.id + " has unknown keys: " + unknown.join(", ") + ".");
+    if (!plannerKinds.includes(entry.kind)) problems.push(where + feature.id + ": kind must be code or setup.");
+    if (!(typeof entry.low === "number" && typeof entry.high === "number" && entry.low <= feature.estimate &&
+      feature.estimate <= entry.high)) {
+      problems.push(where + feature.id + ": low and high must enclose the estimate " + feature.estimate + ".");
+    }
+    if (!(typeof entry.with_ai === "number" && entry.with_ai > 0)) {
+      problems.push(where + feature.id + ": with_ai must be a number of person-days above 0.");
+    }
+    if (typeof entry.reuses !== "string" || !entry.reuses.trim()) {
+      problems.push(where + feature.id + ": reuses is empty.");
+    }
+  }
+  for (const milestone of figures.milestones || []) {
+    (milestone.after || []).filter((id) => !ids.includes(id)).forEach((id) => {
+      problems.push(where + "the milestone " + milestone.name + " waits for " + id + ", which is not a feature.");
+    });
+  }
+  return problems;
 }
 
 // The date and commit that added each file, and how many commits changed it. Git history changes with every commit,
@@ -253,6 +355,7 @@ function build() {
     "npm run concept_data.\n";
   return {
     dataPart,
+    problems: [...projects.flatMap(orderProblems), ...plannerProblems(projects)],
     pages: conceptPages(projects),
     text: (history) => {
       const current = {};
@@ -267,6 +370,10 @@ function build() {
 
 function main() {
   const result = build();
+  if (result.problems.length) {
+    result.problems.forEach((problem) => console.error(problem));
+    process.exit(1);
+  }
   if (process.argv.includes("--check")) {
     const current = fs.existsSync(outputFile) ? readText(outputFile) : "";
     const stale = result.pages.filter((page) => page.current !== page.updated).map((page) => relative(page.file));
