@@ -280,15 +280,16 @@
   </footer>
 </div>
 
+<script src="concept_shared.js"></script>
 <script src="concept_data.js"></script>
 <script>
 (function () {
   "use strict";
-  var data = window.CONCEPT_DATA || { projects: [], testKinds: [] };
+  var data = window.CONCEPT_DATA || { projects: [] };
+  var shared = window.conceptShared;
   var project = data.projects.filter(function (p) { return p.name === "req_trail"; })[0];
-  var kinds = data.testKinds || ["Unit", "Integration", "Smoke", "Static", "Manual"];
   function byId(id) { return document.getElementById(id); }
-  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  var esc = shared.escapeHtml;
   if (!window.CONCEPT_DATA) {
     byId("summary").textContent = "concept_data.js is missing: run npm run concept_data.";
     return;
@@ -301,11 +302,10 @@
   var requirements = project.requirements;
   var features = {};
   project.features.forEach(function (f) { features[f.id] = f; });
-  function workPackage(featureId) { return Number(featureId.slice(-2)); }
   function testSummary(list) {
-    var counts = {};
-    list.forEach(function (r) { r.acceptance.forEach(function (a) { if (a.kind) counts[a.kind] = (counts[a.kind] || 0) + 1; }); });
-    return kinds.filter(function (k) { return counts[k]; }).map(function (k) { return counts[k] + " " + k; }).join(", ");
+    var kinds = [];
+    list.forEach(function (r) { r.acceptance.forEach(function (a) { kinds.push(a.kind); }); });
+    return shared.describeTestKinds(shared.countTestKinds(kinds));
   }
   function count(list, key) {
     var out = {};
@@ -322,7 +322,7 @@
 
   function requirementRow(r) {
     return "<tr><td><code>" + r.id + "</code></td><td><b>" + esc(r.title) + "</b><br><span class=\"crumb\">" + esc(r.statement) +
-      "</span></td><td>" + r.priority + "</td><td>" + workPackage(r.feature) + "</td><td>" + esc(testSummary([r]) || "-") + "</td></tr>";
+      "</span></td><td>" + r.priority + "</td><td>" + shared.featureNumber(r.feature) + "</td><td>" + esc(testSummary([r]) || "-") + "</td></tr>";
   }
   var head = "<thead><tr><th>ID</th><th>Requirement</th><th>Priority</th><th>Work package</th><th>Tests</th></tr></thead>";
 
@@ -373,8 +373,8 @@
   ];
   byId("blockLayers").innerHTML = layers.map(function (layer) {
     return "<div class=\"lay\">" + layer[0] + "</div><div class=\"boxes\">" + layer[1].map(function (b) {
-      var list = requirements.filter(function (r) { return b.wps.indexOf(workPackage(r.feature)) >= 0; });
-      var names = b.wps.map(function (n) { var f = features["feature_req_trail_" + ("0" + n).slice(-2)]; return n + " " + (f ? f.title : ""); }).join("; ");
+      var list = requirements.filter(function (r) { return b.wps.indexOf(shared.featureNumber(r.feature)) >= 0; });
+      var names = b.wps.map(function (n) { var f = features[shared.featureId("req_trail", n)]; return n + " " + (f ? f.title : ""); }).join("; ");
       return "<div class=\"bx " + b.kind + "\"><b>" + esc(b.name) + "</b>" + esc(b.text) + "<small>" + esc(b.files) + "</small>" +
         "<small>Work package " + esc(names) + "</small><div class=\"count\">" + list.length + " requirements" +
         (testSummary(list) ? " &middot; " + esc(testSummary(list)) : "") + "</div></div>";
@@ -394,9 +394,9 @@
       });
     });
     var keys = f.dependsOn || [];
-    return "<tr><td>" + workPackage(f.id) + " " + esc(f.title) + "</td><td>" + (keys.length ? keys.map(function (k) {
+    return "<tr><td>" + shared.featureNumber(f.id) + " " + esc(f.title) + "</td><td>" + (keys.length ? keys.map(function (k) {
       var count = links[k] ? links[k] + " requirement link" + (links[k] > 1 ? "s" : "") : "no requirement link";
-      return workPackage(k) + " " + esc(features[k] ? features[k].title : k) + " <span class=\"crumb\">(" + count + ")</span>";
+      return shared.featureNumber(k) + " " + esc(features[k] ? features[k].title : k) + " <span class=\"crumb\">(" + count + ")</span>";
     }).join("<br>") : "<span class=\"crumb\">none</span>") + "</td></tr>";
   });
   byId("dependencyTable").innerHTML = "<thead><tr><th>Work package</th><th>Relies on</th></tr></thead><tbody>" + rows.join("") + "</tbody>";

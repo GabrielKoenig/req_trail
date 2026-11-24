@@ -40,10 +40,15 @@ function Write-Missing([string]$Text) { Write-Host "   missing: $Text" -Foregrou
 function Write-Failure([string]$Text) { Write-Host "   failed: $Text" -ForegroundColor Red }
 
 function Update-Path {
-    # An installer writes PATH to the registry. Read it again, so this window finds the new tool.
+    # An installer writes PATH to the registry. Read it again, so this window finds the new tool. Only the PATH of this
+    # window changes; -WhatIf shows the change without making it.
+    [CmdletBinding(SupportsShouldProcess)]
+    param()
     $machine = [Environment]::GetEnvironmentVariable('Path', 'Machine')
     $user = [Environment]::GetEnvironmentVariable('Path', 'User')
-    $env:Path = (@($machine, $user) | Where-Object { $_ }) -join ';'
+    if ($PSCmdlet.ShouldProcess('PATH of this window', 'Read again from the registry')) {
+        $env:Path = (@($machine, $user) | Where-Object { $_ }) -join ';'
+    }
 }
 
 function Get-VersionText($Tool) {

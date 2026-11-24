@@ -260,6 +260,7 @@ footer p{margin:0 0 8px}
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<script src="concept_shared.js"></script>
 <script id="roles">
 (function(){
   "use strict";
@@ -268,7 +269,7 @@ footer p{margin:0 0 8px}
   
   var MISS=[];
   function $(id){return document.getElementById(id)}
-  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  var esc=window.conceptShared.escapeHtml;
   function L(){return 0}
   function tr(v){return Array.isArray(v)?v[L()]:v}
   function fmt(s){var a=arguments;return String(s).replace(/\{(\d)\}/g,function(m,i){return a[+i+1]})}

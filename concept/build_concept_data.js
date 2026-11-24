@@ -17,12 +17,12 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { execFileSync } = require("node:child_process");
 const YAML = require("yaml");
+const shared = require("./concept_shared.js");
 
 const repoRoot = path.resolve(__dirname, "..");
 const projectsDir = path.join(repoRoot, "projects");
 const outputFile = path.join(__dirname, "concept_data.js");
 const conceptPage = path.join(__dirname, "concept.html");
-const testKinds = ["Unit", "Integration", "Smoke", "Static", "Manual"];
 const plannerKinds = ["code", "setup"];
 
 function readText(file) {
@@ -46,16 +46,9 @@ function listFiles(folder, ending) {
 }
 
 // "req_x_0001@2" becomes { id: "req_x_0001", version: 2 }.
-function parsePin(text) {
-  const [id, version] = String(text).split("@");
+function parsePin(pin) {
+  const [id, version] = String(pin).split("@");
   return { id, version: version === undefined ? null : Number(version) };
-}
-
-// "Unit: a test ..." becomes { kind: "Unit", text: "a test ..." }.
-function parseCriterion(text) {
-  const match = /^(\w+):\s*([\s\S]*)$/.exec(String(text));
-  if (match && testKinds.includes(match[1])) return { kind: match[1], text: match[2] };
-  return { kind: "", text: String(text) };
 }
 
 // The text of one "## Heading" section of a body, as one paragraph.
@@ -64,7 +57,8 @@ function section(body, heading) {
   return match ? match[1].trim().replace(/\s*\n\s*/g, " ") : "";
 }
 
-function text(value) {
+// A field as trimmed text, "" when it is missing.
+function trimmed(value) {
   return value === undefined || value === null ? "" : String(value).trim();
 }
 
@@ -80,16 +74,14 @@ function readFeature(file, folder) {
   return {
     id: fields.id,
     concept: fs.existsSync(concept) ? relative(concept) : null,
-    title: text(fields.title),
-    goal: text(fields.goal),
+    title: trimmed(fields.title),
     scope: fields.scope || [],
     nonScope: fields.non_scope || [],
-    origin: fields.origin || [],
-    metric: { name: text(metric.name), unit: text(metric.unit), baseline: metric.baseline ?? null,
-      target: metric.target ?? null, direction: text(metric.direction) },
+    metric: { name: trimmed(metric.name), unit: trimmed(metric.unit), baseline: metric.baseline ?? null,
+      target: metric.target ?? null, direction: trimmed(metric.direction) },
     estimate: fields.estimate ?? null,
     dependsOn,
-    targetRelease: text(fields.target_release),
+    targetRelease: trimmed(fields.target_release),
   };
 }
 
@@ -98,20 +90,20 @@ function readRequirement(file) {
   const links = fields.links || {};
   return {
     id: fields.id,
-    title: text(fields.title),
+    title: trimmed(fields.title),
     feature: fields.feature,
-    owner: text(fields.owner),
+    owner: trimmed(fields.owner),
     version: fields.version,
     priority: fields.priority,
     type: fields.type,
-    category: text(fields.category),
+    category: trimmed(fields.category),
     dependsOn: (fields.depends_on || []).map(parsePin),
     reviews: fields.reviews || [],
-    reviewsReason: text(fields.reviews_reason),
-    source: text(fields.source),
-    statement: text(fields.statement),
-    rationale: text(fields.rationale),
-    acceptance: (fields.acceptance || []).map(parseCriterion),
+    reviewsReason: trimmed(fields.reviews_reason),
+    source: trimmed(fields.source),
+    statement: trimmed(fields.statement),
+    rationale: trimmed(fields.rationale),
+    acceptance: (fields.acceptance || []).map(shared.parseCriterion),
     spec: links.spec ? parsePin(links.spec) : null,
     manualTest: section(body, "Manual test"),
   };
@@ -121,38 +113,23 @@ function readSpec(file) {
   const { fields, body } = readMarkdown(file);
   return {
     id: fields.id,
-    title: text(fields.title),
+    title: trimmed(fields.title),
     feature: fields.feature,
     version: fields.version,
     covers: fields.covers ? parsePin(fields.covers) : null,
-    estimateDays: fields.estimate_days ?? null,
     architecture: section(body, "Architecture"),
   };
 }
 
-function readAcceptance(file) {
-  const { fields } = readMarkdown(file);
-  return {
-    requirement: parsePin(fields.requirement),
-    tests: fields.tests || [],
-    file: relative(file),
-  };
-}
-
+// Only what the concept pages show. The index builder of work package 4 reads the rest, such as the acceptance records
+// and metrics.yml.
 function readProject(folder) {
   const project = YAML.parse(readText(path.join(folder, "project.yml"))) || {};
-  const metricsFile = path.join(folder, "metrics.yml");
   return {
     name: project.name,
-    formatVersion: project.format_version,
-    description: text(project.description),
-    codeRepos: project.code_repos || [],
-    concept: project.concept ?? null,
     features: listFiles(path.join(folder, "features"), ".md").map((file) => readFeature(file, folder)),
     requirements: listFiles(path.join(folder, "requirements"), ".md").map(readRequirement),
     specs: listFiles(path.join(folder, "specs"), ".md").map(readSpec),
-    acceptance: listFiles(path.join(folder, "acceptance"), ".md").map(readAcceptance),
-    metrics: fs.existsSync(metricsFile) ? YAML.parse(readText(metricsFile)) || [] : [],
   };
 }
 
@@ -226,7 +203,8 @@ function plannerProblems(projects) {
       problems.push(where + "no figures for " + feature.id + ".");
       continue;
     }
-    const unknown = Object.keys(entry).filter((key) => !["kind", "low", "high", "with_assistant", "reuses"].includes(key));
+    const known = ["kind", "low", "high", "with_assistant", "reuses"];
+    const unknown = Object.keys(entry).filter((key) => !known.includes(key));
     if (unknown.length) problems.push(where + feature.id + " has unknown keys: " + unknown.join(", ") + ".");
     if (!plannerKinds.includes(entry.kind)) problems.push(where + feature.id + ": kind must be code or setup.");
     if (!(typeof entry.low === "number" && typeof entry.high === "number" && entry.low <= feature.estimate &&
@@ -248,8 +226,8 @@ function plannerProblems(projects) {
   return problems;
 }
 
-// The date and commit that added each file, and how many commits changed it. Git history changes with every commit,
-// so the check below compares only the file data, not this part.
+// The date and commit that added each file. Git history changes with every commit, so the check below compares only
+// the file data, not this part.
 function readHistory() {
   let log;
   try {
@@ -265,11 +243,9 @@ function readHistory() {
       const [hash, date] = line.slice(2).split(" ");
       commit = { hash, date };
     } else if (line.trim() && commit) {
-      const entry = history[line.trim()] || (history[line.trim()] = { changes: 0 });
-      if (!entry.changed) entry.changed = commit.date;
+      const entry = history[line.trim()] || (history[line.trim()] = {});
       entry.added = commit.date;
       entry.commit = commit.hash;
-      entry.changes += 1;
     }
   }
   return history;
@@ -285,9 +261,8 @@ function serializeProject(project) {
   }).join(",\n") + "\n}";
 }
 
-function serialize(data) {
-  return "{\n\"testKinds\": " + JSON.stringify(data.testKinds) + ",\n\"projects\": [\n" +
-    data.projects.map(serializeProject).join(",\n") + "\n]\n}";
+function serialize(projects) {
+  return "{\n\"projects\": [\n" + projects.map(serializeProject).join(",\n") + "\n]\n}";
 }
 
 // The section requirements_to_specs of a feature concept: each requirement of the feature with the one spec that
@@ -296,8 +271,7 @@ const generatedStart = "<!-- generated: requirements_to_specs -->";
 const generatedEnd = "<!-- end generated -->";
 
 function html(value) {
-  return String(value).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c])
-    .replace(/`([^`]+)`/g, "<code>$1</code>");
+  return shared.escapeHtml(value).replace(/`([^`]+)`/g, "<code>$1</code>");
 }
 
 function requirementsToSpecs(project, featureId) {
@@ -310,7 +284,8 @@ function requirementsToSpecs(project, featureId) {
       const suspect = spec.covers.version < r.version ?
         ' <span class="suspect">suspect: written for version ' + spec.covers.version + "</span>" : "";
       translation = '<a href="../specs/' + spec.id + '.md"><code>' + spec.id + "</code></a> version " + spec.version +
-        suspect + "<br>" + html(spec.title) + (spec.architecture ? "<br><small>" + html(spec.architecture) + "</small>" : "");
+        suspect + "<br>" + html(spec.title) +
+        (spec.architecture ? "<br><small>" + html(spec.architecture) + "</small>" : "");
     }
     return "      <tr><td>" + requirement + "</td><td>" + translation + "</td></tr>";
   });
@@ -350,14 +325,14 @@ function conceptPages(projects) {
 function build() {
   const projects = fs.readdirSync(projectsDir, { withFileTypes: true }).filter((entry) => entry.isDirectory())
     .map((entry) => entry.name).sort().map((name) => readProject(path.join(projectsDir, name)));
-  const dataPart = "window.CONCEPT_DATA = " + serialize({ testKinds, projects }) + ";\n";
+  const dataPart = "window.CONCEPT_DATA = " + serialize(projects) + ";\n";
   const header = "// Generated by concept/build_concept_data.js from the files in projects/. Do not edit: run " +
     "npm run concept_data.\n";
   return {
     dataPart,
     problems: [...projects.flatMap(orderProblems), ...plannerProblems(projects)],
     pages: conceptPages(projects),
-    text: (history) => {
+    fileContent: (history) => {
       const current = {};
       Object.keys(history).sort().forEach((file) => {
         if (fs.existsSync(path.join(repoRoot, file))) current[file] = history[file];
@@ -378,15 +353,18 @@ function main() {
     const current = fs.existsSync(outputFile) ? readText(outputFile) : "";
     const stale = result.pages.filter((page) => page.current !== page.updated).map((page) => relative(page.file));
     if (!current.includes(result.dataPart) || stale.length) {
-      if (!current.includes(result.dataPart)) console.error("concept/concept_data.js differs from the files in projects/.");
+      if (!current.includes(result.dataPart)) {
+        console.error("concept/concept_data.js differs from the files in projects/.");
+      }
       stale.forEach((file) => console.error(file + ": the table of requirements_to_specs differs from the files."));
       console.error("Run: npm run concept_data");
       process.exit(1);
     }
-    console.log("concept/concept_data.js and " + result.pages.length + " feature concepts match the files in projects/.");
+    console.log("concept/concept_data.js and " + result.pages.length +
+      " feature concepts match the files in projects/.");
     return;
   }
-  fs.writeFileSync(outputFile, result.text(readHistory()));
+  fs.writeFileSync(outputFile, result.fileContent(readHistory()));
   console.log("wrote " + relative(outputFile));
   result.pages.filter((page) => page.current !== page.updated).forEach((page) => {
     fs.writeFileSync(page.file, page.updated.split("\n").join(page.lineEnd));
