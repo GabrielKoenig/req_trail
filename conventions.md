@@ -202,13 +202,15 @@ to Approved, once the new version is merged.
 
 Which paths belong to which gate, the gatekeeper hat of each gate and the branch phases it allows are listed in
 `gates.yml` at the root of the engine. `validate`, `build_index` and `CODEOWNERS` all follow it
-(`req_req_trail_0189`, `req_req_trail_0055`).
+(`req_req_trail_0189`, `req_req_trail_0055`). Requirement and feature files belong to G1, feature concepts and specs to
+G2, and acceptance records to G3. `project.yml`, `roles.yml`, `metrics.yml` and the templates belong to no gate, but
+each still has a hat that approves it.
 
 - A gate pull request may carry several files of the same gate, such as all requirements of a feature, or a feature
   concept with the specs of its requirements (`req_req_trail_0097`). Bundling is the normal case.
 - A pull request holds files of one gate, or only files of no gate, and files of one feature when its branch names a
   feature (`req_req_trail_0190`). Its branch phase is one that its gate allows (`req_req_trail_0196`). Only a format
-  migration that changes no content may touch several gates (`req_req_trail_0195`).
+  migration that changes no content is exempt from this rule (`req_req_trail_0195`).
 - When one requirement of a bundle is not ready, the author takes it out of the pull request, and it follows in a pull
   request of its own.
 - A G1 pull request that adds requirements from a request issue closes that issue with `Closes #<issue>`, so GitHub

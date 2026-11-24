@@ -13,11 +13,12 @@ reviews_reason: "Defines a data file of the engine; no personal data or credenti
 source: "concept/concept.html#gates"
 statement: >
   gates.yml shall list for each gate the path patterns of its files, its gatekeeper hat and the branch phases it
-  allows, and list the paths that belong to no gate.
+  allows, and list the paths that belong to no gate with the hat that approves them.
 rationale: >
   One list that validate, build_index and CODEOWNERS all read cannot disagree with itself, while three copies can.
 acceptance:
   - "Static: gates.yml passes its schema, and every file type in templates/ matches the paths of exactly one gate or of no gate."
+  - "Static: gates.yml puts requirement and feature files in G1, feature concepts and specs in G2 and acceptance records in G3, and lists project.yml, roles.yml, metrics.yml and templates/ as paths of no gate."
   - "Static: gates.yml allows idea and change_request for G1, concept for G2 and dev for G3, as the branch rule in CLAUDE.md says."
   - "Unit: validate fails a gates.yml in which one path pattern belongs to two gates."
   - "Manual: the reviewer finds no list of gate paths in the code of validate, build_index or the branch check."
@@ -25,8 +26,9 @@ links:
   spec: null
 ---
 
-`conventions.md` explains the gates and refers to `gates.yml` for the paths. Files that `gates.yml` does not list,
-such as code or the concept pages of this repo, belong to no gate.
+`conventions.md` explains the gates and refers to `gates.yml` for the paths. A path of no gate still has a hat that
+approves it, such as the requirements owner for `metrics.yml`, so `CODEOWNERS` can be generated from this file alone.
+Files that `gates.yml` does not list, such as code or the concept pages of this repo, belong to no gate.
 
 ## Manual test
 

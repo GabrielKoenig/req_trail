@@ -19,7 +19,7 @@ rationale: >
   Two changes to one requirement at the same time make one of them stale, and a spec reviewed against the old version
   turns suspect at the next merge.
 acceptance:
-  - "Unit: two open pull requests that both change req_recipe_box_0003 each get a warning that names the other, and both checks pass."
+  - "Unit: when a second open pull request changes req_recipe_box_0003, its check warns and names the first one, and both checks pass."
   - "Unit: an open spec pull request that covers req_recipe_box_0003@2 gets a warning while a pull request that changes req_recipe_box_0003 is open."
   - "Unit: when index.json cannot be read, the check passes and says that the comparison was skipped."
 links:
@@ -27,4 +27,5 @@ links:
 ---
 
 Only `build_index` decides which pull request touches which requirement (`req_req_trail_0186`), so `text_check` reads
-that list instead of working it out again.
+that list instead of working it out again. The check runs on its own pull request, so the later pull request gets the
+warning; the earlier one sees the other on the chips of the requirement (`req_req_trail_0187`).

@@ -19,6 +19,7 @@ rationale: >
   context and maps to no single gate.
 acceptance:
   - "Unit: a pull request with req_recipe_box_0003 and req_recipe_box_0004 of feature_recipe_box_01 from branch idea/recipe_box/feature_recipe_box_01_issue31 passes."
+  - "Unit: a pull request with feature_recipe_box_01.md and req_recipe_box_0003 passes, because gates.yml puts feature files in G1."
   - "Unit: a pull request with req_recipe_box_0003 and spec_recipe_box_0003 fails, and the message names G1 and G2."
   - "Unit: a pull request with req_recipe_box_0003 and project.yml fails."
   - "Unit: a pull request with a requirement of feature_recipe_box_02 fails from branch idea/recipe_box/feature_recipe_box_01_issue31 and passes from idea/recipe_box/issue31."

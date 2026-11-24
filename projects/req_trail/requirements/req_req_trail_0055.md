@@ -20,7 +20,7 @@ acceptance:
   - "Integration: a pull request that changes a requirement requests a review from the Principal Engineer hat."
   - "Integration: a pull request that changes a spec requests a review from the architecture owner hat."
   - "Integration: a pull request that changes a feature concept requests a review from the architecture owner hat."
-  - "Static: for each gate in gates.yml, CODEOWNERS names its gatekeeper hat on each of its path patterns."
+  - "Static: for each gate and each path of no gate in gates.yml, CODEOWNERS names its hat on each of its path patterns."
 links:
   spec: null
 ---

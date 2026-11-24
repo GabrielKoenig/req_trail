@@ -226,15 +226,15 @@ function plannerProblems(projects) {
       problems.push(where + "no figures for " + feature.id + ".");
       continue;
     }
-    const unknown = Object.keys(entry).filter((key) => !["kind", "low", "high", "with_ai", "reuses"].includes(key));
+    const unknown = Object.keys(entry).filter((key) => !["kind", "low", "high", "with_assistant", "reuses"].includes(key));
     if (unknown.length) problems.push(where + feature.id + " has unknown keys: " + unknown.join(", ") + ".");
     if (!plannerKinds.includes(entry.kind)) problems.push(where + feature.id + ": kind must be code or setup.");
     if (!(typeof entry.low === "number" && typeof entry.high === "number" && entry.low <= feature.estimate &&
       feature.estimate <= entry.high)) {
       problems.push(where + feature.id + ": low and high must enclose the estimate " + feature.estimate + ".");
     }
-    if (!(typeof entry.with_ai === "number" && entry.with_ai > 0)) {
-      problems.push(where + feature.id + ": with_ai must be a number of person-days above 0.");
+    if (!(typeof entry.with_assistant === "number" && entry.with_assistant > 0)) {
+      problems.push(where + feature.id + ": with_assistant must be a number of person-days above 0.");
     }
     if (typeof entry.reuses !== "string" || !entry.reuses.trim()) {
       problems.push(where + feature.id + ": reuses is empty.");
