@@ -7,6 +7,7 @@ goal: >
 scope:
   - Warn-only text rules
   - Similar requirements
+  - Warnings on parallel pull requests
   - Optional AI review
 non_scope:
   - Blocking a pull request because of its wording
@@ -17,12 +18,12 @@ metric:
   baseline: 3
   target: 2
   direction: at_most
-estimate: 2
+estimate: 2.25
 depends_on:
   - feature_req_trail_03
   - feature_req_trail_04
 target_release: "1.0"
 ---
 
-Built in work package 18. It holds 11 requirements. The baseline is an estimate; the value review after
+Built in work package 18. It holds 12 requirements. The baseline is an estimate; the value review after
 the release measures it.

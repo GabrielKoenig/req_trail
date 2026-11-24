@@ -10,6 +10,7 @@ scope:
   - Dependency map
   - Filters for ad-hoc questions
   - Publishing on GitHub Pages
+  - Open pull requests and the build time
 non_scope:
   - Editing (feature_req_trail_19)
   - KPI, release, triage and gate views (feature_req_trail_09, feature_req_trail_12, feature_req_trail_13)
@@ -20,11 +21,11 @@ metric:
   baseline: 10
   target: 1
   direction: at_most
-estimate: 3.5
+estimate: 4
 depends_on:
   - feature_req_trail_04
 target_release: "1.0"
 ---
 
-Built in work package 6. It holds 14 requirements. The baseline is an estimate; the value review after
+Built in work package 6. It holds 16 requirements. The baseline is an estimate; the value review after
 the release measures it.

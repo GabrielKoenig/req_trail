@@ -10,6 +10,7 @@ scope:
   - validate on every pull request
   - Ready and Done checks in gate_check
   - "Engine-wide constraints: Node.js, no build step, tests"
+  - gates.yml: which files belong to which gate
 non_scope:
   - Text quality (feature_req_trail_18)
   - Role checks (feature_req_trail_16)
@@ -20,12 +21,12 @@ metric:
   baseline: 5
   target: 0
   direction: at_most
-estimate: 3.5
+estimate: 3.75
 depends_on:
   - feature_req_trail_01
   - feature_req_trail_02
 target_release: "1.0"
 ---
 
-Built in work package 3. It holds 45 requirements. The baseline is an estimate; the value review after
+Built in work package 3. It holds 46 requirements. The baseline is an estimate; the value review after
 the release measures it.

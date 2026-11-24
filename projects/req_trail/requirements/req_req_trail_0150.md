@@ -32,4 +32,5 @@ The levels are the phase (`idea`, `concept`, `dev`, `release` or `change_request
 feature. A branch is `<phase>/<project>/<topic>`, or `<phase>/<project>/<feature>_<topic>` when the change belongs to
 a feature. A feature is recognized by its ID form `feature_<project>_<nn>`, so a topic may not start with `feature_`.
 A branch that a tool creates, such as `dependabot/`, passes when its prefix is listed, because the tool cannot follow
-the scheme. The spec at G2 decides where the lists of phases and tool prefixes live.
+the scheme. The spec at G2 decides where the lists of phases and tool prefixes live. Which phases a gate allows is in
+`gates.yml` and checked by `req_req_trail_0196`.

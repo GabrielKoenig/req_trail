@@ -10,6 +10,8 @@ scope:
   - Trace matrix and suspect links
   - Changelog
   - Waiting time per gate
+  - Open pull requests per requirement
+  - Builds on merges, nightly and on pull request events
 non_scope:
   - A database such as index.sqlite (B8)
   - Test evidence (feature_req_trail_11)
@@ -20,11 +22,11 @@ metric:
   baseline: 10
   target: 2
   direction: at_most
-estimate: 3
+estimate: 3.75
 depends_on:
   - feature_req_trail_03
 target_release: "1.0"
 ---
 
-Built in work package 4. It holds 17 requirements. The baseline is an estimate; the value review after
+Built in work package 4. It holds 18 requirements. The baseline is an estimate; the value review after
 the release measures it.

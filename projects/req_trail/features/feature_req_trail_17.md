@@ -7,6 +7,7 @@ goal: >
 scope:
   - Engine releases with version tags
   - "Format versions: frozen once released, one migration per change, migrate as a pull request"
+  - Format migrations outside the gates
   - Reusable workflows
   - Project template repo
   - Optional hub
@@ -19,7 +20,7 @@ metric:
   baseline: 8
   target: 1
   direction: at_most
-estimate: 2.5
+estimate: 2.75
 depends_on:
   - feature_req_trail_05
   - feature_req_trail_06
@@ -28,5 +29,5 @@ depends_on:
 target_release: "1.0"
 ---
 
-Built in work package 17. It holds 16 requirements. The baseline is an estimate; the value review after
+Built in work package 17. It holds 17 requirements. The baseline is an estimate; the value review after
 the release measures it.

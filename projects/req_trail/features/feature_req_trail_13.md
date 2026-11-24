@@ -6,7 +6,7 @@ goal: >
   Gatekeepers see what waits for their decision and for how long.
 scope:
   - Triage view
-  - Gates view with waiting time
+  - Gates view per pull request, with waiting time and not started work
 non_scope:
   - Notifications by e-mail or chat
 origin: ["concept/concept.html#estimate"]
@@ -16,7 +16,7 @@ metric:
   baseline: 6
   target: 1
   direction: at_most
-estimate: 1
+estimate: 1.25
 depends_on:
   - feature_req_trail_06
 target_release: "1.0"

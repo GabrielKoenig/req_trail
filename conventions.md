@@ -200,10 +200,38 @@ to Approved, once the new version is merged.
 | G2 | Are the feature concept and the specs sound, and do they fit the estimate? | Architecture owner, plus privacy or security when tagged | Merge of the pull request with the feature concept or a spec |
 | G3 | Does it do what the requirement says, shown by evidence? | Tech lead opens, an owner approves | Merge of the acceptance pull request |
 
-A gate pull request may carry several files of the same gate, such as all requirements of a feature, or a feature
-concept with the specs of its requirements (`req_req_trail_0097`).
+Which paths belong to which gate, the gatekeeper hat of each gate and the branch phases it allows are listed in
+`gates.yml` at the root of the engine. `validate`, `build_index` and `CODEOWNERS` all follow it
+(`req_req_trail_0189`, `req_req_trail_0055`).
+
+- A gate pull request may carry several files of the same gate, such as all requirements of a feature, or a feature
+  concept with the specs of its requirements (`req_req_trail_0097`). Bundling is the normal case.
+- A pull request holds files of one gate, or only files of no gate, and files of one feature when its branch names a
+  feature (`req_req_trail_0190`). Its branch phase is one that its gate allows (`req_req_trail_0196`). Only a format
+  migration that changes no content may touch several gates (`req_req_trail_0195`).
+- When one requirement of a bundle is not ready, the author takes it out of the pull request, and it follows in a pull
+  request of its own.
+- A G1 pull request that adds requirements from a request issue closes that issue with `Closes #<issue>`, so GitHub
+  shows the pull request on the issue and closes the request at the merge (`req_req_trail_0191`).
 
 Nobody approves what they wrote. Who holds which hat lives in `roles.yml`, the single source for hats.
+
+## Open pull requests
+
+A status says what is merged on `main`. What is still open shows next to it:
+
+- `build_index` lists for each requirement its open pull requests with gate and draft state: those from branches in the
+  repo that change its file, a spec covering it or its acceptance record, and code pull requests that implement it
+  (`req_req_trail_0186`). A pull request that carries several requirements is listed for each of them. Pull requests
+  from forks are left out until they merge (`req_req_trail_0164`).
+- The index is built on `main` after every merge, once a night, and whenever a pull request from a branch in the repo
+  that touches `projects/` opens, changes or closes. A plain `pull_request` job only starts that build, so the build
+  never runs in the context of a pull request (`req_req_trail_0052`). Code pull requests arrive with the nightly run.
+- The waiting time at a gate adds up the working days its pull request has been ready for review; time as a draft does
+  not count. A requirement whose next gate has no open pull request is not started, counted from the day it became
+  ready for that gate (`req_req_trail_0051`).
+- The explorer shows each open pull request as a chip next to the status, with number, gate, draft state and days
+  waiting, never its title, and shows when the index was built (`req_req_trail_0187`, `req_req_trail_0188`).
 
 ## Links to code and tests
 

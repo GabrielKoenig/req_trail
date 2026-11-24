@@ -128,8 +128,14 @@
 
   <section id="runtime">
     <div class="eyebrow">6 &middot; Runtime view</div>
-    <h2>Three scenarios</h2>
-    <div class="three">
+    <h2>Four scenarios</h2>
+    <div class="two">
+      <div class="card"><h3>A pull request opens</h3><ol class="steps">
+        <li>The owner opens a pull request from <code>idea/recipe_box/feature_recipe_box_01_issue31</code> with all requirements of the feature and <code>Closes #31</code>.</li>
+        <li><code>validate</code> checks against <code>gates.yml</code> that the files belong to one gate and one feature, and that the branch phase fits the gate.</li>
+        <li>A small <code>pull_request</code> job starts <code>build_index</code> on <code>main</code> with the pull request number; the build runs main's code, never the pull request's.</li>
+        <li>Within minutes the explorer shows the requirements as In review with a chip for the pull request, and the Gates view shows one row for it with its waiting time.</li>
+      </ol></div>
       <div class="card"><h3>A requirement changes</h3><ol class="steps">
         <li>The owner works on a branch such as <code>change_request/recipe_box/feature_recipe_box_01_issue31</code> and raises <code>version</code> for a substantive change once the requirement has passed G1.</li>
         <li>The pull request starts <code>validate</code>, <code>text_check</code> and <code>gate_check</code>. The model rejects a wrong field before anything else runs.</li>
@@ -139,7 +145,7 @@
       <div class="card"><h3>Evidence arrives</h3><ol class="steps">
         <li>A code repo pull request says <code>implements: req_recipe_box_0003@2</code>.</li>
         <li>Its CI runs the tests and keeps the JUnit XML report; a test names the requirement, for example <code>Describe 'req_recipe_box_0003 ConvertTo-RecipeText'</code>.</li>
-        <li>The nightly <code>build_index</code> reads the last run per requirement and shows it as evidence.</li>
+        <li>The nightly <code>build_index</code> reads the last run per requirement and shows it as evidence; the open code pull request appears next to the status.</li>
         <li>The tech lead opens the acceptance record; the owner accepts it (G3).</li>
       </ol></div>
       <div class="card"><h3>The format changes</h3><ol class="steps">
@@ -157,9 +163,9 @@
     <div class="layers">
       <div class="lay">GitHub</div>
       <div class="boxes">
-        <div class="bx new"><b>Engine repo <code>req_trail</code></b>Model, schemas, tools, explorer and reusable workflows, released with version tags such as <code>v1</code>.<small>work package 17</small></div>
-        <div class="bx new"><b>Project repo</b>Created from the project template: <code>projects/</code>, <code>roles.yml</code>, <code>CODEOWNERS</code> and two short workflows that call the engine at <code>@v1</code>.<small>one per team or project</small></div>
-        <div class="bx ext"><b>GitHub Pages</b>The explorer and <code>index.json</code> of each project repo; an optional hub joins several.<small>static files</small></div>
+        <div class="bx new"><b>Engine repo <code>req_trail</code></b>Model, schemas, <code>gates.yml</code>, tools, explorer and reusable workflows, released with version tags such as <code>v1</code>.<small>work package 17</small></div>
+        <div class="bx new"><b>Project repo</b>Created from the project template: <code>projects/</code>, <code>roles.yml</code>, <code>CODEOWNERS</code>, short workflows that call the engine at <code>@v1</code>, and a starter job that rebuilds the index when a pull request changes. zizmor is a required check.<small>one per team or project</small></div>
+        <div class="bx ext"><b>GitHub Pages</b>The explorer and <code>index.json</code> of each project repo, deployed only from <code>main</code>; an optional hub joins several.<small>static files</small></div>
         <div class="bx reuse"><b>Code repos</b>Unchanged, except an <code>implements:</code> line per pull request and requirement IDs in test names.<small>any language</small></div>
       </div>
       <div class="lay">A maintainer's PC</div>
@@ -216,6 +222,8 @@
         <tr><td>Static explorer on GitHub Pages</td><td>a server with a database</td><td>Nothing to run or patch; filters on <code>index.json</code> answer the questions</td><td>concept, B8</td></tr>
         <tr><td>Test evidence as JUnit XML</td><td>a test tool per language</td><td>Every common test tool writes it, so code repos keep their own tools</td><td>conventions</td></tr>
         <tr><td>Branches <code>&lt;phase&gt;/&lt;project&gt;/&lt;topic&gt;</code>, with <code>&lt;feature&gt;_</code> before the topic when the change belongs to a feature</td><td><code>&lt;step&gt;/&lt;type&gt;/&lt;name&gt;</code> with the types of Conventional Branch, <code>issue&lt;n&gt;_feature_&lt;name&gt;</code>, the filler <code>no_feature</code> for changes without a feature</td><td>The branch list reads like the process: the phase shows which gate reviews a change, and project and feature show what it belongs to; a feature is recognized by its ID form, so a topic never starts with <code>feature_</code></td><td><code>req_req_trail_0150</code></td></tr>
+        <tr><td>The index is built on <code>main</code>, also when a pull request changes; a plain <code>pull_request</code> job only starts the build</td><td><code>pull_request_target</code>; a rebuild every 30 minutes; the explorer asking GitHub directly</td><td>The build never runs in the context of a pull request, so zizmor needs no exception and forks start nothing; minutes are spent only when something changes; only <code>build_index</code> decides which pull request touches which requirement</td><td><code>req_req_trail_0052</code></td></tr>
+        <tr><td>One gate and one feature per pull request, read from <code>gates.yml</code></td><td>pull requests that mix gates; a list of paths in every tool</td><td>Each open pull request maps to one gate and is reviewed in the context of one work package; one file that every tool reads cannot disagree with itself</td><td><code>req_req_trail_0189</code>, <code>req_req_trail_0190</code></td></tr>
         <tr><td>Code names in each language's style</td><td>snake case inside code</td><td>Code reads like its libraries, and the usual linters check it without our own rules</td><td><code>req_req_trail_0151</code></td></tr>
         <tr><td>This page follows arc42, diagrams follow C4</td><td>a structure of our own</td><td>Reuse before building; reviewers know both</td><td>this page</td></tr>
       </tbody>
@@ -240,6 +248,8 @@
         <tr><td>The YAML library has one maintainer</td><td>Fixes could stall</td><td>Very wide use; a round-trip test protects the comments; the model is the only place that parses YAML, so a switch touches one file; until work package 3, <code>build_concept_data.js</code> also parses YAML, and it moves to the model then</td></tr>
         <tr><td>Generated data in the repo can go stale</td><td><code>concept_data.js</code> could differ from the files</td><td><code>npm run check_concept_data</code> fails when it does; <code>req_req_trail_0152</code> runs it on every pull request</td></tr>
         <tr><td>Bound to GitHub</td><td>Gates, workflows and Pages are GitHub features</td><td>The files are plain Markdown in Git and move with any Git host; ReqIF leaves a way out to an RM tool</td></tr>
+        <tr><td>Workflows run with write rights</td><td>A branch could publish a false dashboard, or a workflow could run text from a pull request</td><td>Pages deploys only from <code>main</code> (<code>req_req_trail_0193</code>); zizmor is a required check with no exceptions (<code>req_req_trail_0194</code>); the build never runs in the context of a pull request (<code>req_req_trail_0052</code>)</td></tr>
+        <tr><td>The dashboard lags behind GitHub</td><td>A failed run leaves statuses and open pull requests out of date</td><td>The explorer shows when the index was built and turns amber after 26 hours (<code>req_req_trail_0188</code>)</td></tr>
         <tr><td>Many requirements for a small team</td><td>Over 150 requirements can slow the reviews</td><td>Work packages split them; must, should and could set the order</td></tr>
       </tbody>
     </table></div>

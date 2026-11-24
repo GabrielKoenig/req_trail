@@ -7,7 +7,7 @@ version: 1
 priority: must
 type: non_functional
 category: "security"
-depends_on: []
+depends_on: [req_req_trail_0193@1, req_req_trail_0194@1]
 reviews: [security]
 reviews_reason: "Token scopes and secrets decide what a faulty or compromised workflow can change, so the security reviewer checks them."
 source: "concept/architecture.html#risks"
@@ -21,12 +21,14 @@ acceptance:
   - "Static: no workflow uses write-all."
   - "Static: no workflow file holds a credential in plain text."
   - "Manual: the security reviewer finds, for each write scope, the step that uses it."
+  - "Integration: a project repo created from the template requires the zizmor check and lets Pages deploy only from main."
 links:
   spec: null
 ---
 
-Reuse before building: the spec at G2 checks whether an established linter for GitHub Actions, such as zizmor or
-actionlint, covers the Static criteria.
+Reuse before building: zizmor is a required check (`req_req_trail_0194`); the spec at G2 checks whether it, or
+actionlint next to it, covers the Static criteria. A project repo gets the same check and the same rule for Pages
+(`req_req_trail_0193`) as this repo.
 
 ## Manual test
 

@@ -9,6 +9,8 @@ scope:
   - CODEOWNERS per gate
   - Branch protection
   - Privacy and security reviewers on tagged specs
+  - One gate and one feature per pull request
+  - zizmor as a required check, Pages only from main
 non_scope:
   - Generating CODEOWNERS from roles.yml (feature_req_trail_16)
 origin: ["concept/concept.html#estimate"]
@@ -18,11 +20,11 @@ metric:
   baseline: 3
   target: 0
   direction: at_most
-estimate: 2
+estimate: 2.75
 depends_on:
   - feature_req_trail_03
 target_release: "1.0"
 ---
 
-Built in work package 5. It holds 9 requirements. The baseline is an estimate; the value review after
+Built in work package 5. It holds 14 requirements. The baseline is an estimate; the value review after
 the release measures it.
